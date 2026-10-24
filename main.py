@@ -259,16 +259,27 @@ class App:
             tl = st.time_left()
             if tl is None or abs(tl - r.time_left) > 5:
                 st.set_time_left(r.time_left)
+        trust_changed = False
         if ocfg.get("read_trust", True) and r.trust is not None:
-            st.trust, st.trust_label = r.trust, r.trust_label
+            trust_changed = self.engine.update_trust(r.trust, r.trust_label)
         for sid in r.tomorrow_scams:
             if sid not in st.pending_unlocks:
                 st.pending_unlocks.append(sid)
-        if ocfg.get("read_caller_name", True) and r.caller_name and r.caller_name != st.caller_name_hint:
+        if ocfg.get("read_caller_name", True) and r.caller_name:
             st.caller_name_hint = r.caller_name
-            adv = self.engine.set_caller_name_hint(r.caller_name)
+            adv = self.engine.on_ocr_caller(r.caller_name)
             if adv:
+                self.log("OCR-CALLER", r.caller_name)
                 self.emit(adv)
+                trust_changed = False
+        for app in getattr(r, "apps", []) or []:
+            adv = self.engine.sync_app(app.get("name", ""), app.get("done"), app.get("total"), app.get("reward"), app.get("next", ""))
+            if adv:
+                self.log("OCR-APP", str(app))
+                self.emit(adv)
+                trust_changed = False
+        if trust_changed and self.ui and self.engine.last_advice:
+            self.ui.render(self.engine.refresh())
         if changed_day:
             self.briefing()
         self.tick(force=True)
@@ -387,7 +398,7 @@ class App:
         self.cfg["players"] = st.players
         self.cfg["shift_minutes"] = st.shift_minutes
         self.cfg["timer_enabled"] = st.timer_enabled
-        for k in ("language_level", "max_level", "agent_name", "company_name", "translate_caller"):
+        for k in ("language_level", "max_level", "agent_name", "company_name", "translate_caller", "auto_copy_say"):
             if vals.get(k) is not None:
                 self.cfg[k] = vals[k]
         self.cfg["ocr"]["enabled"] = bool(vals.get("ocr_enabled"))

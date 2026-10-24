@@ -95,7 +95,10 @@ def extract_code_runs(text: str) -> List[str]:
                 piece = TENS_WORDS[low] + "0"
         elif low == "hundred" and cur:
             piece = "00"
-        elif len(raw) == 1 and raw.isalpha() and raw.isupper() and raw not in ("I", "A") and cur:
+        elif len(raw) == 1 and raw.isalpha() and raw.isupper() and (cur or _is_code_tok(nxt_raw(toks, i))):
+            piece = raw
+        elif 2 <= len(raw) <= 6 and raw.isalpha() and raw.isupper() and raw not in _CAPS_WORDS and (
+                cur or _is_code_tok(nxt_raw(toks, i), digit_only=True) or (nxt_raw(toks, i).isupper() and nxt_raw(toks, i).isalpha() and nxt_raw(toks, i) not in _CAPS_WORDS)):
             piece = raw
         elif (low in CODE_FILLERS or raw in ("-", "/")) and cur:
             i += 1
@@ -114,6 +117,59 @@ def extract_code_runs(text: str) -> List[str]:
         if digits >= 4 or (len(r) >= 6 and digits >= 2):
             out.append(r)
     return out
+
+
+_CAPS_WORDS = {"OK", "OKAY", "IT", "IS", "THE", "AND", "MY", "CODE", "PIN", "SIR", "YES", "NO", "SO", "HI", "UH", "UM", "ON", "BACK"}
+_CODE_CUE_RE = re.compile(
+    r"\b(?:code|number|pin|voucher|serial|card number|confirmation(?: number)?|invoice(?: number)?|id)\b"
+    r"(?:\s+(?:number|code))?(?:\s+(?:is|reads|says|was))?\s*[:\-]?\s*(?:it'?s\s+|it is\s+)?(.+)$", re.I)
+
+
+def nxt_raw(toks: List[str], i: int) -> str:
+    """Sonraki anlamlı token (tire / 'dash' gibi ayraçları atlar)."""
+    j = i + 1
+    while j < len(toks) and (toks[j] in ("-", "/") or toks[j].lower() in ("dash", "hyphen", "space")):
+        j += 1
+    return toks[j] if j < len(toks) else ""
+
+
+def _is_code_tok(tok: str, digit_only: bool = False) -> bool:
+    if not tok:
+        return False
+    low = tok.lower()
+    if tok.isdigit() or low in DIGIT_WORDS or low in TEEN_WORDS or low in TENS_WORDS:
+        return low not in ("o", "oh") or not digit_only
+    if any(c.isdigit() for c in tok) and tok.isalnum():
+        return True
+    return not digit_only and len(tok) == 1 and tok.isalpha() and tok.isupper()
+
+
+def extract_code_after_cue(text: str) -> Optional[str]:
+    """'The code is X J nine four ...' → 'XJ94...'. Sadece 'code/number/pin is ...' gibi bir işaretten sonra okur."""
+    m = _CODE_CUE_RE.search(text or "")
+    if not m:
+        return None
+    out: List[str] = []
+    for raw in _tokens(m.group(1)):
+        low = raw.lower()
+        if low in CODE_FILLERS or raw in ("-", "/"):
+            continue
+        if raw.isdigit():
+            out.append(raw)
+        elif low in DIGIT_WORDS:
+            out.append(DIGIT_WORDS[low])
+        elif low in TEEN_WORDS:
+            out.append(TEEN_WORDS[low])
+        elif low in TENS_WORDS:
+            out.append(TENS_WORDS[low] + "0")
+        elif raw.isalnum() and (raw.isupper() or any(c.isdigit() for c in raw)) and raw.upper() not in _CAPS_WORDS:
+            out.append(raw.upper())
+        elif len(raw) == 1 and raw.isalpha():
+            out.append(raw.upper())
+        else:
+            break
+    code = "".join(out)
+    return code if len(code) >= 4 and any(c.isdigit() for c in code) or len(code) >= 8 else None
 
 
 def group_code(code: str, size: int = 4) -> str:

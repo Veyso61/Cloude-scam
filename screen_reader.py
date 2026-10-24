@@ -31,6 +31,7 @@ class HudReading:
     trust_label: str = ""
     caller_name: str = ""
     tomorrow_scams: List[str] = field(default_factory=list)
+    apps: List[dict] = field(default_factory=list)     # {"name", "done", "total", "reward", "next"}
     raw: str = ""
 
     def is_empty(self) -> bool:
@@ -38,6 +39,63 @@ class HudReading:
 
 
 _MONEY = r"\$\s?(\d{1,3}(?:[,.]\d{3})+|\d+)"
+
+UI_LABELS = {
+    "caller trust", "neutral", "suspicious", "trusting", "angry", "happy", "annoyed", "furious", "calm", "phone",
+    "hang up", "camera", "show", "hide", "personal", "team", "quota", "performance review", "scamazon", "kolkata pay",
+    "verify", "claim", "reward", "next", "connect", "cash out", "fun random apps", "malwarebits", "notes", "ledger",
+    "browser", "disscord", "rainbit", "settings", "end day", "clock in", "clock out", "day unlocks", "tomorrow's scams",
+}
+_NAME_LINE = re.compile(r"^[A-Za-z][A-Za-z .'\-\"]{1,38}$")
+
+
+def _is_caps_name(ln: str) -> bool:
+    words = ln.split()
+    return (_NAME_LINE.match(ln) is not None and ln.isupper() and 1 <= len(words) <= 4
+            and ln.lower() not in UI_LABELS and sum(c.isalpha() for c in ln) >= 3)
+
+
+def _guess_caller_name(lines: List[str], scam_names: Dict[str, str]) -> str:
+    """Veritabanında olmayan arayanlar: telefondaki BÜYÜK HARFLİ ad (ör. 'FOREST DUMP')."""
+    app_names = {n.lower() for n in scam_names.values()}
+    caps = [ln for ln in lines if _is_caps_name(ln) and ln.lower() not in app_names]
+    lowered = {ln.lower() for ln in lines if not ln.isupper()}
+    for ln in caps:                       # sohbet balonunun başlığında aynı ad küçük harfle de geçer
+        if ln.lower() in lowered:
+            return ln
+    for i, ln in enumerate(lines):        # 'CALLER TRUST' bloğundan sonraki ilk büyük harfli ad
+        if "caller trust" in ln.lower():
+            for nxt in lines[i + 1:i + 7]:
+                if nxt in caps:
+                    return nxt
+    return ""
+
+
+def _parse_apps(lines: List[str], scam_names: Dict[str, str]) -> List[dict]:
+    """Uygulama penceresi: başlık (Credit Card) + 'Reward: $400' + '0 / 3 done' + 'Next: ...'."""
+    names = {n.lower(): n for n in scam_names.values()}
+    apps = []
+    for i, ln in enumerate(lines):
+        m = re.search(r"reward\s*:?\s*\$\s?([\d,]+)", ln, re.I)
+        if not m:
+            continue
+        app = {"name": "", "reward": _money(m.group(1)), "done": None, "total": None, "next": ""}
+        for prev in reversed(lines[max(0, i - 8):i]):
+            low = prev.lower().strip()
+            hit = names.get(low) or next((names[n] for n in names if ta.fuzzy_ratio(n, low) >= 0.85), None)
+            if hit:
+                app["name"] = hit
+                break
+        for nxt in lines[i:i + 5]:
+            d = re.search(r"(\d+)\s*/\s*(\d+)\s*done", nxt, re.I)
+            if d and app["done"] is None:
+                app["done"], app["total"] = int(d.group(1)), int(d.group(2))
+            n = re.search(r"next\s*:\s*(.+)", nxt, re.I)
+            if n and not app["next"]:
+                app["next"] = n.group(1).strip()
+        if app["name"]:
+            apps.append(app)
+    return apps
 
 
 def _money(s: str) -> int:
@@ -89,13 +147,17 @@ def parse_hud_text(text: str, name_index: Optional[Dict[str, List[str]]] = None,
                  if int(a) <= 30]
         if cands:
             r.time_left = min(cands)
+    lines = [ln.strip() for ln in t.splitlines() if ln.strip()]
     if name_index:
-        lines = [ln.strip() for ln in t.splitlines() if 2 < len(ln.strip()) < 40]
         for ln in lines:
-            cid = ta.best_fuzzy(ln, name_index, cutoff=0.82)
-            if cid:
-                r.caller_name = ln
-                break
+            if 2 < len(ln) < 40 and ln.lower() not in UI_LABELS:
+                cid = ta.best_fuzzy(ln, name_index, cutoff=0.82)
+                if cid:
+                    r.caller_name = ln
+                    break
+    if not r.caller_name:
+        r.caller_name = _guess_caller_name(lines, scam_names or {})
+    r.apps = _parse_apps(lines, scam_names or {})
     if scam_names and "tomorrow" in low:
         after = low.split("tomorrow", 1)[1]
         for sid, nm in scam_names.items():
@@ -198,7 +260,7 @@ class ScreenReader:
         if region:
             if img.shape[0] < 120:
                 img = np.repeat(np.repeat(img, 2, axis=0), 2, axis=1)
-        elif img.shape[1] > 1600:
+        elif img.shape[1] > 2600:
             img = img[::2, ::2]
         return np.ascontiguousarray(img)
 

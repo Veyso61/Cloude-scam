@@ -76,10 +76,21 @@ gerekli CUDA dosyaları yoksa **kendiliğinden işlemciye (CPU) geçer** ve çal
 1. `run.bat` → overlay açılır, sağ üstte **🎧 ses çubuğu** oyun konuşunca yeşil yanar.
 2. Gün başında **⚙ (Durum)** panelinden **Gün** (1–15) ve gerekiyorsa **gerçek kotayı** gir (oyundaki HUD'dan). Scamazon'dan aldığın ücretli uygulamaları **Uygulamalar** sekmesinde işaretle.
 3. Vardiya başlayınca **F10** (sayaç). Sayaç bitince tekrar **F10** = sonraki gün (otomatik ilerler) + gün brifingi.
-4. Her yeni aramada **F5**. Arayan konuşur → üstte duyduğu cümle ve Türkçe özeti, ortada **sarı "SÖYLE"** cümlen çıkar.
-5. Push-to-Talk'a basıp sarı cümleyi oku. Altındaki 💡 notta neden bunu söylediğin, mavi satırda uygulamada yapman gereken iş yazar.
-6. Arayan kod/numara okuyunca **yeşil büyük yazı** → oyundaki uygulamaya yaz ve onayla. (8 sn sonra otomatik ilerler veya **F6**.)
-7. Bir dolandırıcılık bitince koç aynı arayana bir sonrakine **köprü cümlesi** verir. Dipnot (en alttaki renkli satır) zaman / kota durumuna göre "devam et", "hızlı scam'e geç (F8)" ya da "kapat, yeni arama" der.
+4. **Yeni arayan otomatik algılanır** (OCR açıksa telefondaki ad değişince; değilse uzun sessizlikten sonra "Hi/Hello" ile
+   başlayan cümleden). Koç kendini sıfırlar ve önce sabit bir karşılama cümlesi gösterir ("Hello Forest! … How can I help you?").
+   Gerekirse **F5** ile elle de sıfırlayabilirsin.
+5. Arayan konuşur → üstte duyduğu cümle ve Türkçe özeti, ortada **sarı "SÖYLE"** cümlen çıkar. Push-to-Talk ile oku
+   **ya da** yazarak gönder: yeni cümle **otomatik panoya kopyalanır**, oyunun telefon kutusunda **Ctrl+V** + Enter.
+   Sarı kutuya **tıklarsan** da kopyalanır; altındaki alternatif cümleye tıklarsan o kopyalanır.
+6. Arayan kod/kart/SSN okuyunca **yeşil büyük yazı** çıkar. **Yeşil yazıya tıkla** → kod boşluksuz panoya gelir →
+   uygulamadaki kutuya **Ctrl+V** → Verify. (Kart numarası parça parça okunursa birleştirilir.)
+7. **🛡 Caller Trust satırı** (OCR ile): yüzde, durum ve son cümlenden beri değişim (▲/▼). Güven düştüyse "yumuşak konuş",
+   yükseldiyse "sıradaki adımı iste" der; güven belirgin artınca ikna adımı tamamlanmış sayılır.
+8. **Oyundaki uygulama penceresiyle senkron** (OCR): "Reward: $400", "1 / 3 done", "Next: …" okunur → koç adımını oyundakiyle
+   eşitler, gerçek ödülü kullanır ve "🎮 Oyunda sıradaki: …" satırını gösterir. Arayan önden giderse (ör. sen direkt kodu
+   istersin, o da okur) koç da adımları atlar.
+9. Bir dolandırıcılık bitince koç aynı arayana sıradakine **köprü cümlesi** verir. En alttaki renkli satır zaman / kota durumuna
+   göre "devam et", "hızlı scam'e geç (F8)" ya da "kapat, yeni arama" der.
 
 ### Kısayollar (config.json → `hotkeys` bölümünden değiştirilebilir)
 
@@ -92,7 +103,7 @@ gerekli CUDA dosyaları yoksa **kendiliğinden işlemciye (CPU) geçer** ve çal
 | **F9** | Alternatif cümle |
 | **F10** | Vardiya sayacı başlat/durdur — süre bittiyse sonraki gün |
 | **F11** | Sonraki gün |
-| **Ctrl+F9** | Cümleyi panoya kopyala (oyunda yazarak göndermek için) |
+| **Ctrl+F9** | Cümleyi panoya kopyala (sarı kutuya tıklamak da aynı işi yapar) |
 | **Ctrl+F6** | Kazanca +$200 ekle |
 | **Ctrl+F10** | Kompakt görünüm |
 | **Ctrl+F11** | Tıklama geçirgen mod (fare overlay'in içinden oyuna geçer) |
@@ -234,10 +245,17 @@ Kural motoru tamamen çevrimdışı çalışır. Daha esnek cevaplar ve arayanı
 
 AI gelince sarı kutunun başlığında **(AI)** yazar; kural motorunun cümlesi alternatif olarak kalır. API ücretlidir.
 
-## OCR (isteğe bağlı)
+## OCR (isteğe bağlı ama önerilir)
 
-`install.bat` gerekli paketleri (`mss`, `rapidocr`, `onnxruntime`) kurar → ⚙ → Ayarlar → **OCR** işaretle → **Bölge ekle** ile önce telefon penceresinin üst kısmını (Caller Trust + arayan adı), sonra alttaki `QUOTA / PERFORMANCE REVIEW` çubuğunu seç (gün, kota/kazanç,
-süre, Caller Trust, arayan adı) fareyle seç. Gün/kota/kazanç/süre otomatik güncellenir, arayan adı karakteri seçer.
+`install.bat` gerekli paketleri (`mss`, `rapidocr`, `onnxruntime`) kurar → ⚙ → Ayarlar → **OCR** işaretle. İki seçenek:
+
+- **En kolayı:** ⚙ → Ayarlar → **Bölgeleri temizle** → tüm ekran okunur (overlay'in kendisi okunmaz). Telefon (arayan adı,
+  Caller Trust), açık uygulama penceresi (Reward / done / Next) ve alttaki `QUOTA / PERFORMANCE REVIEW` çubuğu birlikte okunur.
+- **Daha hızlı:** **Bölge ekle** ile tek tek seç: telefon penceresinin üst yarısı, kullandığın uygulama penceresi ve alttaki
+  kota/süre çubuğu. Pencereleri taşırsan bölgeleri yeniden seç.
+
+Okunanlar: gün, kota/kazanç, kalan süre (PERFORMANCE REVIEW), Caller Trust % ve durumu, arayan adı (listede olmayan
+adlar dahil → otomatik yeni arama), uygulama ödülü/ilerlemesi.
 
 ---
 

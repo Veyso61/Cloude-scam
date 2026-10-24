@@ -31,6 +31,7 @@ class GameState:
     caller_name_hint: str = ""
     day_end_detected: bool = False
     calls_today: int = 0
+    observed_rewards: Dict[str, int] = field(default_factory=dict)   # oyundaki "Reward: $X" (OCR)
 
     # ------------------------------------------------------------------ takvim
     @property

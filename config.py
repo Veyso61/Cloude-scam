@@ -23,6 +23,8 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     "max_level": "C2",
     "show_turkish_notes": True,
     "translate_caller": True,
+    "auto_copy_say": True,
+    "new_call_gap_seconds": 20,
     "date_time": "8:00 PM",
     "date_place": "the mall food court",
     "auto_enter_seconds": 8,

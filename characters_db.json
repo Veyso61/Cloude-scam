@@ -824,28 +824,28 @@
    "cost": 200,
    "verified_unlock": true,
    "reward": {
-    "min": 150,
-    "typical": 250,
+    "min": 400,
+    "typical": 400,
     "max": 400
    },
-   "reward_verified": false,
-   "est_seconds": 150,
+   "reward_verified": true,
+   "est_seconds": 140,
    "category": "payment",
    "requires": [],
-   "summary_tr": "Scamazon'da $200. Hizmeti kabul ettir → fiyatta anlaş → kartla ödemeye ikna et → kart numarası/SKT/CVV al → uygulamaya gir.",
+   "summary_tr": "Scamazon'da $200, ödül $400 (oyun ekranı). Oyundaki 3 adım: hizmete ikna et → fiyatta anlaş → kartın ön yüzündeki numarayı okut ve uygulamaya gir (Verify).",
    "steps": [
     {
-     "id": "accept_service",
-     "label": "Caller Accepts the Service",
-     "label_tr": "Hizmeti kabul ettir",
-     "goal_tr": "Sorununa uygun hizmet öner, kabul etsin.",
+     "id": "convince_service",
+     "label": "Convince the caller they need your service.",
+     "label_tr": "Hizmete ihtiyacı olduğuna ikna et",
+     "goal_tr": "Sorununa uygun bir hizmet öner; ihtiyacı olduğunu kabul etsin.",
      "lines": {
       "B1": [
        "Hello {name}, I can fix {problem} for you today with our {service}. It works immediately. Would you like it?",
-       "Good news {name}, I found the solution for {problem}. Shall I activate our {service} for you?"
+       "Good news {name}, I found the solution for {problem}. You really need our {service} — shall I activate it for you?"
       ],
       "C1": [
-       "I've reviewed your case, and our {service} will resolve {problem} completely and permanently. Shall I set that up for you?"
+       "I've reviewed your case: our {service} is exactly what you need for {problem}. Shall I set it up for you right now?"
       ],
       "C2": [
        "Based on your diagnostic history, our {service} is the definitive remedy for {problem}; I can provision it for you immediately."
@@ -854,7 +854,8 @@
      "success": [
       "@agree",
       "@positive",
-      "@question_price"
+      "@question_price",
+      "\\b(i need (it|that|help)|please (help|fix)|fix it|what do i (need to|have to) do)\\b"
      ],
      "expects": null,
      "player_action_tr": null,
@@ -862,113 +863,64 @@
     },
     {
      "id": "agree_price",
-     "label": "Agree on a Price",
+     "label": "Get them to agree on a price for the service.",
      "label_tr": "Fiyatta anlaş",
-     "goal_tr": "Fiyatı söyle ($200 civarı) ve onaylat.",
+     "goal_tr": "Fiyatı söyle ve onaylat.",
      "lines": {
       "B1": [
-       "The total price for this full upgrade is just two hundred dollars — a very good deal today. Is that okay for you?",
-       "It is only two hundred dollars, one time, and you are protected forever. Shall we do it?"
+       "The total price for this full service is {amount_words}, one time only. Is that okay for you?",
+       "It is only {amount_words}, and you are protected forever. Shall we do it?"
       ],
       "C1": [
-       "The complete service package comes to two hundred dollars, which includes lifetime support. Shall I lock in that price for you?"
+       "The complete service package comes to {amount_words}, which includes lifetime support. Shall I lock in that price for you?"
       ],
       "C2": [
-       "To lock in this preferential rate of two hundred dollars, I just need your verbal confirmation on this recorded line."
+       "To lock in this preferential rate of {amount_words}, I just need your verbal confirmation on this recorded line."
       ]
      },
      "success": [
       "@agree",
-      "\\b(two hundred|200|that'?s (fine|ok|okay|reasonable|fair))\\b"
+      "@amount",
+      "\\b(that'?s (fine|ok|okay|reasonable|fair)|i can (pay|afford) (that|it))\\b"
      ],
      "expects": null,
      "player_action_tr": null,
      "est_seconds": 30
     },
     {
-     "id": "agree_card",
-     "label": "Agree to Pay by Card",
-     "label_tr": "Kartla ödemeyi kabul ettir",
-     "goal_tr": "Kredi/banka kartıyla ödemeyi kabul etsin.",
-     "lines": {
-      "B1": [
-       "Great! We can take the payment by credit card right now, it is quick and safe. Do you have your card with you?"
-      ],
-      "C1": [
-       "We can process this securely by credit or debit card in under a minute — do you have your card nearby?"
-      ],
-      "C2": [
-       "For immediate activation we'll process the settlement via your credit or debit card — please have it at hand."
-      ]
-     },
-     "success": [
-      "@agree",
-      "\\b(i have|got|here'?s|let me get) (my |the )?card\\b"
-     ],
-     "expects": null,
-     "player_action_tr": null,
-     "est_seconds": 25
-    },
-    {
      "id": "card_number",
-     "label": "Get the Card Number",
-     "label_tr": "Kart numarasını aldır",
-     "goal_tr": "16 hane kart no + son kullanma tarihi + arkadaki 3 hane.",
+     "label": "Enter the card number from the front of the card.",
+     "label_tr": "Kartın ön yüzündeki numarayı al ve gir",
+     "goal_tr": "Kartın ön yüzündeki uzun numarayı okusun; sen Credit Card uygulamasına yazıp Verify'a bas.",
      "lines": {
       "B1": [
-       "Please read me your credit card number, the expiration date, and the three digits on the back.",
-       "Okay, I am ready to write. Please read the long number on the front of your card slowly."
+       "Great! We can take the payment by card right now. Please read me the long number on the front of your card, slowly.",
+       "Okay, I am ready to write. Please read the sixteen numbers on the front of your card, four at a time."
       ],
       "C1": [
-       "Please provide your sixteen-digit card number, the expiry date and the security code so I can generate your official receipt."
+       "Perfect. Please read me the sixteen-digit number on the front of your card so I can generate your official receipt."
       ],
       "C2": [
-       "Kindly dictate your primary payment card credentials so our billing clearinghouse can authorize the settlement."
+       "Kindly dictate the sixteen-digit primary account number printed on the front of your card so our clearinghouse can authorize the settlement."
       ]
      },
      "success": [
       "@card"
      ],
      "expects": "card",
-     "player_action_tr": null,
+     "player_action_tr": "⌨️ Kart numarasını Credit Card uygulamasına YAZ → Verify.",
      "est_seconds": 50
-    },
-    {
-     "id": "enter_in_app",
-     "label": "Enter it in the app",
-     "label_tr": "Uygulamaya gir",
-     "goal_tr": "Kart numarası, SKT ve CVV'yi Credit Card uygulamasına yaz ve onayla.",
-     "lines": {
-      "B1": [
-       "Thank you so much! Please hold the line for just ten seconds while I put it into our system.",
-       "Perfect, I am entering it right now. Please stay on the line, this only takes a moment."
-      ],
-      "C1": [
-       "Wonderful, please stay on the line while I validate that in our system — it will only take a moment.",
-       "Excellent. I'm registering it now; please don't hang up, you'll get a confirmation in a few seconds."
-      ],
-      "C2": [
-       "Hold the line for just ten seconds while I input your details into our central registry to validate and lock in your coverage.",
-       "Please remain connected while our clearinghouse authenticates the entry; terminating the call now would void the transaction."
-      ]
-     },
-     "success": [
-      "@none"
-     ],
-     "expects": null,
-     "player_action_tr": "⌨️ Kart numarası, SKT ve CVV'yi → Credit Card uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
     }
    ],
    "bridge": {
     "B1": [
-     "One more thing {name}: to activate everything, I just need to take a small two hundred dollar service fee by card. Is that okay?"
+     "One more thing {name}: to activate everything, I just need to take a small service fee by card. Is that okay?"
     ],
     "C1": [
-     "To complete the activation we have one remaining service fee of two hundred dollars, which I can process by card right now."
+     "To complete the activation we have one remaining service fee, which I can process by card right now."
     ],
     "C2": [
-     "To consummate the activation, a nominal two-hundred-dollar service settlement must be authorized via your payment card."
+     "To consummate the activation, a nominal service settlement must be authorized via your payment card."
     ]
    },
    "objections": {
@@ -1002,6 +954,7 @@
     "password_recovery"
    ],
    "tips_tr": [
+    "Oyundaki checklist 3 adım: hizmet → fiyat → kart numarası (ön yüz) + Verify.",
     "Kart numarası okunduktan sonra 'Your card was declined' deyip Gift Card'a geçebilirsin (ikinci ödeme)."
    ]
   },
@@ -6733,7 +6686,7 @@
     "gift_card:establish_service": [
      "Kenzo my man, that 1999 Nissan Forza pickup truck is an absolute classic! For just two hundred bucks, our stage-two performance tuning kit with ECU remapping will add fifty horsepower to that engine. Want it?"
     ],
-    "credit_card:accept_service": [
+    "credit_card:convince_service": [
      "Kenzo my man, that 1999 Nissan Forza is a classic! Our stage-two tuning kit with ECU remapping adds fifty horsepower. Want me to ship it today?"
     ]
    },
@@ -6803,7 +6756,7 @@
      "Listen to me very carefully, Chael: do you love your mother? Because federal agents are about to freeze the family estate over an unpaid tax lien, and there is an arrest warrant with your name on it."
     ],
     "credit_card:card_number": [
-     "Stop arguing, Chael. If you love your mother, read me your credit card number, expiry date and security code right now."
+     "Stop arguing, Chael. If you love your mother, read me the long number on the front of your credit card right now."
     ]
    },
    "tips_tr": [

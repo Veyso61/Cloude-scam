@@ -115,3 +115,18 @@ class WhisperGpuFallbackTest(unittest.TestCase):
         fail["run"] = ("cuda",)
         self.assertEqual(t.transcribe(np.zeros(16000, dtype=np.float32)), "hello there")
         self.assertEqual(t.device, "cpu")
+
+
+class HudCallerAndAppsTest(unittest.TestCase):
+    def test_unknown_caller_and_app_window(self):
+        db = load_db()
+        idx = {cid: [c["name"]] + c.get("aliases", []) for cid, c in db["characters"].items() if not c.get("generic")}
+        names = {sid: s["name"].split(" (")[0] for sid, s in db["scams"].items()}
+        text = ("Phone\nCALLER TRUST\nNEUTRAL\n40%\nFOREST DUMP\nCredit Card\nKOLKATA PAY\nReward: $400\n0 / 3 done\n"
+                "Next: Convince the caller they need your service.\nForest Dump\nHi! My mama always said\n"
+                "PERSONAL $50\nTEAM $200 / QUOTA $600\n4:31 PM\nPERFORMANCE REVIEW 1:13")
+        r = parse_hud_text(text, idx, names)
+        self.assertEqual(r.caller_name, "FOREST DUMP")
+        self.assertEqual((r.trust, r.trust_label, r.time_left, r.quota, r.earned), (40, "Neutral", 73, 600, 200))
+        self.assertEqual(r.apps, [{"name": "Credit Card", "reward": 400, "done": 0, "total": 3,
+                                   "next": "Convince the caller they need your service."}])

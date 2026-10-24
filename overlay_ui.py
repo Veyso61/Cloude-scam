@@ -90,9 +90,19 @@ class OverlayUI:
         self.lbl_say_title.pack(fill="x", padx=8, pady=(4, 0))
         self.lbl_say.pack(fill="x", padx=8, pady=(0, 2))
         self.lbl_alt.pack(fill="x", padx=8, pady=(0, 4))
+        self.lbl_trust = tk.Label(body, text="", font=self.f_bold, fg=COL["info"], bg=COL["bg"], anchor="w", justify="left", wraplength=wrap)
+        self._say_text = ""
+        self._alt_text = ""
+        for wdg in (self.say_frame, self.lbl_say, self.lbl_say_title):
+            wdg.configure(cursor="hand2")
+            wdg.bind("<Button-1>", lambda e: self._copy(self._say_text, "Cümle"))
+        self.lbl_alt.configure(cursor="hand2")
+        self.lbl_alt.bind("<Button-1>", lambda e: self._copy(self._alt_text, "Alternatif cümle"))
         self.lbl_note = tk.Label(body, text="", font=self.f_norm, fg=COL["fg"], bg=COL["bg"], anchor="w", justify="left", wraplength=wrap)
         self.lbl_action = tk.Label(body, text="", font=self.f_bold, fg=COL["accent"], bg=COL["bg"], anchor="w", justify="left", wraplength=wrap)
-        self.lbl_data = tk.Label(body, text="", font=self.f_data, fg=COL["data"], bg=COL["bg"], anchor="w", justify="left", wraplength=wrap)
+        self.lbl_data = tk.Label(body, text="", font=self.f_data, fg=COL["data"], bg=COL["bg"], anchor="w", justify="left", wraplength=wrap, cursor="hand2")
+        self.lbl_data.bind("<Button-1>", lambda e: self._copy(self._data_value(), "Kod"))
+        self.lbl_data.bind("<Enter>", lambda e: self.set_status("Tıkla → kod/numara boşluksuz kopyalanır (uygulamaya Ctrl+V)", transient=True))
         self.lbl_loc = tk.Label(body, text="", font=self.f_norm, fg=COL["info"], bg=COL["bg"], anchor="w", justify="left", wraplength=wrap)
         self.lbl_warn = tk.Label(body, text="", font=self.f_bold, fg=COL["danger"], bg=COL["bg"], anchor="w", justify="left", wraplength=wrap)
         self.lbl_foot = tk.Label(body, text="", font=self.f_bold, fg=COL["info"], bg=COL["bg"], anchor="w", justify="left", wraplength=wrap)
@@ -118,7 +128,7 @@ class OverlayUI:
         for w in self.body.winfo_children():
             w.pack_forget()
         full = not self.compact
-        seq = [self.lbl_caller, self.lbl_scam]
+        seq = [self.lbl_caller, self.lbl_trust, self.lbl_scam]
         if full:
             seq += [self.lbl_heard, self.lbl_gist]
         seq += [self.say_frame, self.lbl_note, self.lbl_action, self.lbl_data]
@@ -234,9 +244,19 @@ class OverlayUI:
         if adv.caller_tr:
             gist = f"🇹🇷 {adv.caller_tr}\n" + gist
         self.lbl_gist.config(text=gist)
+        new_line = bool(adv.say) and adv.say != self._say_text
+        self._say_text = adv.say or ""
+        self._alt_text = adv.alternatives[0] if adv.alternatives else ""
+        self._data_lines = list(adv.data_lines or [])
         self.lbl_say.config(text=adv.say or "…")
-        self.lbl_say_title.config(text="🗣 SÖYLE" + ("  (AI)" if adv.source == "AI" else ""))
-        self.lbl_alt.config(text=("alt (F9): " + adv.alternatives[0]) if adv.alternatives and not self.compact else "")
+        auto = bool(self.cfg.get("auto_copy_say", True))
+        hint = "  •  panoda — oyunda Ctrl+V" if auto else "  •  tıkla → kopyala"
+        self.lbl_say_title.config(text="🗣 SÖYLE" + ("  (AI)" if adv.source == "AI" else "") + hint)
+        self.lbl_alt.config(text=("alt (F9, tıkla → kopyala): " + adv.alternatives[0]) if adv.alternatives and not self.compact else "")
+        if auto and new_line:
+            self._copy(self._say_text, "Cümle", quiet=True)
+        trust_line = getattr(adv, "trust_line", "")
+        self.lbl_trust.config(text=trust_line, fg=SEV_COLOR.get(getattr(adv, "trust_severity", "info"), COL["info"]))
         note = adv.note_tr if self.cfg.get("show_turkish_notes", True) else ""
         self.lbl_note.config(text=("💡 " + note) if note else "", fg=SEV_COLOR.get(adv.severity, COL["fg"]) if adv.severity != "info" else COL["fg"])
         self.lbl_action.config(text=adv.player_action_tr or "")
@@ -273,6 +293,32 @@ class OverlayUI:
     def show_briefing(self, text: str) -> None:
         self.lbl_note.config(text=text, fg=COL["fg"])
         self._layout()
+
+    def _data_value(self) -> str:
+        """Son veri satırını uygulamaya yapıştırılacak hale getirir (KOD/KART/SSN boşluksuz)."""
+        for line in reversed(getattr(self, "_data_lines", [])):
+            label, _, value = line.partition(": ")
+            if not value:
+                continue
+            if any(k in label for k in ("KOD", "KART", "SSN")):
+                return value.split("  SKT")[0].split(" / ")[-1].replace(" ", "").replace("-", "")
+            return value.strip()
+        return ""
+
+    def _copy(self, text: str, what: str, quiet: bool = False) -> None:
+        if not text:
+            return
+        try:
+            self.root.clipboard_clear()
+            self.root.clipboard_append(text)
+            self.root.update_idletasks()
+        except tk.TclError:
+            return
+        if not quiet:
+            self.set_status(f"📋 {what} kopyalandı → oyunda Ctrl+V", transient=True)
+            old = self.lbl_say_title.cget("text")
+            self.lbl_say_title.config(text=f"✅ {what} kopyalandı")
+            self.root.after(1200, lambda: self.lbl_say_title.config(text=old))
 
     def copy_to_clipboard(self, text: str) -> None:
         self.root.clipboard_clear()
@@ -413,6 +459,8 @@ class OverlayUI:
         add2("Şirket adı:", ttk.Entry(fs, textvariable=v["company_name"]))
         v["translate_caller"] = tk.BooleanVar(value=self.cfg.get("translate_caller", True))
         add2("Arayanı Türkçeye çevir:", ttk.Checkbutton(fs, variable=v["translate_caller"]))
+        v["auto_copy_say"] = tk.BooleanVar(value=self.cfg.get("auto_copy_say", True))
+        add2("Yeni cümleyi otomatik panoya kopyala:", ttk.Checkbutton(fs, variable=v["auto_copy_say"]))
         v["ocr_enabled"] = tk.BooleanVar(value=self.cfg["ocr"].get("enabled", False))
         add2("OCR (ekrandan gün/kota/süre oku):", ttk.Checkbutton(fs, variable=v["ocr_enabled"]))
         ocr_btns = ttk.Frame(fs)

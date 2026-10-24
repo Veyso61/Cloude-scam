@@ -31,6 +31,17 @@ WORRY_RE = re.compile(r"\b(oh no|oh my|oh dear|goodness|really\??|what\?|that'?s
                       r"what (do|should|can) (i|we) do|how (did|could) that happen|help me|is it (bad|serious)|please (help|fix))\b", re.I)
 
 
+GREETING_RE = re.compile(r"^\W*(hi|hello|hey|hiya|yo|howdy|greetings|good (morning|afternoon|evening)|yes,? hello)\b", re.I)
+
+
+STILL_THERE_RE = re.compile(r"(still there|are you there|you there\??|can you hear me|^\W*(hello|hi|hey)\W*$|anyone there|what happened)", re.I)
+
+
+def _pretty_name(name: str) -> str:
+    n = re.sub(r"\s+", " ", (name or "").strip())
+    return n.title() if n.isupper() else n
+
+
 @dataclass
 class Advice:
     say: str = ""
@@ -62,6 +73,9 @@ class Advice:
     source: str = "kural"
     seq: int = 0
     intents: List[str] = field(default_factory=list)
+    trust_line: str = ""
+    trust_severity: str = "info"
+    new_call: bool = False
 
 
 @dataclass
@@ -108,6 +122,11 @@ class CallSession:
     utterances: int = 0
     plan_locked: bool = False
     boss_mode: bool = False
+    ocr_name: Optional[str] = None
+    last_caller_at: float = 0.0
+    trust_at_say: Optional[int] = None
+    game_next: Dict[str, str] = field(default_factory=dict)
+    pending_note: str = ""
 
 
 class SafeDict(dict):
@@ -128,6 +147,8 @@ class StrategyEngine:
         self.boss_passed = [re.compile(p, re.I) for p in boss.get("passed_patterns", [])]
         self.locator = ta.LocationExtractor(db.get("locations", {}))
         self.now = time.time
+        self.trust_hist: List[Tuple[float, int]] = []
+        self.app_seen: Dict[str, int] = {}
         self.seq = 0
         self.session = CallSession()
         self.last_advice: Optional[Advice] = None
@@ -136,17 +157,56 @@ class StrategyEngine:
                                for sid, s in db["scams"].items()]
 
     # ================================================================== public API
-    def new_call(self, char_id: Optional[str] = None) -> Advice:
+    def new_call(self, char_id: Optional[str] = None, ocr_name: Optional[str] = None, how: str = "manuel") -> Advice:
         self.session = CallSession(started_at=self.now(), last_progress_at=self.now())
+        self.app_seen = {}
         self.state.calls_today += 1
+        if ocr_name:
+            self.session.ocr_name = ocr_name
+            self.session.profile.spoken_name = _pretty_name(ocr_name)
         if char_id:
-            self._set_char(char_id, "manuel")
-        elif self.state.caller_name_hint:
-            self.set_caller_name_hint(self.state.caller_name_hint, quiet=True)
+            self._set_char(char_id, how)
         self._replan(force=True)
-        adv = self._advice_for_step(note="Yeni arama. Arayanı dinle; sorununu anlatınca cümle güncellenir.")
-        adv.caller_gist_tr = "Arama başladı"
-        return self._finish(adv)
+        return self._finish(self._greeting_advice())
+
+    def _greeting_advice(self, note: str = "") -> Advice:
+        """Arayan konuşmadan önce: dolandırıcılık cümlesi değil, sabit bir karşılama."""
+        nm = self._slot_values()["name"]
+        hello = f"Hello {nm}! " if nm != "my friend" else "Hello! "
+        say = hello + "Thank you for calling. How can I help you today?"
+        alts = [hello + f"This is {self.cfg.get('agent_name', 'Steve')} from {self.cfg.get('company_name', 'Customer Protection Center')}. What can I do for you today?"]
+        adv = self._advice_for_step(say=say, alts=alts, note=note or "🆕 Yeni arama: arayanı dinle. İlk cümlesinden sonra plan ve okuyacağın asıl cümle gelir.")
+        adv.caller_gist_tr = "Arama başladı — arayanı dinle"
+        adv.new_call = True
+        adv.warnings = [w for w in adv.warnings if not w.startswith("❤️")]
+        self.session.last_pool = [say] + alts
+        return adv
+
+    def on_ocr_caller(self, name: str) -> Optional[Advice]:
+        """Telefonda okunan arayan adı. Ad değişirse otomatik yeni arama başlatır."""
+        name = (name or "").strip()
+        if len(name) < 3:
+            return None
+        s = self.session
+        if s.ocr_name and ta.fuzzy_ratio(s.ocr_name, name) >= 0.8:
+            return None
+        cid = ta.best_fuzzy(name, self._name_index)
+        same_call = s.ocr_name is None and (
+            (cid and cid == s.profile.char_id) or (s.utterances <= 2 and not self._has_progress()))
+        if same_call:
+            s.ocr_name = name
+            if not s.profile.char_id or s.profile.identified_by in ("anahtar", ""):
+                if cid:
+                    self._set_char(cid, "ekran")
+            if not s.profile.spoken_name:
+                s.profile.spoken_name = _pretty_name(name)
+            self._replan(force=not self._has_progress())
+            if s.utterances == 0:
+                return self._finish(self._greeting_advice())
+            return self._finish(self._advice_for_step(note=self._char_note() if self._char() else f"📇 Arayan: {_pretty_name(name)}"))
+        adv = self.new_call(cid, ocr_name=name, how="ekran")
+        adv.note_tr = f"🆕 Yeni arayan: {_pretty_name(name)} — otomatik sıfırlandı. Dinle, ilk cümlesinden sonra plan gelir."
+        return adv
 
     def set_character(self, char_id: Optional[str]) -> Advice:
         if char_id:
@@ -179,7 +239,23 @@ class StrategyEngine:
         now = self.now()
         if self._is_boss(text):
             return self._finish(self._boss_advice(text))
+        auto_note = ""
+        gap = now - s.last_caller_at if s.last_caller_at else 0.0
+        if (s.utterances >= 2 and not s.ocr_name and gap >= float(self.cfg.get("new_call_gap_seconds", 20))
+                and GREETING_RE.match(text) and not STILL_THERE_RE.search(text)):
+            self.new_call()
+            s = self.session
+            auto_note = "🆕 Yeni arama algılandı (sessizlik + selamlama) → otomatik sıfırlandı. "
+        else:
+            said = ta.extract_self_name(text)
+            said_id = ta.best_fuzzy(said, self._name_index) if said else None
+            if said_id and s.profile.char_id and said_id != s.profile.char_id and s.utterances >= 1:
+                self.new_call(said_id, how="isim")
+                s = self.session
+                auto_note = "🆕 Farklı bir arayan kendini tanıttı → otomatik sıfırlandı. "
+        s.pending_note = auto_note
         s.utterances += 1
+        s.last_caller_at = now
         s.transcript.append(("caller", text, now))
         intents = self.intents.classify(text)
         data = self._extract(text)
@@ -240,6 +316,14 @@ class StrategyEngine:
             adv = self._advance()
             adv = self._cascade(adv, text, intents, data)
             return self._finish(adv, text, intents, data)
+
+        # ---------------------------------------------------------- card number read in pieces
+        if step is not None and step.get("expects") == "card" and data.get("codes"):
+            got = len(re.sub(r"\D", "", "".join(s.code_parts)))
+            return self._finish(self._advice_for_step(
+                say="Perfect, I got that. Please continue with the next numbers.",
+                alts=["Great, keep going please — the next four numbers?"],
+                note=f"🔢 Kart numarasının {got}/16 hanesi alındı → devamını okut."), text, intents, data)
 
         # ---------------------------------------------------------- caller jumped ahead (e.g. read the code early)
         jump = self._lookahead(text, intents, data)
@@ -355,7 +439,104 @@ class StrategyEngine:
         adv = self.last_advice or self._advice_for_step()
         adv.footnote_tr, adv.footnote_severity = self._footnote()
         adv.quota_line = self._quota_line()
+        adv.trust_line, adv.trust_severity = self._trust_info()
         return adv
+
+    # ------------------------------------------------------------------ Caller Trust (OCR)
+    def update_trust(self, value: Optional[int], label: str = "") -> bool:
+        """Ekrandaki Caller Trust yüzdesi. Değiştiyse True döner (overlay yenilensin)."""
+        if value is None:
+            return False
+        value = max(0, min(100, int(value)))
+        changed = self.state.trust != value or (label and label != self.state.trust_label)
+        self.state.trust = value
+        if label:
+            self.state.trust_label = label
+        if not self.trust_hist or self.trust_hist[-1][1] != value:
+            self.trust_hist.append((self.now(), value))
+            self.trust_hist = self.trust_hist[-40:]
+        if self.session.trust_at_say is None:
+            self.session.trust_at_say = value
+        return bool(changed)
+
+    def _trust_delta(self) -> int:
+        s, st = self.session, self.state
+        if st.trust is None or s.trust_at_say is None:
+            return 0
+        return int(st.trust) - int(s.trust_at_say)
+
+    def _trust_info(self) -> Tuple[str, str]:
+        st = self.state
+        if st.trust is None:
+            return "", "info"
+        d = self._trust_delta()
+        arrow = f" ▲+{d}" if d > 0 else (f" ▼{d}" if d < 0 else "")
+        base = f"🛡 Caller Trust %{st.trust}" + (f" {st.trust_label.upper()}" if st.trust_label else "") + arrow
+        danger_below = int(self.db["game_rules"]["trust"].get("danger_below", 15))
+        if st.trust <= danger_below:
+            return base + " — çok düşük: özür + fayda, ısrar etme; düzelmezse kapat.", "danger"
+        if d <= -10:
+            return base + " — son cümle güveni düşürdü: daha yumuşak, kısa, faydayı anlat.", "warn"
+        if d >= 10:
+            return base + " — güven arttı: aynı tonla devam, sıradaki adımı iste.", "success"
+        if st.trust >= 60:
+            return base + " — güven yüksek: ödemeyi / kodu şimdi iste.", "success"
+        if st.trust < 35:
+            return base + " — şüpheli: önce güven ver (kimlik, fayda), sonra iste.", "warn"
+        return base, "info"
+
+    # ------------------------------------------------------------------ oyundaki uygulama penceresi (OCR)
+    def sync_app(self, app_name: str, done: Optional[int], total: Optional[int],
+                 reward: Optional[int] = None, next_text: str = "") -> Optional[Advice]:
+        """Oyundaki uygulama penceresi: 'Reward: $400', '1 / 3 done', 'Next: ...'. Adımı oyuna eşitler."""
+        sid = self._scam_by_name(app_name)
+        if not sid:
+            return None
+        if reward and reward > 0:
+            self.state.observed_rewards[sid] = int(reward)
+        s = self.session
+        if next_text:
+            s.game_next[sid] = next_text
+        if done is None or not total:
+            return None
+        prev = self.app_seen.get(sid)
+        self.app_seen[sid] = done
+        if prev is None or done <= prev or sid in s.completed:
+            return None
+        steps = self.db["scams"][sid].get("steps", [])
+        if s.current != sid:
+            if s.current and s.step_idx.get(s.current, 0) > 0 and s.current not in s.abandoned:
+                s.abandoned.append(s.current)
+            s.current = sid
+            s.manual_scam = True
+            if sid not in s.plan:
+                s.plan.insert(0, sid)
+        if done >= total:
+            s.step_idx[sid] = len(steps)
+            adv = self._complete_scam()
+            adv.note_tr = "🎮 Oyunda tamamlandı. " + adv.note_tr
+            return self._finish(adv)
+        mapped = done if total == len(steps) else min(len(steps) - 1, round(done * len(steps) / total))
+        s.step_idx[sid] = max(s.step_idx.get(sid, 0), mapped)
+        s.pending_since = None
+        s.last_progress_at = self.now()
+        step = self._current_step()
+        return self._finish(self._advice_for_step(note=f"🎮 Oyunda {done}/{total} işaretlendi → {step['label_tr'] if step else ''}", success=True))
+
+    def _scam_by_name(self, app_name: str) -> Optional[str]:
+        n = (app_name or "").strip().lower()
+        if not n:
+            return None
+        best, score = None, 0.0
+        for sid, sc in self.db["scams"].items():
+            for cand in (sc["name"], sc.get("app", ""), sc["name"].split(" (")[0]):
+                c = (cand or "").lower()
+                if not c:
+                    continue
+                r = 1.0 if c == n else ta.fuzzy_ratio(c, n)
+                if r > score:
+                    best, score = sid, r
+        return best if score >= 0.8 else None
 
     def apply_llm(self, result: dict, seq: int) -> Optional[Advice]:
         if not self.last_advice or seq != self.seq:
@@ -592,8 +773,15 @@ class StrategyEngine:
         expects = (step or {}).get("expects")
         waiting_code = expects in ("code", "card", "ssn") or (step is not None and step["id"] in AUTO_COMPLETE_STEPS and now - s.code_parts_at < 20)
         ssn = ta.extract_ssn(text) if expects == "ssn" or re.search(r"\d{3}-\d{2}-\d{4}", text) else None
+        scam = self._scam()
+        idx = s.step_idx.get(s.current, 0) if s.current else 0
+        upcoming = bool(scam) and any(st.get("expects") in ("code", "card", "ssn") for st in scam.get("steps", [])[idx:])
+        cue = None if ssn else ta.extract_code_after_cue(text)
         codes = [] if ssn else ta.extract_code_runs(text)
-        codes = [c for c in codes if waiting_code or sum(ch.isdigit() for ch in c) >= 6]
+        if cue and not any(cue in c or c in cue for c in codes):
+            codes.append(cue)
+        codes = [c for c in codes if waiting_code or c == cue or sum(ch.isdigit() for ch in c) >= 6
+                 or (upcoming and (sum(ch.isdigit() for ch in c) >= 4 or len(c) >= 6))]
         if codes:
             d["codes"] = codes
             if now - s.code_parts_at > 20 or not waiting_code:
@@ -614,6 +802,9 @@ class StrategyEngine:
             if card.get("cvv"):
                 txt += f"  CVV {card['cvv']}"
             s.data["KART"] = txt
+            for k in [k for k in s.data if k.startswith("KOD")]:
+                if re.sub(r"\D", "", s.data[k]).startswith(card["number"][:8]):
+                    s.data.pop(k)
         elif s.data.get("KART") and (card.get("expiry") or card.get("cvv")):
             extra = (f"  SKT {card['expiry']}" if card.get("expiry") else "") + (f"  CVV {card['cvv']}" if card.get("cvv") else "")
             s.data["KART"] += extra
@@ -650,6 +841,9 @@ class StrategyEngine:
         s = self.db["scams"][sid]
         if s.get("reward_is_agreed_amount") and sid == self.session.current and self.session.agreed_amount:
             return int(self.session.agreed_amount)
+        seen = (self.state.observed_rewards or {}).get(sid)
+        if seen:
+            return int(seen)
         return int(s["reward"]["typical"])
 
     def _invest_ladder(self) -> List[int]:
@@ -786,7 +980,10 @@ class StrategyEngine:
                 continue
             if tok == "@code" and data.get("codes"):
                 return True
-            if tok == "@card" and data.get("card"):
+            if tok == "@card" and (data.get("card") or (
+                    step.get("expects") == "card" and len(re.sub(r"\D", "", "".join(s.code_parts))) >= 13)):
+                if not data.get("card") and s.code_parts:
+                    s.data["KART"] = ta.group_code(re.sub(r"\D", "", "".join(s.code_parts)))
                 return True
             if tok == "@ssn" and data.get("ssn"):
                 return True
@@ -808,6 +1005,8 @@ class StrategyEngine:
             if negative:
                 continue
             if tok == "@agree" and "agree" in intents:
+                return True
+            if tok in ("@agree", "@positive", "@flirt", "@any_worry") and self._trust_delta() >= 8:
                 return True
             if tok == "@positive" and "positive" in intents:
                 return True
@@ -870,7 +1069,8 @@ class StrategyEngine:
         s.current = None
         s.agreed_amount = None if done == "investment" else s.agreed_amount
         self._replan(force=True)
-        msg = f"🎉 {self._sname(done)} TAMAM (+{fmt_money(reward)} tahmini; gerçek tutarı Durum'dan düzelt)."
+        seen = done in (self.state.observed_rewards or {})
+        msg = f"🎉 {self._sname(done)} TAMAM (+{fmt_money(reward)}" + (" — oyundaki ödül)." if seen else " tahmini; gerçek tutarı Durum'dan düzelt).")
         if auto:
             msg = "⌨️ Kodu girdiğini varsaydım. " + msg
         if not s.current:
@@ -1041,6 +1241,8 @@ class StrategyEngine:
             adv.severity = "success"
         if not note and step is not None:
             adv.note_tr = f"🎯 {step['label_tr']}: {step['goal_tr']}"
+        if s.current and s.game_next.get(s.current):
+            adv.player_action_tr = (adv.player_action_tr + "  " if adv.player_action_tr else "") + f"🎮 Oyunda sıradaki: {s.game_next[s.current]}"
         char = self._char()
         if char and s.utterances <= 1 and not s.completed and char.get("fatal_tr"):
             adv.warnings.append("YAPMA: " + "; ".join(char["fatal_tr"]))
@@ -1164,11 +1366,14 @@ class StrategyEngine:
         s = self.session
         self.seq += 1
         adv.seq = self.seq
+        if s.pending_note:
+            adv.note_tr = s.pending_note + (adv.note_tr or "")
+            s.pending_note = ""
         if text:
             adv.caller_said = text
             adv.intents = sorted((intents or {}).keys())
             adv.caller_gist_tr = self._gist(text, intents or {}, data or {})
-        elif self.last_advice and not adv.caller_said:
+        elif self.last_advice and not adv.caller_said and s.utterances > 0:
             adv.caller_said = self.last_advice.caller_said
             adv.caller_gist_tr = adv.caller_gist_tr or self.last_advice.caller_gist_tr
         adv.data_lines = [f"{k}: {v}" for k, v in s.data.items()][-5:]
@@ -1179,5 +1384,7 @@ class StrategyEngine:
         adv.quota_line = self._quota_line()
         if adv.say and (not s.transcript or s.transcript[-1][1] != adv.say):
             s.transcript.append(("player", adv.say, self.now()))
+            s.trust_at_say = self.state.trust
+        adv.trust_line, adv.trust_severity = self._trust_info()
         self.last_advice = adv
         return adv

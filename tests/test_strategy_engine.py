@@ -171,3 +171,99 @@ class EngineTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AutoCallAndTrustTest(unittest.TestCase):
+    def test_new_call_is_greeting_and_clears_old_caller(self):
+        eng, st, clock = make(day=3)
+        eng.new_call()
+        say(eng, clock, "Hello? Yes, this is Dorothy Mayfield. I got a letter about my pension.")
+        a = eng.new_call()
+        self.assertTrue(a.new_call)
+        self.assertIn("How can I help you today", a.say)
+        self.assertEqual(a.caller_said, "")
+        self.assertEqual(a.caller_name, "Bilinmeyen arayan")
+
+    def test_ocr_name_change_auto_resets(self):
+        eng, st, clock = make(day=1)
+        eng.new_call()
+        a = eng.on_ocr_caller("DAMIEN HOLLOWAY")
+        self.assertEqual(a.caller_name, "Damien Holloway")
+        self.assertIn("Hello Damien", a.say)
+        say(eng, clock, "Hello. What do you need from me?")
+        say(eng, clock, "Okay, sounds good.")
+        self.assertIsNone(eng.on_ocr_caller("Damien Holloway"))
+        a = eng.on_ocr_caller("FOREST DUMP")
+        self.assertTrue(a.new_call)
+        self.assertIn("Forest Dump", a.note_tr)
+        self.assertIn("Hello Forest", a.say)
+        self.assertEqual(eng.session.utterances, 0)
+
+    def test_greeting_after_silence_starts_new_call(self):
+        eng, st, clock = make(day=1)
+        eng.new_call()
+        say(eng, clock, "My order never arrived.")
+        say(eng, clock, "Okay, sounds good.")
+        a = say(eng, clock, "Hi! My mama always said you shouldn't talk to strangers.", wait=30)
+        self.assertIn("Yeni arama", a.note_tr)
+        self.assertEqual(eng.session.utterances, 1)
+
+    def test_still_there_does_not_reset(self):
+        eng, st, clock = make(day=1)
+        eng.new_call()
+        say(eng, clock, "My order never arrived.")
+        say(eng, clock, "Okay, sounds good.")
+        a = say(eng, clock, "Hello? Are you still there?", wait=40)
+        self.assertNotIn("Yeni arama", a.note_tr)
+        self.assertEqual(eng.session.utterances, 3)
+
+    def test_spongebob_skip_ahead_code_with_letters(self):
+        eng, st, clock = make(day=1)
+        eng.new_call("spongebob")
+        say(eng, clock, "Hi! I'm SpongeBob! The Krusty Krab register is broken, what do I need to do now?")
+        say(eng, clock, "Okay!")
+        a = say(eng, clock, "Okay, the code is X J nine four, seven seven two one!")
+        self.assertEqual(a.step_label, "Enter it in the app")
+        self.assertTrue(any("XJ94 7721" in d for d in a.data_lines))
+
+    def test_trust_delta_feedback_and_success(self):
+        eng, st, clock = make(day=1)
+        eng.new_call()
+        eng.update_trust(40, "Neutral")
+        say(eng, clock, "Hi, my computer is broken.")
+        eng.update_trust(25, "Suspicious")
+        info, sev = eng._trust_info()
+        self.assertIn("▼-15", info)
+        self.assertEqual(sev, "warn")
+        eng.update_trust(50, "Neutral")          # son cümleden beri +10 → ikna adımı sayılır
+        a = say(eng, clock, "Hmm, I see.")
+        self.assertEqual(a.step_label, "Agree to Gift Card Payment")
+        eng.update_trust(70, "Trusting")
+        self.assertEqual(eng.refresh().trust_severity, "success")
+
+    def test_sync_with_game_checklist(self):
+        eng, st, clock = make(day=1, owned_apps=["credit_card"])
+        eng.new_call()
+        self.assertIsNone(eng.sync_app("Credit Card", 0, 3, 400, "Convince the caller they need your service."))
+        a = eng.sync_app("Credit Card", 1, 3, 400, "Get them to agree on a price for the service.")
+        self.assertEqual(a.scam_id, "credit_card")
+        self.assertEqual(a.step_label, "Get them to agree on a price for the service.")
+        self.assertIn("Oyunda sıradaki", a.player_action_tr)
+        self.assertIn("four hundred dollars", a.say)
+        a = eng.sync_app("Credit Card", 3, 3, 400, "")
+        self.assertEqual(st.earned, 400)
+        self.assertIn("credit_card", eng.session.completed)
+        self.assertEqual(st.observed_rewards["credit_card"], 400)
+
+    def test_card_number_in_pieces(self):
+        eng, st, clock = make(day=1, owned_apps=["credit_card"])
+        eng.new_call()
+        eng.next_scam()
+        if eng.session.current != "credit_card":
+            eng.next_scam()
+        eng.session.step_idx["credit_card"] = 2
+        a = say(eng, clock, "Okay, it's 4417 2231")
+        self.assertIn("8/16", a.note_tr)
+        a = say(eng, clock, "9981 0042", wait=5)
+        self.assertIn("credit_card", eng.session.completed)
+        self.assertTrue(any("4417 2231 9981 0042" in d for d in a.data_lines))
