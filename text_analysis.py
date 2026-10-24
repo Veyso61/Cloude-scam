@@ -198,14 +198,15 @@ def extract_card(text: str) -> Dict[str, str]:
     """Kart numarası / son kullanma / CVV (bulunanlar)."""
     res: Dict[str, str] = {}
     runs = extract_code_runs(text)
-    m = re.search(r"(?<!\d)(?:\d[ \-]?){12,18}\d(?!\d)", text or "")
+    # Oyundaki kart numarası 12 hane (4-4-4); gerçek kartlar 13-19 hane. İkisini de kabul et.
+    m = re.search(r"(?<!\d)(?:\d[ \-]?){11,18}\d(?!\d)", text or "")
     if m:
         res["number"] = re.sub(r"\D", "", m.group(0))
     for r in runs:
         d = re.sub(r"\D", "", r)
         if "number" in res:
             break
-        if 13 <= len(d) <= 19:
+        if 12 <= len(d) <= 19:
             res["number"] = d
         elif len(d) > 19:
             res["number"] = d[:16]

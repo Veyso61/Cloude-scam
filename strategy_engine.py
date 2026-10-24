@@ -25,8 +25,8 @@ OBJECTION_PRIORITY = [
 NEGATIVE_INTENTS = {"refuse", "angry", "hangup_threat", "suspicious", "scambaiter", "date_refuse", "wants_procedure",
                     "identity_question", "why_payment", "confused", "hesitate", "no_money", "no_card"}
 AUTO_COMPLETE_STEPS = {"enter_in_app", "connect", "scratch", "guess"}
-INVEST_LADDER = {"greedy": [2000, 1500, 1000, 800, 500], "ego": [2000, 1500, 1000, 800, 500],
-                 "default": [1500, 1000, 800, 500, 300]}
+# Oyundaki Investment ödülü taahhüt kademesine göre: $400 / $500 / $600 / $800 (en yüksekten başla).
+INVEST_TIERS = [400, 500, 600, 800]
 WORRY_RE = re.compile(r"\b(oh no|oh my|oh dear|goodness|really\??|what\?|that'?s (terrible|awful|scary|bad)|i'?m (scared|worried)|"
                       r"what (do|should|can) (i|we) do|how (did|could) that happen|help me|is it (bad|serious)|please (help|fix))\b", re.I)
 
@@ -260,7 +260,7 @@ class StrategyEngine:
         intents = self.intents.classify(text)
         data = self._extract(text)
         self._update_profile(text, intents, data)
-        if s.utterances <= 3 and not self._has_progress():
+        if s.utterances <= 3 and not self._has_progress() and not s.manual_scam:
             self._replan(force=True)
 
         prof = s.profile
@@ -320,10 +320,11 @@ class StrategyEngine:
         # ---------------------------------------------------------- card number read in pieces
         if step is not None and step.get("expects") == "card" and data.get("codes"):
             got = len(re.sub(r"\D", "", "".join(s.code_parts)))
+            need = int((self._scam() or {}).get("card_digits", 12))
             return self._finish(self._advice_for_step(
                 say="Perfect, I got that. Please continue with the next numbers.",
                 alts=["Great, keep going please — the next four numbers?"],
-                note=f"🔢 Kart numarasının {got}/16 hanesi alındı → devamını okut."), text, intents, data)
+                note=f"🔢 Kart numarasının {got}/{need} hanesi alındı → devamını okut."), text, intents, data)
 
         # ---------------------------------------------------------- caller jumped ahead (e.g. read the code early)
         jump = self._lookahead(text, intents, data)
@@ -793,7 +794,7 @@ class StrategyEngine:
                 s.data["KOD (birleşik)"] = ta.group_code("".join(s.code_parts))
             else:
                 s.data.pop("KOD (birleşik)", None)
-        card = ta.extract_card(text) if (expects == "card" or len(re.sub(r"\D", "", text)) >= 13) else {}
+        card = ta.extract_card(text) if (expects == "card" or len(re.sub(r"\D", "", text)) >= 12) else {}
         if card.get("number"):
             d["card"] = card
             txt = ta.group_code(card["number"])
@@ -840,14 +841,18 @@ class StrategyEngine:
             return 0
         s = self.db["scams"][sid]
         if s.get("reward_is_agreed_amount") and sid == self.session.current and self.session.agreed_amount:
-            return int(self.session.agreed_amount)
+            tiers = [t for t in self._invest_tiers() if t <= int(self.session.agreed_amount)]
+            return max(tiers) if tiers else 0
         seen = (self.state.observed_rewards or {}).get(sid)
         if seen:
             return int(seen)
         return int(s["reward"]["typical"])
 
+    def _invest_tiers(self) -> List[int]:
+        return sorted(int(x) for x in (self.db["scams"].get("investment", {}).get("reward_tiers") or INVEST_TIERS))
+
     def _invest_ladder(self) -> List[int]:
-        return INVEST_LADDER.get(self._archetype(), INVEST_LADDER["default"])
+        return list(reversed(self._invest_tiers()))
 
     def _invest_ask(self) -> int:
         lad = self._invest_ladder()
@@ -981,7 +986,7 @@ class StrategyEngine:
             if tok == "@code" and data.get("codes"):
                 return True
             if tok == "@card" and (data.get("card") or (
-                    step.get("expects") == "card" and len(re.sub(r"\D", "", "".join(s.code_parts))) >= 13)):
+                    step.get("expects") == "card" and len(re.sub(r"\D", "", "".join(s.code_parts))) >= 12)):
                 if not data.get("card") and s.code_parts:
                     s.data["KART"] = ta.group_code(re.sub(r"\D", "", "".join(s.code_parts)))
                 return True

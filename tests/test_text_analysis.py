@@ -45,6 +45,12 @@ class TextAnalysisTest(unittest.TestCase):
         self.assertIn("scambaiter", clf.classify("Click this link to claim your free Nitro"))
         self.assertIn("suspicious", clf.classify("This sounds like a scam, how do I know you're legit?"))
 
+    def test_game_card_is_twelve_digits(self):
+        # Oyundaki kredi kartı numarası 12 hane (4-4-4) — eskiden 13+ beklendiği için tanınmıyordu.
+        c = ta.extract_card("Sure, it's 4417 2231 9981")
+        self.assertEqual(c.get("number"), "441722319981")
+        self.assertEqual(ta.extract_card("only 4417 2231").get("number"), None)
+
     def test_locations(self):
         loc = ta.LocationExtractor(load_db()["locations"])
         places, hints = loc.extract("I'm calling from Houston, Texas and it's raining")

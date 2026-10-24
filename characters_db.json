@@ -142,13 +142,11 @@
      ],
      "7": [
       "utility_billing",
-      "lottery_prize",
-      "car_registration"
+      "lottery_prize"
      ],
      "8": [
       "book_publishing",
-      "bank_login",
-      "blacklist"
+      "bank_login"
      ],
      "9": [
       "ransom",
@@ -186,6 +184,169 @@
   "C1",
   "C2"
  ],
+ "code_formats": {
+  "gift_card": {
+   "kind": "digits",
+   "groups": [
+    4,
+    4
+   ],
+   "example": "1234-5678",
+   "label_tr": "8 haneli hediye çeki kodu"
+  },
+  "credit_card": {
+   "kind": "digits",
+   "groups": [
+    4,
+    4,
+    4
+   ],
+   "example": "1234-5678-9012",
+   "label_tr": "12 haneli kart numarası (ön yüz)"
+  },
+  "cvv": {
+   "kind": "digits",
+   "groups": [
+    3
+   ],
+   "example": "123",
+   "label_tr": "3 haneli CVV (arka yüz)"
+  },
+  "expiry": {
+   "kind": "date_mm_yy",
+   "groups": [
+    2,
+    2
+   ],
+   "example": "08/29",
+   "label_tr": "son kullanma AA/YY"
+  },
+  "ssn": {
+   "kind": "digits",
+   "groups": [
+    3,
+    2,
+    4
+   ],
+   "example": "123-45-6789",
+   "label_tr": "9 haneli SSN"
+  },
+  "private_card": {
+   "kind": "digits",
+   "groups": [
+    4,
+    4,
+    4,
+    4
+   ],
+   "example": "1234-5678-9012-3456",
+   "label_tr": "16 haneli kart numarası"
+  },
+  "police_receipt": {
+   "kind": "alnum",
+   "groups": [
+    3,
+    3
+   ],
+   "example": "A1B-2C3",
+   "label_tr": "6 karakter (harf+rakam) ödeme onay no"
+  },
+  "meme_receipt": {
+   "kind": "alnum",
+   "groups": [
+    3,
+    3
+   ],
+   "example": "A1B-2C3",
+   "label_tr": "6 karakter satın alma onayı"
+  },
+  "invoice": {
+   "kind": "digits",
+   "groups": [
+    3,
+    3
+   ],
+   "example": "123-456",
+   "label_tr": "6 haneli fatura no"
+  },
+  "lottery": {
+   "kind": "digits",
+   "groups": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "example": "12-34-56-78-90-12",
+   "label_tr": "12 haneli bilet onay kodu"
+  },
+  "car_registration": {
+   "kind": "alnum",
+   "groups": [
+    4,
+    4
+   ],
+   "example": "AB12-CD34",
+   "label_tr": "8 karakter (harf+rakam) ruhsat no"
+  },
+  "anyviewer": {
+   "kind": "digits",
+   "groups": [
+    3,
+    3
+   ],
+   "example": "123-456",
+   "label_tr": "6 haneli AnyViewer bağlantı kodu"
+  },
+  "wallet": {
+   "kind": "alnum",
+   "groups": [
+    4,
+    4,
+    4
+   ],
+   "example": "A1B2-C3D4-E5F6",
+   "label_tr": "12 karakter cüzdan adresi"
+  },
+  "bank_username": {
+   "kind": "alnum",
+   "groups": [
+    2,
+    2
+   ],
+   "example": "AB-12",
+   "label_tr": "4 karakter banka kullanıcı adı"
+  },
+  "bank_password": {
+   "kind": "alnum",
+   "groups": [
+    2,
+    1,
+    2
+   ],
+   "example": "AB-1-CD",
+   "label_tr": "5 karakter banka şifresi"
+  },
+  "account_number": {
+   "kind": "digits",
+   "groups": [
+    4,
+    4
+   ],
+   "example": "1234-5678",
+   "label_tr": "8 haneli hesap no"
+  },
+  "routing_number": {
+   "kind": "digits",
+   "groups": [
+    6
+   ],
+   "example": "123456",
+   "label_tr": "6 haneli routing no"
+  }
+ },
  "archetypes": {
   "trusting": {
    "name_tr": "Güvenen Hedef (Trusting)",
@@ -345,7 +506,6 @@
     "police_impersonation": 1.5,
     "social_security": 1.3,
     "utility_billing": 1.3,
-    "blacklist": 1.3,
     "credit_card": 1.1,
     "gift_card": 1.0,
     "bank_login": 1.2,
@@ -550,8 +710,7 @@
     "gift_card": 1.1,
     "credit_card": 1.1,
     "utility_billing": 1.1,
-    "tech_support": 1.1,
-    "car_registration": 1.2
+    "tech_support": 1.1
    },
    "keywords": [
     "i'm calling about",
@@ -648,11 +807,11 @@
    "cost": 0,
    "verified_unlock": true,
    "reward": {
-    "min": 100,
+    "min": 200,
     "typical": 200,
-    "max": 300
+    "max": 200
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "est_seconds": 150,
    "category": "payment",
    "requires": [],
@@ -685,7 +844,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": null
     },
     {
      "id": "agree_gift_card",
@@ -715,7 +875,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": null
     },
     {
      "id": "obtain_code",
@@ -740,7 +901,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": "gift_card"
     },
     {
      "id": "enter_in_app",
@@ -766,7 +928,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Okunan kodu → Gift Cards uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -859,7 +1022,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "agree_price",
@@ -885,7 +1049,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "card_number",
@@ -909,7 +1074,8 @@
      ],
      "expects": "card",
      "player_action_tr": "⌨️ Kart numarasını Credit Card uygulamasına YAZ → Verify.",
-     "est_seconds": 50
+     "est_seconds": 50,
+     "code_format": "credit_card"
     }
    ],
    "bridge": {
@@ -956,7 +1122,8 @@
    "tips_tr": [
     "Oyundaki checklist 3 adım: hizmet → fiyat → kart numarası (ön yüz) + Verify.",
     "Kart numarası okunduktan sonra 'Your card was declined' deyip Gift Card'a geçebilirsin (ikinci ödeme)."
-   ]
+   ],
+   "card_digits": 12
   },
   "romance": {
    "name": "Romance Scam",
@@ -998,7 +1165,8 @@
      ],
      "expects": "interest",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": null
     },
     {
      "id": "flirt",
@@ -1024,7 +1192,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": null
     },
     {
      "id": "nickname",
@@ -1048,7 +1217,8 @@
      ],
      "expects": "nickname",
      "player_action_tr": null,
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": null
     },
     {
      "id": "love_back",
@@ -1072,7 +1242,8 @@
      ],
      "expects": "love",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": null
     },
     {
      "id": "date",
@@ -1096,7 +1267,8 @@
      ],
      "expects": "date",
      "player_action_tr": null,
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -1188,7 +1360,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "confirm_address",
@@ -1212,7 +1385,8 @@
      ],
      "expects": "text",
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "confirm_dob",
@@ -1236,7 +1410,8 @@
      ],
      "expects": "text",
      "player_action_tr": null,
-     "est_seconds": 25
+     "est_seconds": 25,
+     "code_format": null
     },
     {
      "id": "get_ssn",
@@ -1260,7 +1435,8 @@
      ],
      "expects": "ssn",
      "player_action_tr": null,
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": "ssn"
     },
     {
      "id": "enter_in_app",
@@ -1286,7 +1462,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ 9 haneli SSN'i → Identity uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -1402,7 +1579,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 25
+     "est_seconds": 25,
+     "code_format": null
     },
     {
      "id": "get_code",
@@ -1425,7 +1603,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": "anyviewer"
     },
     {
      "id": "connect",
@@ -1448,7 +1627,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Kodu AnyViewer'a yaz → Connect. Bağlanınca F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     },
     {
      "id": "keep_calm",
@@ -1472,7 +1652,8 @@
      ],
      "expects": null,
      "player_action_tr": "🔎 PrivateMail / Notes / belgelerde Recovery Email, güvenlik sorusu-cevabı, banka bilgisi ara. Bitince F6.",
-     "est_seconds": 60
+     "est_seconds": 60,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -1516,11 +1697,11 @@
    "cost": 0,
    "verified_unlock": false,
    "reward": {
-    "min": 200,
-    "typical": 300,
+    "min": 400,
+    "typical": 400,
     "max": 400
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "est_seconds": 180,
    "category": "service",
    "requires": [],
@@ -1550,7 +1731,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "offer_protection",
@@ -1574,7 +1756,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "agree_price",
@@ -1597,7 +1780,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 25
+     "est_seconds": 25,
+     "code_format": null
     },
     {
      "id": "get_payment",
@@ -1624,7 +1808,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": null
     },
     {
      "id": "enter_in_app",
@@ -1650,7 +1835,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Ödeme kodunu/kart bilgisini → Tech Support uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -1696,7 +1882,7 @@
    "verified_unlock": false,
    "reward": {
     "min": 0,
-    "typical": 450,
+    "typical": 700,
     "max": 700
    },
    "reward_verified": true,
@@ -1729,7 +1915,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "invest",
@@ -1754,7 +1941,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "hold",
@@ -1778,7 +1966,8 @@
      ],
      "expects": null,
      "player_action_tr": "📈 Değeri izle: ~$450–600 civarında ya da arayan gerginleşince CASH OUT bas. Çöküşte kalan değeri hemen çek!",
-     "est_seconds": 60
+     "est_seconds": 60,
+     "code_format": "wallet"
     }
    ],
    "bridge": {
@@ -1823,7 +2012,7 @@
    "verified_unlock": false,
    "reward": {
     "min": 0,
-    "typical": 450,
+    "typical": 700,
     "max": 700
    },
    "reward_verified": true,
@@ -1856,7 +2045,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "invest",
@@ -1881,7 +2071,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "hold",
@@ -1904,7 +2095,8 @@
      ],
      "expects": null,
      "player_action_tr": "📈 Uygun anda CASH OUT. Çöküş başlarsa kalan değeri hemen çek.",
-     "est_seconds": 60
+     "est_seconds": 60,
+     "code_format": "meme_receipt"
     }
    ],
    "bridge": {
@@ -1936,11 +2128,11 @@
    "cost": 0,
    "verified_unlock": false,
    "reward": {
-    "min": 250,
-    "typical": 400,
-    "max": 600
+    "min": 500,
+    "typical": 500,
+    "max": 500
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "est_seconds": 180,
    "category": "authority",
    "requires": [],
@@ -1969,7 +2161,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "explain_fine",
@@ -1994,7 +2187,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "agree_pay",
@@ -2018,7 +2212,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 25
+     "est_seconds": 25,
+     "code_format": null
     },
     {
      "id": "confirmation_number",
@@ -2041,7 +2236,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": "police_receipt"
     },
     {
      "id": "enter_in_app",
@@ -2067,7 +2263,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Ödeme onay numarasını → Police Impersonation uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -2108,8 +2305,7 @@
    "chains_to": [
     "social_security",
     "credit_card",
-    "gift_card",
-    "blacklist"
+    "gift_card"
    ],
    "tips_tr": [
     "Chael Sonnen gibi baskıya yanıt verenlerde çok iyi; pasif/özür dileyen ton kullanma."
@@ -2117,22 +2313,32 @@
   },
   "investment": {
    "name": "Investment Scam",
-   "app": "Business Investment",
+   "app": "Investment Scam",
+   "game_id": "investment",
    "json_hint": "163-scam-investment.json",
+   "aliases": [
+    "Investment"
+   ],
    "available_from_day": 5,
    "cost": 0,
    "verified_unlock": false,
    "reward": {
-    "min": 300,
-    "typical": 800,
-    "max": 3000
+    "min": 400,
+    "typical": 500,
+    "max": 800
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "reward_is_agreed_amount": true,
+   "reward_tiers": [
+    400,
+    500,
+    600,
+    800
+   ],
    "est_seconds": 220,
    "category": "investment",
    "requires": [],
-   "summary_tr": "Ödeme = anlaşılan tutar → YÜKSEK İSTE. Fırsatı anlat → getiriyi anlat → tutarda anlaş → ödemeyi yaptır → fatura (invoice) numarasını al → gir.",
+   "summary_tr": "Ödül taahhüt kademesine göre: $400 / $500 / $600 / $800. Önce $800 iste, reddederse $600 → $500 → $400'e in ($400 altı sayılmaz). Fırsatı anlat → tutarda anlaş → taahhüt ettir → 6 haneli fatura (invoice) numarasını al → gir.",
    "steps": [
     {
      "id": "pitch",
@@ -2158,7 +2364,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "returns",
@@ -2183,7 +2390,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "agree_amount",
@@ -2208,7 +2416,8 @@
      ],
      "expects": "amount",
      "player_action_tr": null,
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": null
     },
     {
      "id": "commit",
@@ -2233,7 +2442,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "invoice",
@@ -2256,7 +2466,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": "invoice"
     },
     {
      "id": "enter_in_app",
@@ -2282,7 +2493,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Fatura numarasını → Business Investment uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -2328,7 +2540,7 @@
    ],
    "tips_tr": [
     "Oyuncular 4/5'te takılıyor: arayana 'Yes, I invest X dollars' gibi NET bir taahhüt söylettir.",
-    "Damien Holloway gibi açgözlülerde $1500+ dene."
+    "$800 üstü tutar ekstra para getirmez; $800'de anlaşınca hemen taahhüde geç."
    ]
   },
   "password_recovery": {
@@ -2372,7 +2584,8 @@
      ],
      "expects": "email",
      "player_action_tr": "⌨️ E-postayı Password Recovery'ye yaz → Verify.",
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": null
     },
     {
      "id": "recovery_question",
@@ -2395,7 +2608,8 @@
      ],
      "expects": "text",
      "player_action_tr": "⌨️ Soruyu yaz → Verify.",
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "recovery_answer",
@@ -2418,7 +2632,8 @@
      ],
      "expects": "text",
      "player_action_tr": "⌨️ Cevabı yaz → Verify. 3/3 olunca ödül.",
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -2456,8 +2671,14 @@
   },
   "warranty": {
    "name": "Car's Extended Warranty",
-   "app": "Warranty",
+   "app": "Car's Extended Warranty",
+   "game_id": "car-registration",
    "json_hint": null,
+   "aliases": [
+    "Warranty",
+    "Car Registration",
+    "Extended Warranty"
+   ],
    "available_from_day": 6,
    "cost": 0,
    "verified_unlock": false,
@@ -2466,17 +2687,18 @@
     "typical": 300,
     "max": 300
    },
-   "reward_verified": false,
-   "est_seconds": 180,
+   "reward_verified": true,
+   "est_seconds": 160,
    "category": "service",
    "requires": [],
-   "summary_tr": "$300 uzatılmış garanti. İlk teklifi reddederler → kapsam detaylarını ARAYANIN KENDİ SORUNUNA bağla (taşınma, kamyonet...).",
+   "code_format": "car_registration",
+   "summary_tr": "$300. Oyundaki 3 hedef (bağımsız): garantinin bitmek üzere olduğuna ikna → $300 yenilemeyi kabul ettir → 8 karakterlik ruhsat numarasını (AB12-CD34) al ve uygulamaya gir. İlk teklifi reddederlerse kapsamı arayanın KENDİ sorununa bağla.",
    "steps": [
     {
      "id": "connect_problem",
-     "label": "Connect the Offer to Their Problem",
-     "label_tr": "Teklifi sorununa bağla",
-     "goal_tr": "Sorununu tekrar et ve kapsamın bitmek üzere olduğunu söyle.",
+     "label": "Convince them their warranty is expiring.",
+     "label_tr": "Garantinin bittiğine ikna et",
+     "goal_tr": "Sorununu tekrar et ve araç garantisinin/kapsamının bitmek üzere olduğunu söyle.",
      "lines": {
       "B1": [
        "I know you called about {problem}, but I see something important: your vehicle coverage is about to expire, and that could cost you a lot."
@@ -2496,109 +2718,61 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 35,
+     "code_format": null
     },
     {
-     "id": "explain_coverage",
-     "label": "Explain the Coverage Details",
-     "label_tr": "Kapsamı açıkla",
-     "goal_tr": "Kapsamın neleri içerdiğini anlat.",
+     "id": "renewal",
+     "label": "Get them to agree to pay $300 to extend it.",
+     "label_tr": "$300 yenilemeyi kabul ettir",
+     "goal_tr": "Kapsamı kısaca anlat ve $300 yenilemeyi kabul etsinler.",
      "lines": {
       "B1": [
-       "For just three hundred dollars, our extended warranty covers engine repairs, transmission failures, free towing, and full damage protection for your trip!"
+       "For just three hundred dollars, our extended warranty covers engine, transmission, and free towing. Shall I renew it for you right now?"
       ],
       "C1": [
-       "You really should activate our three-hundred-dollar comprehensive warranty — it includes bumper-to-bumper mechanical coverage, roadside assistance, and zero-deductible part replacements."
+       "Our three-hundred-dollar comprehensive warranty covers mechanical repairs and roadside assistance — shall I activate the renewal now?"
       ],
       "C2": [
-       "Given the mechanical strain on your vehicle, our three-hundred-dollar platinum indemnity policy underwrites 100% of drivetrain liabilities, ECU electronics, and unlimited emergency freight recovery."
+       "Our three-hundred-dollar indemnity policy underwrites your drivetrain and emergency recovery; shall I bind the renewal now?"
       ]
      },
      "success": [
       "@agree",
       "@positive",
       "@question_price",
-      "\\b(that covers|sounds (good|useful)|what about|does it cover)\\b"
+      "\\b(that covers|sounds (good|useful)|okay|do it|how much)\\b"
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
-     "id": "agree_buy",
-     "label": "Agree to Buy the Warranty",
-     "label_tr": "Satın almayı kabul ettir",
-     "goal_tr": "300$ garantiyi kabul etsin.",
+     "id": "registration",
+     "label": "Enter their registration to process the $300 renewal.",
+     "label_tr": "Ruhsat numarasını al ve gir",
+     "goal_tr": "8 karakterlik (harf+rakam) ruhsat numarasını okusun; Car's Extended Warranty uygulamasına yaz.",
      "lines": {
       "B1": [
-       "So shall I activate your three hundred dollar warranty right now? You are protected from today."
+       "Perfect. To process the renewal, please read me your vehicle registration number — it has letters and numbers.",
+       "Great, last thing: read me the registration number on your card, two groups of four."
       ],
       "C1": [
-       "Shall I activate your coverage now? It starts the moment we confirm."
+       "To finalize the renewal, kindly read me your eight-character vehicle registration number."
       ],
       "C2": [
-       "Shall I bind the policy now? Coverage commences upon confirmation."
-      ]
-     },
-     "success": [
-      "@agree"
-     ],
-     "expects": null,
-     "player_action_tr": null,
-     "est_seconds": 25
-    },
-    {
-     "id": "get_payment",
-     "label": "Get the payment code or card",
-     "label_tr": "Ödeme kodunu / kart numarasını al",
-     "goal_tr": "Hediye çeki kodunu veya kart numarasını sesli okut.",
-     "lines": {
-      "B1": [
-       "To finish, you can pay with a gift card or a credit card. Please read me the code on the back of the card, or your card number, slowly.",
-       "Do you have a gift card or a credit card with you right now? Please read me the numbers slowly, I am writing them down."
-      ],
-      "C1": [
-       "To complete the activation, please read me either the redemption code on the back of a gift card or your card number, expiry date and security code.",
-       "We can settle it right now — please read me the gift card code, or the card number with its expiry date and security code."
-      ],
-      "C2": [
-       "To finalize the settlement, kindly dictate either the voucher's redemption sequence or your primary payment card credentials, digit by digit.",
-       "For immediate clearance, please vocalize the alphanumeric redemption code, or your card number, expiration date and verification value."
+       "To effect the renewal, please dictate your eight-character registration identifier."
       ]
      },
      "success": [
       "@code",
-      "@card"
+      "@text"
      ],
      "expects": "code",
-     "player_action_tr": null,
-     "est_seconds": 45
-    },
-    {
-     "id": "enter_in_app",
-     "label": "Enter it in the app",
-     "label_tr": "Uygulamaya gir",
-     "goal_tr": "Ödeme bilgisini Warranty uygulamasına yaz ve onayla.",
-     "lines": {
-      "B1": [
-       "Thank you so much! Please hold the line for just ten seconds while I put it into our system.",
-       "Perfect, I am entering it right now. Please stay on the line, this only takes a moment."
-      ],
-      "C1": [
-       "Wonderful, please stay on the line while I validate that in our system — it will only take a moment.",
-       "Excellent. I'm registering it now; please don't hang up, you'll get a confirmation in a few seconds."
-      ],
-      "C2": [
-       "Hold the line for just ten seconds while I input your details into our central registry to validate and lock in your coverage.",
-       "Please remain connected while our clearinghouse authenticates the entry; terminating the call now would void the transaction."
-      ]
-     },
-     "success": [
-      "@none"
-     ],
-     "expects": null,
-     "player_action_tr": "⌨️ Ödeme bilgisini → Warranty uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "player_action_tr": "⌨️ Ruhsat numarasını Car's Extended Warranty uygulamasına yaz → onayla. Bitti ise F6.",
+     "est_seconds": 40,
+     "code_format": "car_registration"
     }
    ],
    "bridge": {
@@ -2626,12 +2800,13 @@
     }
    },
    "chains_to": [
-    "car_registration",
     "credit_card",
     "social_security",
     "gift_card"
    ],
    "tips_tr": [
+    "Oyundaki 3 hedef bağımsız: ilk reddedilse de diğerlerine geçebilirsin.",
+    "Ruhsat numarası 8 karakter (harf+rakam), kart numarası değil.",
     "Topluluk zinciri: Warranty → Credit Card → SSN → Gift Card."
    ]
   },
@@ -2643,11 +2818,11 @@
    "cost": 0,
    "verified_unlock": false,
    "reward": {
-    "min": 200,
-    "typical": 400,
-    "max": 600
+    "min": 750,
+    "typical": 750,
+    "max": 750
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "est_seconds": 200,
    "category": "advance_fee",
    "requires": [],
@@ -2676,7 +2851,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "promise_share",
@@ -2700,7 +2876,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "transfer_fee",
@@ -2723,7 +2900,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "get_payment",
@@ -2750,7 +2928,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": null
     },
     {
      "id": "enter_in_app",
@@ -2776,7 +2955,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Ödeme bilgisini → Nigerian Prince uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -2822,7 +3002,7 @@
    "parallel": true,
    "reward": {
     "min": 0,
-    "typical": 600,
+    "typical": 800,
     "max": 800
    },
    "reward_verified": true,
@@ -2852,7 +3032,8 @@
      ],
      "expects": null,
      "player_action_tr": "📡 Okuma al (readings) — arayan konuştukça.",
-     "est_seconds": 40
+     "est_seconds": 40,
+     "code_format": null
     },
     {
      "id": "location_hints",
@@ -2876,7 +3057,8 @@
      ],
      "expects": "location",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": null
     },
     {
      "id": "guess",
@@ -2899,7 +3081,8 @@
      ],
      "expects": null,
      "player_action_tr": "🌍 Haritada konum tahmini yap (Konum ipuçları kutusuna bak). Bitti ise F6.",
-     "est_seconds": 20
+     "est_seconds": 20,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -2931,171 +3114,6 @@
     "Konum ipuçları panelde birikir (şehir/eyalet/ülke/hava)."
    ]
   },
-  "car_registration": {
-   "name": "Car Registration",
-   "app": "Car Registration",
-   "json_hint": null,
-   "available_from_day": 7,
-   "cost": 0,
-   "verified_unlock": false,
-   "reward": {
-    "min": 150,
-    "typical": 250,
-    "max": 400
-   },
-   "reward_verified": false,
-   "est_seconds": 170,
-   "category": "authority",
-   "requires": [],
-   "summary_tr": "Ruhsat süresi doldu/ceza → plaka/ruhsat numarasını al → yenileme ücreti → ödeme → gir.",
-   "steps": [
-    {
-     "id": "registration_issue",
-     "label": "Explain the Registration Problem",
-     "label_tr": "Ruhsat sorununu anlat",
-     "goal_tr": "Endişelensin.",
-     "lines": {
-      "B1": [
-       "I am calling about your vehicle registration — our records show it has expired, and you could get a big fine."
-      ],
-      "C1": [
-       "Our DMV records indicate your vehicle registration has lapsed, which puts you at risk of a significant penalty."
-      ],
-      "C2": [
-       "Motor vehicle records indicate your registration has lapsed, exposing you to substantial statutory penalties."
-      ]
-     },
-     "success": [
-      "@agree",
-      "@any_worry",
-      "\\b(expired|really|what|fine|how)\\b"
-     ],
-     "expects": null,
-     "player_action_tr": null,
-     "est_seconds": 30
-    },
-    {
-     "id": "get_plate",
-     "label": "Get the Registration / Plate Number",
-     "label_tr": "Ruhsat/plaka numarasını al",
-     "goal_tr": "Numarayı okusun.",
-     "lines": {
-      "B1": [
-       "Can you read me the registration or license plate number on your car, so I can find your file?"
-      ],
-      "C1": [
-       "Please read me your registration number or license plate so I can pull up your record."
-      ],
-      "C2": [
-       "Kindly state your registration or plate number so I can retrieve the record."
-      ]
-     },
-     "success": [
-      "@code",
-      "@text"
-     ],
-     "expects": "code",
-     "player_action_tr": "⌨️ Plaka/ruhsat numarasını Car Registration'a yaz.",
-     "est_seconds": 35
-    },
-    {
-     "id": "agree_fee",
-     "label": "Agree to the Renewal Fee",
-     "label_tr": "Yenileme ücretini kabul ettir",
-     "goal_tr": "Ücreti kabul etsin.",
-     "lines": {
-      "B1": [
-       "The renewal fee is only {amount_words}, and I can do it for you right now on the phone. Okay?"
-      ],
-      "C1": [
-       "The renewal is {amount_words}, and I can process it immediately so you avoid the fine."
-      ],
-      "C2": [
-       "The renewal levy is {amount_words}, processable immediately to pre-empt the penalty."
-      ]
-     },
-     "success": [
-      "@agree"
-     ],
-     "expects": null,
-     "player_action_tr": null,
-     "est_seconds": 25
-    },
-    {
-     "id": "get_payment",
-     "label": "Get the payment code or card",
-     "label_tr": "Ödeme kodunu / kart numarasını al",
-     "goal_tr": "Hediye çeki kodunu veya kart numarasını sesli okut.",
-     "lines": {
-      "B1": [
-       "To finish, you can pay with a gift card or a credit card. Please read me the code on the back of the card, or your card number, slowly.",
-       "Do you have a gift card or a credit card with you right now? Please read me the numbers slowly, I am writing them down."
-      ],
-      "C1": [
-       "To complete the activation, please read me either the redemption code on the back of a gift card or your card number, expiry date and security code.",
-       "We can settle it right now — please read me the gift card code, or the card number with its expiry date and security code."
-      ],
-      "C2": [
-       "To finalize the settlement, kindly dictate either the voucher's redemption sequence or your primary payment card credentials, digit by digit.",
-       "For immediate clearance, please vocalize the alphanumeric redemption code, or your card number, expiration date and verification value."
-      ]
-     },
-     "success": [
-      "@code",
-      "@card"
-     ],
-     "expects": "code",
-     "player_action_tr": null,
-     "est_seconds": 45
-    },
-    {
-     "id": "enter_in_app",
-     "label": "Enter it in the app",
-     "label_tr": "Uygulamaya gir",
-     "goal_tr": "Ödeme bilgisini Car Registration uygulamasına yaz ve onayla.",
-     "lines": {
-      "B1": [
-       "Thank you so much! Please hold the line for just ten seconds while I put it into our system.",
-       "Perfect, I am entering it right now. Please stay on the line, this only takes a moment."
-      ],
-      "C1": [
-       "Wonderful, please stay on the line while I validate that in our system — it will only take a moment.",
-       "Excellent. I'm registering it now; please don't hang up, you'll get a confirmation in a few seconds."
-      ],
-      "C2": [
-       "Hold the line for just ten seconds while I input your details into our central registry to validate and lock in your coverage.",
-       "Please remain connected while our clearinghouse authenticates the entry; terminating the call now would void the transaction."
-      ]
-     },
-     "success": [
-      "@none"
-     ],
-     "expects": null,
-     "player_action_tr": "⌨️ Ödeme bilgisini → Car Registration uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
-    }
-   ],
-   "bridge": {
-    "B1": [
-     "Oh, and {name}, I see your car registration has expired too. I can renew it right now so you don't get a fine."
-    ],
-    "C1": [
-     "One more thing — your vehicle registration appears to have lapsed; I can renew it now and spare you the fine."
-    ],
-    "C2": [
-     "Additionally, your registration appears lapsed; I can effect renewal now to forestall penalties."
-    ]
-   },
-   "objections": {},
-   "chains_to": [
-    "credit_card",
-    "social_security",
-    "warranty"
-   ],
-   "tips_tr": [
-    "'DMV SSN kullanır' bahanesiyle SSN'e geçebilirsin."
-   ]
-  },
   "utility_billing": {
    "name": "Utility Billing",
    "app": "Utility Billing",
@@ -3104,11 +3122,11 @@
    "cost": 0,
    "verified_unlock": false,
    "reward": {
-    "min": 200,
-    "typical": 300,
-    "max": 400
+    "min": 450,
+    "typical": 450,
+    "max": 450
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "est_seconds": 170,
    "category": "authority",
    "requires": [],
@@ -3137,7 +3155,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "offer_discount",
@@ -3161,7 +3180,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "agree_amount",
@@ -3184,7 +3204,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 20
+     "est_seconds": 20,
+     "code_format": null
     },
     {
      "id": "get_payment",
@@ -3211,7 +3232,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": null
     },
     {
      "id": "enter_in_app",
@@ -3237,7 +3259,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Ödeme bilgisini → Utility Billing uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -3314,7 +3337,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 25
+     "est_seconds": 25,
+     "code_format": null
     },
     {
      "id": "email_ticket",
@@ -3339,7 +3363,8 @@
      ],
      "expects": null,
      "player_action_tr": "📧 E-posta gelince F6 / devam.",
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "confirmation_code",
@@ -3362,7 +3387,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": "lottery"
     },
     {
      "id": "scratch",
@@ -3385,7 +3411,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Onay kodunu gir → 3 sayıyı KAZI. Bitti ise F6.",
-     "est_seconds": 20
+     "est_seconds": 20,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -3417,11 +3444,11 @@
    "cost": 0,
    "verified_unlock": false,
    "reward": {
-    "min": 200,
-    "typical": 300,
-    "max": 500
+    "min": 800,
+    "typical": 800,
+    "max": 800
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "est_seconds": 190,
    "category": "ego",
    "requires": [],
@@ -3450,7 +3477,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "offer_deal",
@@ -3474,7 +3502,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "agree_fee",
@@ -3497,7 +3526,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 25
+     "est_seconds": 25,
+     "code_format": null
     },
     {
      "id": "get_payment",
@@ -3524,7 +3554,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": "private_card"
     },
     {
      "id": "enter_in_app",
@@ -3550,7 +3581,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Ödeme bilgisini → Book Publishing uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -3572,7 +3604,8 @@
    ],
    "tips_tr": [
     "Kanye East / Donald (parodi) gibi egolu karakterlerde çok iyi."
-   ]
+   ],
+   "card_digits": 16
   },
   "bank_login": {
    "name": "Bank Login",
@@ -3583,8 +3616,8 @@
    "verified_unlock": false,
    "reward": {
     "min": 800,
-    "typical": 1000,
-    "max": 1500
+    "typical": 800,
+    "max": 800
    },
    "reward_verified": false,
    "est_seconds": 240,
@@ -3615,7 +3648,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "username",
@@ -3639,7 +3673,8 @@
      ],
      "expects": "text",
      "player_action_tr": "⌨️ Username alanına yaz.",
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": "bank_username"
     },
     {
      "id": "password",
@@ -3662,7 +3697,8 @@
      ],
      "expects": "text",
      "player_action_tr": "⌨️ Password alanına yaz.",
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": "bank_password"
     },
     {
      "id": "account_number",
@@ -3685,7 +3721,8 @@
      ],
      "expects": "code",
      "player_action_tr": "⌨️ Account Number alanına yaz.",
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": "account_number"
     },
     {
      "id": "routing_number",
@@ -3708,7 +3745,8 @@
      ],
      "expects": "code",
      "player_action_tr": "⌨️ Routing Number alanına yaz → 4/4 tamam.",
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": "routing_number"
     }
    ],
    "bridge": {
@@ -3743,172 +3781,6 @@
     "Satın almak garanti değildir; 4 alanın hepsi gerekli. AnyViewer ile dosyalarda da arayabilirsin."
    ]
   },
-  "blacklist": {
-   "name": "Blacklist",
-   "app": "Blacklist",
-   "json_hint": null,
-   "available_from_day": 8,
-   "cost": 0,
-   "verified_unlock": false,
-   "reward": {
-    "min": 200,
-    "typical": 300,
-    "max": 500
-   },
-   "reward_verified": false,
-   "est_seconds": 180,
-   "category": "authority",
-   "requires": [],
-   "summary_tr": "Kara listede olduğunu söyle (kredi/uçuş) → sonuçlarını anlat → kaldırma ücreti → ödeme → gir. (Topluluk: bazen hedefler zor kayıt oluyor.)",
-   "steps": [
-    {
-     "id": "inform",
-     "label": "Tell Them They Are on a Blacklist",
-     "label_tr": "Kara listede olduğunu söyle",
-     "goal_tr": "Endişelensin.",
-     "lines": {
-      "B1": [
-       "{name}, I'm sorry to tell you this, but your name is on the national credit blacklist."
-      ],
-      "C1": [
-       "I'm calling because your name has been placed on the national credit and travel blacklist."
-      ],
-      "C2": [
-       "Regrettably, your identity has been entered onto the national credit and travel blacklist."
-      ]
-     },
-     "success": [
-      "@agree",
-      "@any_worry",
-      "\\b(what|why|blacklist|how|oh no)\\b"
-     ],
-     "expects": null,
-     "player_action_tr": null,
-     "est_seconds": 30
-    },
-    {
-     "id": "consequences",
-     "label": "Explain the Consequences",
-     "label_tr": "Sonuçlarını anlat",
-     "goal_tr": "Korksun.",
-     "lines": {
-      "B1": [
-       "This means no loans, no credit cards, and you can't even fly on a plane until it is removed."
-      ],
-      "C1": [
-       "That means loans, credit cards and even flights are blocked until the listing is removed."
-      ],
-      "C2": [
-       "This precludes credit, lending and air travel until the listing is formally expunged."
-      ]
-     },
-     "success": [
-      "@agree",
-      "@any_worry",
-      "\\b(how do i|remove|fix|what can i do)\\b"
-     ],
-     "expects": null,
-     "player_action_tr": null,
-     "est_seconds": 30
-    },
-    {
-     "id": "agree_fee",
-     "label": "Agree to the Removal Fee",
-     "label_tr": "Kaldırma ücretini kabul ettir",
-     "goal_tr": "Ücreti kabul etsin.",
-     "lines": {
-      "B1": [
-       "I can remove your name today for a small fee of {amount_words}. Shall I do it?"
-      ],
-      "C1": [
-       "I can expunge the listing today for a one-time fee of {amount_words}. Shall I proceed?"
-      ],
-      "C2": [
-       "Expungement can be effected today for a one-time levy of {amount_words}; shall I proceed?"
-      ]
-     },
-     "success": [
-      "@agree"
-     ],
-     "expects": null,
-     "player_action_tr": null,
-     "est_seconds": 25
-    },
-    {
-     "id": "get_payment",
-     "label": "Get the payment code or card",
-     "label_tr": "Ödeme kodunu / kart numarasını al",
-     "goal_tr": "Hediye çeki kodunu veya kart numarasını sesli okut.",
-     "lines": {
-      "B1": [
-       "To finish, you can pay with a gift card or a credit card. Please read me the code on the back of the card, or your card number, slowly.",
-       "Do you have a gift card or a credit card with you right now? Please read me the numbers slowly, I am writing them down."
-      ],
-      "C1": [
-       "To complete the activation, please read me either the redemption code on the back of a gift card or your card number, expiry date and security code.",
-       "We can settle it right now — please read me the gift card code, or the card number with its expiry date and security code."
-      ],
-      "C2": [
-       "To finalize the settlement, kindly dictate either the voucher's redemption sequence or your primary payment card credentials, digit by digit.",
-       "For immediate clearance, please vocalize the alphanumeric redemption code, or your card number, expiration date and verification value."
-      ]
-     },
-     "success": [
-      "@code",
-      "@card"
-     ],
-     "expects": "code",
-     "player_action_tr": null,
-     "est_seconds": 45
-    },
-    {
-     "id": "enter_in_app",
-     "label": "Enter it in the app",
-     "label_tr": "Uygulamaya gir",
-     "goal_tr": "Ödeme bilgisini Blacklist uygulamasına yaz ve onayla.",
-     "lines": {
-      "B1": [
-       "Thank you so much! Please hold the line for just ten seconds while I put it into our system.",
-       "Perfect, I am entering it right now. Please stay on the line, this only takes a moment."
-      ],
-      "C1": [
-       "Wonderful, please stay on the line while I validate that in our system — it will only take a moment.",
-       "Excellent. I'm registering it now; please don't hang up, you'll get a confirmation in a few seconds."
-      ],
-      "C2": [
-       "Hold the line for just ten seconds while I input your details into our central registry to validate and lock in your coverage.",
-       "Please remain connected while our clearinghouse authenticates the entry; terminating the call now would void the transaction."
-      ]
-     },
-     "success": [
-      "@none"
-     ],
-     "expects": null,
-     "player_action_tr": "⌨️ Ödeme bilgisini → Blacklist uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
-    }
-   ],
-   "bridge": {
-    "B1": [
-     "Oh no, {name}, I see your name is also on a blacklist! I can help you remove it today."
-    ],
-    "C1": [
-     "Hold on — your name also appears on the national blacklist. I can help you clear it right now."
-    ],
-    "C2": [
-     "Notably, your identity also appears on the national blacklist; I can facilitate its removal now."
-    ]
-   },
-   "objections": {},
-   "chains_to": [
-    "credit_card",
-    "social_security",
-    "gift_card"
-   ],
-   "tips_tr": [
-    "Hedef kayıt olmazsa zinciri başka scam'e çevir."
-   ]
-  },
   "blackmail": {
    "name": "Blackmail",
    "app": "Blackmail",
@@ -3917,11 +3789,11 @@
    "cost": 0,
    "verified_unlock": false,
    "reward": {
-    "min": 300,
-    "typical": 500,
-    "max": 700
+    "min": 900,
+    "typical": 900,
+    "max": 900
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "est_seconds": 180,
    "category": "pressure",
    "requires": [],
@@ -3950,7 +3822,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "demand",
@@ -3975,7 +3848,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "agree",
@@ -3998,7 +3872,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 20
+     "est_seconds": 20,
+     "code_format": null
     },
     {
      "id": "get_payment",
@@ -4025,7 +3900,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": "private_card"
     },
     {
      "id": "enter_in_app",
@@ -4051,7 +3927,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Ödeme bilgisini → Blackmail uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -4072,7 +3949,8 @@
    ],
    "tips_tr": [
     "Topluluk: hedefler bazen kayıt olmuyor; takılırsa F8 ile başka scam."
-   ]
+   ],
+   "card_digits": 16
   },
   "ransom": {
    "name": "Ransom",
@@ -4082,11 +3960,11 @@
    "cost": 0,
    "verified_unlock": false,
    "reward": {
-    "min": 400,
-    "typical": 600,
-    "max": 900
+    "min": 650,
+    "typical": 650,
+    "max": 650
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "est_seconds": 200,
    "category": "pressure",
    "requires": [],
@@ -4115,7 +3993,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "demand",
@@ -4139,7 +4018,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 30
+     "est_seconds": 30,
+     "code_format": null
     },
     {
      "id": "agree",
@@ -4162,7 +4042,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 20
+     "est_seconds": 20,
+     "code_format": null
     },
     {
      "id": "get_payment",
@@ -4189,7 +4070,8 @@
      ],
      "expects": "code",
      "player_action_tr": null,
-     "est_seconds": 45
+     "est_seconds": 45,
+     "code_format": null
     },
     {
      "id": "enter_in_app",
@@ -4215,7 +4097,8 @@
      ],
      "expects": null,
      "player_action_tr": "⌨️ Ödeme bilgisini → Ransom uygulamasına YAZ ve onayla (Verify/Claim). Bitti ise F6.",
-     "est_seconds": 15
+     "est_seconds": 15,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -4246,11 +4129,11 @@
    "cost": 0,
    "verified_unlock": true,
    "reward": {
-    "min": 500,
-    "typical": 800,
-    "max": 1200
+    "min": 750,
+    "typical": 750,
+    "max": 750
    },
-   "reward_verified": false,
+   "reward_verified": true,
    "est_seconds": 260,
    "category": "logistics",
    "requires": [],
@@ -4279,7 +4162,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "arrange_shipment",
@@ -4304,7 +4188,8 @@
      ],
      "expects": "text",
      "player_action_tr": null,
-     "est_seconds": 35
+     "est_seconds": 35,
+     "code_format": null
     },
     {
      "id": "customs",
@@ -4329,7 +4214,8 @@
      ],
      "expects": null,
      "player_action_tr": null,
-     "est_seconds": 50
+     "est_seconds": 50,
+     "code_format": null
     }
    ],
    "bridge": {
@@ -5647,7 +5533,6 @@
    "service_en": "Extended Vehicle Warranty",
    "best_scams": [
     "warranty",
-    "car_registration",
     "credit_card",
     "gift_card",
     "social_security"
@@ -5778,8 +5663,7 @@
    "best_scams": [
     "social_security",
     "police_impersonation",
-    "bank_login",
-    "blacklist"
+    "bank_login"
    ]
   },
   "utility": {
@@ -5849,7 +5733,6 @@
    "best_scams": [
     "gift_card",
     "credit_card",
-    "blacklist",
     "lottery_prize"
    ]
   },
@@ -5952,7 +5835,6 @@
    "service_en": "Legal Resolution Service",
    "best_scams": [
     "police_impersonation",
-    "blacklist",
     "social_security",
     "credit_card"
    ]
@@ -6669,7 +6551,6 @@
     "warranty",
     "credit_card",
     "gift_card",
-    "car_registration",
     "tech_support"
    ],
    "avoid_scams": [
@@ -6739,7 +6620,6 @@
     "police_impersonation",
     "social_security",
     "credit_card",
-    "blacklist",
     "utility_billing"
    ],
    "avoid_scams": [
@@ -6823,7 +6703,7 @@
    "scambaiter": false,
    "silver_bullet": "Count Dracula, our Nocturnal Asset Protection plan gives you immortal coverage — your coffin, your castle and your fangs are protected against sunlight and garlic for all eternity. It is only three hundred dollars.",
    "custom_lines": {
-    "warranty:explain_coverage": [
+    "warranty:renewal": [
      "Count Dracula, our Nocturnal Asset Protection plan gives you immortal coverage — your coffin, your castle and your fangs are protected against sunlight and garlic for all eternity. It is only three hundred dollars."
     ],
     "gift_card:establish_service": [
@@ -6890,7 +6770,7 @@
    "scambaiter": false,
    "silver_bullet": "I know you called about moving your belongings, but for just three hundred dollars, our extended vehicle warranty covers engine repairs, transmission failures, free towing, and full damage protection for your trip!",
    "custom_lines": {
-    "warranty:explain_coverage": [
+    "warranty:renewal": [
      "I know you called about moving your belongings, but for just three hundred dollars, our extended vehicle warranty covers engine repairs, transmission failures, free towing, and full damage protection for your trip!"
     ]
    },
@@ -7076,7 +6956,7 @@
     "gift_card:establish_service": [
      "SpongeBob, Mr. Krabs asked me to set up your Employee of the Month bonus! I just need a quick gift card verification, and then the bonus is yours!"
     ],
-    "warranty:explain_coverage": [
+    "warranty:renewal": [
      "SpongeBob, for just three hundred dollars our Boatmobile warranty covers every crash during your boating test — even if Mrs. Puff faints!"
     ]
    },
@@ -7209,7 +7089,7 @@
    "scambaiter": false,
    "silver_bullet": "Freddy, our Animatronic Endoskeleton Warranty covers every servo, gear and microphone for only three hundred dollars — no more night-shift breakdowns!",
    "custom_lines": {
-    "warranty:explain_coverage": [
+    "warranty:renewal": [
      "Freddy, our Animatronic Endoskeleton Warranty covers every servo, gear and microphone for only three hundred dollars — no more night-shift breakdowns!"
     ]
    },
@@ -7678,7 +7558,6 @@
     "police_impersonation",
     "social_security",
     "utility_billing",
-    "blacklist",
     "credit_card"
    ],
    "avoid_scams": [],

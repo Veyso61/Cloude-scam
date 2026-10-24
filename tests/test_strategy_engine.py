@@ -124,16 +124,23 @@ class EngineTest(unittest.TestCase):
 
     def test_investment_ladder(self):
         eng, st, clock = make(day=5)
-        eng.new_call("damien_holloway")
+        eng.new_call()
+        for _ in range(len(eng.db["scams"])):          # F8 ile Investment seç
+            if eng.session.current == "investment":
+                break
+            eng.next_scam()
+        self.assertEqual(eng.session.current, "investment")
         say(eng, clock, "What do you want? I manage a large portfolio.")
+        self.assertEqual(eng.session.current, "investment")   # elle seçim, arayan konuşunca bozulmaz
         say(eng, clock, "Interesting, tell me more.")
         a = say(eng, clock, "Sounds good, go on.")
         self.assertEqual(a.step_label, "Agree on an Investment Amount")
-        self.assertIn("two thousand dollars", a.say)
+        self.assertIn("eight hundred dollars", a.say)          # oyundaki en yüksek kademe
         a = say(eng, clock, "No, that's too much.")
-        self.assertIn("$1,500", a.note_tr)
-        a = say(eng, clock, "Okay, I will invest 1,500 dollars.")
-        self.assertEqual(eng.session.agreed_amount, 1500)
+        self.assertIn("$600", a.note_tr)
+        a = say(eng, clock, "Okay, I will invest 650 dollars.")
+        self.assertEqual(eng.session.agreed_amount, 650)
+        self.assertEqual(eng._reward("investment"), 600)       # 650 → $600 kademesi
 
     def test_character_by_keywords(self):
         eng, st, clock = make(day=1)
@@ -263,7 +270,7 @@ class AutoCallAndTrustTest(unittest.TestCase):
             eng.next_scam()
         eng.session.step_idx["credit_card"] = 2
         a = say(eng, clock, "Okay, it's 4417 2231")
-        self.assertIn("8/16", a.note_tr)
-        a = say(eng, clock, "9981 0042", wait=5)
+        self.assertIn("8/12", a.note_tr)          # oyundaki kart numarası 12 hane (4-4-4)
+        a = say(eng, clock, "9981", wait=5)
         self.assertIn("credit_card", eng.session.completed)
-        self.assertTrue(any("4417 2231 9981 0042" in d for d in a.data_lines))
+        self.assertTrue(any("4417 2231 9981" in d for d in a.data_lines))
