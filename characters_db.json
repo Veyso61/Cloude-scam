@@ -5925,20 +5925,24 @@
     "mrs mayfield",
     "mayfield"
    ],
+   "game_id": "dorothy_mayfield",
+   "gender": "Female",
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "trusting",
    "secondary": [
     "pressured"
    ],
    "verified": true,
-   "source_tr": "Resmi ekran görüntüsü: %65 Trusting, $250 Social Security tamamlanırken numarayı geri teyit ediyor.",
+   "source_tr": "Oyun dosyası: kibar, teknolojiden anlamayan 72 yaşında emekli kütüphaneci (Scottsdale). Başlangıç güveni %50, Trusting.",
    "generic": false,
    "mod": false,
    "typical_week": 1,
-   "trust_start": 65,
+   "trust_start": 50,
    "formal_name": "Mrs. Mayfield",
    "first_name": "Dorothy",
-   "profile_tr": "Yaşlı, kibar ama bürokratik işlemlerden ve kimlik karmaşasından korkan; işbirlikçi.",
-   "weakness_tr": "Sabırlı, nazik, koruyucu devlet/banka görevlisi tonu ('Ma'am, we are protecting your pension') → anında teslim olur.",
+   "profile_tr": "Nazik, teknolojiden anlamaz, internetten korkar; sana 'dear'/'honey' der. Çok işbirlikçi.",
+   "weakness_tr": "Sabırlı, nazik, koruyucu devlet/banka görevlisi tonu ('Ma'am, we are protecting your pension') → kolay teslim olur.",
    "fatal_tr": [
     "Kaba konuşmak",
     "Acele ettirmek",
@@ -5953,7 +5957,11 @@
     "retired",
     "benefits",
     "oh dear",
-    "goodness"
+    "goodness",
+    "library",
+    "raccoons",
+    "honey",
+    "dear"
    ],
    "topic": "taxes",
    "problem_en": "your pension and identity records",
@@ -6000,24 +6008,28 @@
     "granny grimshaw",
     "mrs. grimshaw"
    ],
+   "game_id": "eleanor_grimshaw",
+   "gender": "Female",
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "trusting",
    "secondary": [
     "lonely",
     "absurd"
    ],
    "verified": true,
-   "source_tr": "Resmi ekran görüntüsü: %75 Trusting; cadı şapkalı, SSN'ini okurken 'kötü alamet' diye endişeleniyor.",
+   "source_tr": "Oyun dosyası: batıl inançlı, unutkan 89 yaşında kırsal West Virginia büyükannesi; hayalet/uğur/ev ilaçları.",
    "generic": false,
    "mod": false,
    "typical_week": 1,
-   "trust_start": 75,
+   "trust_start": 50,
    "formal_name": "Mrs. Grimshaw",
    "first_name": "Eleanor",
-   "profile_tr": "Yalnızlık çeken, batıl inançlı (alamet, şans), bilgisayarla başı dertte yaşlı kadın. Çok kolay güveniyor.",
-   "weakness_tr": "Duygusal ilgi, iltifat, tatlı lakaplar ('Sweetheart', 'My dear'), AVM'de buluşma vaadi; 'iyi alamet' çerçevesi.",
+   "profile_tr": "Yalnız, batıl inançlı (alamet, şans, hayalet), unutkan yaşlı kadın. Çok kolay güveniyor.",
+   "weakness_tr": "Duygusal ilgi, iltifat, tatlı lakaplar, 'iyi alamet' çerçevesi; romantik/duygusal yaklaşım.",
    "fatal_tr": [
     "Soğuk ve robotik konuşmak",
-    "Teknik destekte korkutucu/saldırgan ifadeler"
+    "Korkutucu/saldırgan ifadeler"
    ],
    "keywords": [
     "omen",
@@ -6025,14 +6037,15 @@
     "good luck",
     "witch",
     "spell",
-    "crystal",
-    "cat",
-    "broom",
-    "potion",
+    "ghost",
+    "haunt",
+    "remedy",
+    "curse",
     "stars",
     "granny",
     "sweetheart",
-    "fortune"
+    "fortune",
+    "dearie"
    ],
    "topic": "computer",
    "problem_en": "your computer trouble",
@@ -6050,7 +6063,7 @@
    "pet_name": "sweetheart",
    "hang_up": false,
    "scambaiter": false,
-   "silver_bullet": "Oh my dear sweet lady, you remind me so much of my own beloved grandmother! Please don't stress your gentle heart — I am going to fix your computer and protect every single penny of your savings so we can go on that lovely date to the mall together.",
+   "silver_bullet": "Oh my dear sweet lady, you remind me so much of my own beloved grandmother! Please don't stress your gentle heart — I am going to fix your computer and protect every single penny of your savings.",
    "custom_lines": {
     "romance:learn_interest": [
      "Oh my dear sweet lady, you have the warmest voice I've heard all day! Tell me, what do you love to do — do you read the stars, or maybe bake?"
@@ -6076,28 +6089,32 @@
     "vega",
     "miles"
    ],
+   "game_id": "commander_miles_vega",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "skeptical",
    "secondary": [],
    "verified": true,
-   "source_tr": "Resmi ekran görüntüsü: %50 Angry; her şeyin kurallara göre ('by the book') yapılmasını isteyen astronot, AnyViewer kodunu ancak prosedürle verir.",
+   "source_tr": "Oyun dosyası: disiplinli astronot (Liberty Seven), 197 gündür görevde; sakin teknik dil, telsiz jargonu ('over').",
    "generic": false,
    "mod": false,
    "typical_week": 2,
    "trust_start": 50,
    "formal_name": "Commander Vega",
    "first_name": "Commander",
-   "profile_tr": "Askerî/astronot disiplini; prosedür, protokol ve resmi jargon bekliyor.",
-   "weakness_tr": "Kritik sistem arızası + resmi protokol jargonu ('Orbital telemetry', 'Directive 404', 'Standard diagnostic clearance') → AnyViewer kodunu verir.",
+   "profile_tr": "Askerî/astronot disiplini; prosedür, protokol ve resmî jargon bekler.",
+   "weakness_tr": "Kritik sistem arızası + resmî protokol jargonu ('Orbital telemetry', 'Directive', 'standard procedure') → işbirliği yapar.",
    "fatal_tr": [
     "Laubali/sokak ağzı konuşmak",
-    "Prosedürü açıklamadan uzaktan erişim kodu istemek"
+    "Prosedürü açıklamadan uzaktan erişim istemek"
    ],
    "keywords": [
     "commander",
     "orbit",
     "mission",
     "station",
-    "nasa",
+    "liberty seven",
     "telemetry",
     "protocol",
     "by the book",
@@ -6105,8 +6122,7 @@
     "roger",
     "houston",
     "astronaut",
-    "space",
-    "capsule",
+    "orbital night",
     "procedure",
     "copy that"
    ],
@@ -6145,7 +6161,7 @@
    },
    "tips_tr": [
     "Her cümleyi 'over' ile bitir.",
-    "Tech Support → AnyViewer → Password Recovery ($500) zinciri."
+    "Tech Support → AnyViewer → Password Recovery zinciri."
    ],
    "give_up_seconds": null
   },
@@ -6158,35 +6174,42 @@
     "summers",
     "brittany summers"
    ],
-   "archetype": "mixed",
+   "game_id": "brittany_lexi_summers",
+   "gender": "Female",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "impatient",
    "secondary": [
-    "impatient"
+    "ego",
+    "mixed"
    ],
    "verified": true,
-   "source_tr": "Resmi ekran görüntüsü: %5 Angry; öfkeli ve kapatmak üzere, oyuncu özür diliyor.",
+   "source_tr": "Oyun dosyası: kaba, kendine hayran 24 yaşında LA influencer'ı; güzellik/statü/lüks; hızlı hizmet ve zarif iltifat sever.",
    "generic": false,
    "mod": false,
    "typical_week": 1,
-   "trust_start": 30,
+   "trust_start": 50,
    "formal_name": "Ms. Summers",
    "first_name": "Lexi",
-   "profile_tr": "Sürekli itiraz eden, ikna edilmesi güç; güveni hızla %5'e (Angry) düşebilir. Vakit tuzağı.",
-   "weakness_tr": "Kısa, net, otoriter çözümler — ilk 60 saniyede kontrol al.",
+   "profile_tr": "Sabırsız, kendine hayran influencer; hızlı hizmet ve iltifat ister, oyalanmaya tahammülü yok.",
+   "weakness_tr": "Kısa, net, otoriter çözüm + zarif iltifat ('VIP', 'exclusive'); ilk 60 saniyede kontrol al.",
    "fatal_tr": [
-    "İtiraz döngüsünde inatla konuşmayı sürdürmek (ilk 90 sn ilerleme yoksa Hang Up)"
+    "İtiraz döngüsünde oyalamak (ilerleme yoksa kapatır)",
+    "Onu küçümsemek"
    ],
    "keywords": [
     "literally",
     "oh my god",
     "seriously",
     "ugh",
-    "like",
-    "totally",
-    "whatever",
-    "refund",
-    "manager",
+    "filming",
     "influencer",
-    "followers"
+    "followers",
+    "beauty",
+    "outfit",
+    "luxury",
+    "refund",
+    "manager"
    ],
    "topic": "order",
    "problem_en": "your order",
@@ -6194,11 +6217,10 @@
    "best_scams": [
     "credit_card",
     "gift_card",
-    "utility_billing"
+    "utility_billing",
+    "book_publishing"
    ],
    "avoid_scams": [
-    "romance",
-    "investment",
     "nigerian_prince",
     "ip_geolocation"
    ],
@@ -6206,157 +6228,17 @@
    "pet_name": "babe",
    "hang_up": false,
    "scambaiter": false,
-   "silver_bullet": "Lexi, I hear you — I'm fixing it right now. You get an instant refund today, I just need a quick gift card verification. Thirty seconds, okay?",
+   "silver_bullet": "Lexi, I hear you — I'm fixing it right now. You get an instant VIP refund today, I just need a quick gift card verification. Thirty seconds, okay?",
    "custom_lines": {
     "gift_card:establish_service": [
-     "Lexi, I hear you — I'm fixing it right now. You get an instant refund today, I just need a quick gift card verification. Thirty seconds, okay?"
+     "Lexi, I hear you — I'm fixing it right now. You get an instant VIP refund today, I just need a quick gift card verification. Thirty seconds, okay?"
     ]
    },
    "tips_tr": [
-    "90 sn içinde adım ilerlemezse KAPAT, yeni arama.",
-    "Uzun açıklama yapma."
+    "90 sn içinde adım ilerlemezse başka scam'e geç veya kapat.",
+    "Uzun açıklama yapma; iltifat + hız."
    ],
    "give_up_seconds": 90
-  },
-  "franklin_hyper": {
-   "id": "franklin_hyper",
-   "name": "Franklin D. Hyper",
-   "aliases": [
-    "franklin",
-    "hyper",
-    "franklin hyper",
-    "frank"
-   ],
-   "archetype": "scambaiter",
-   "secondary": [
-    "greedy",
-    "ego"
-   ],
-   "verified": true,
-   "source_tr": "Resmi ekran görüntüsü: %0 Angry; güneş gözlüklü, hakaret eden ve yeni token'ını pazarlayan karakter. Mod sayfasında örnek kişilik. PDF: Disscord Nitro tuzağı gönderen scambaiter.",
-   "generic": false,
-   "mod": false,
-   "typical_week": 2,
-   "trust_start": 0,
-   "formal_name": "Mr. Hyper",
-   "first_name": "Franklin",
-   "profile_tr": "Kripto 'bro', hakaret eder, kendi token'ını satmaya çalışır; ekrana sahte 'Disscord Nitro' hediyesi yollar.",
-   "weakness_tr": "Açgözlülük: Meme Coin/Investment denenebilir ama riskli. Asla linkine/hediyesine tıklama.",
-   "fatal_tr": [
-    "Disscord Nitro linkine tıklamak (terminale ağır virüs)",
-    "Verdiği koda bağlanmak"
-   ],
-   "keywords": [
-    "token",
-    "launch",
-    "to the moon",
-    "crypto",
-    "nitro",
-    "disscord",
-    "bro",
-    "loser",
-    "sunglasses",
-    "rug",
-    "pump",
-    "airdrop",
-    "hodl",
-    "lambo"
-   ],
-   "topic": "money",
-   "problem_en": "your token launch",
-   "service_en": "Token Liquidity Boost",
-   "best_scams": [
-    "meme_coin",
-    "investment"
-   ],
-   "avoid_scams": [],
-   "level": "B1",
-   "pet_name": "bro",
-   "hang_up": true,
-   "scambaiter": true,
-   "silver_bullet": "Franklin, bro, your token is cool, but my coin is already mooning — want in before it lists? No links, I just need you to say yes.",
-   "custom_lines": {},
-   "tips_tr": [
-    "Önerilen: kısa dene, olmuyorsa KAPAT.",
-    "Virüs bulaşırsa Malwarebits → Remove virus."
-   ],
-   "give_up_seconds": null
-  },
-  "damien_holloway": {
-   "id": "damien_holloway",
-   "name": "Damien Holloway",
-   "aliases": [
-    "damien",
-    "holloway",
-    "mr. holloway",
-    "mr holloway"
-   ],
-   "archetype": "greedy",
-   "secondary": [
-    "pressured",
-    "skeptical"
-   ],
-   "verified": true,
-   "source_tr": "Resmi ekran görüntüsü: %0 Angry; oyuncunun çok tuhaf isteğinden etkilenmemiş.",
-   "generic": false,
-   "mod": false,
-   "typical_week": 2,
-   "trust_start": 20,
-   "formal_name": "Mr. Holloway",
-   "first_name": "Damien",
-   "profile_tr": "Finansal spekülasyon, kripto ve yüksek getiriye odaklı yatırımcı. Tuhaf/amatör isteklere sert.",
-   "weakness_tr": "'Kapalı devre VIP yatırım', 'garantili arbitraj', kurumsal fon dili → yüksek meblağ.",
-   "fatal_tr": [
-    "Küçük meblağlar için yalvarmak",
-    "Finansal terimlerde amatörce hata",
-    "Tuhaf, alakasız istekler"
-   ],
-   "keywords": [
-    "portfolio",
-    "returns",
-    "investment",
-    "equity",
-    "hedge",
-    "fund",
-    "roi",
-    "yield",
-    "capital",
-    "arbitrage",
-    "ipo",
-    "assets",
-    "dividends",
-    "market"
-   ],
-   "topic": "money",
-   "problem_en": "your portfolio",
-   "service_en": "Private Wealth Arbitrage Program",
-   "best_scams": [
-    "investment",
-    "bitcoin",
-    "meme_coin",
-    "book_publishing",
-    "bank_login"
-   ],
-   "avoid_scams": [
-    "gift_card",
-    "romance",
-    "lottery_prize"
-   ],
-   "level": "C1",
-   "pet_name": "partner",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "Mr. Holloway, I'll be direct because your time is valuable: we're closing a private pre-IPO round this afternoon with a projected three-x return, and I've reserved an allocation for you — the minimum ticket is two thousand dollars.",
-   "custom_lines": {
-    "investment:pitch": [
-     "Mr. Holloway, I'll be direct because your time is valuable: we're closing a private pre-IPO round this afternoon with a projected three-x return, and I've reserved an allocation for you."
-    ]
-   },
-   "tips_tr": [
-    "Investment'ta $2000'den başla, gerekirse $1000'e in.",
-    "Bitcoin'de değeri yükseltip zamanında Cash Out."
-   ],
-   "give_up_seconds": null
   },
   "shanice_bishop": {
    "id": "shanice_bishop",
@@ -6368,35 +6250,42 @@
     "ms. bishop",
     "ms bishop"
    ],
-   "archetype": "skeptical",
+   "game_id": "shanice_dee_bishop",
+   "gender": "Female",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "impatient",
    "secondary": [
-    "impatient"
+    "mixed",
+    "trusting"
    ],
    "verified": true,
-   "source_tr": "Resmi gelen arama ekranında görünüyor (detay yok). Profil PDF'ten.",
+   "source_tr": "Oyun dosyası: sıcak, gür sesli 33 yaşında Atlanta tıbbi kurye dispeçeri; işini hızlı halletmek ister, sana 'baby' der.",
    "generic": false,
    "mod": false,
    "typical_week": 1,
-   "trust_start": 40,
+   "trust_start": 50,
    "formal_name": "Ms. Bishop",
    "first_name": "Shanice",
-   "profile_tr": "Doğrudan sonuca odaklanan, ne istediğini bilen, yüzeysel yalanları hızla sorgulayan şehirli profil.",
-   "weakness_tr": "Somut finansal fayda: fatura indirimi, kurumsal kupon, hediye çeki avantajı.",
+   "profile_tr": "Sıcak ama hızlı sonuç isteyen şehirli; sana 'baby' der, işi çabuk bitsin ister.",
+   "weakness_tr": "Somut ve HIZLI fayda: fatura indirimi, kupon, hediye çeki avantajı; net ve kısa konuş.",
    "fatal_tr": [
     "Uzun, dolambaçlı hikâye",
-    "Sorusuna kaçamak cevap"
+    "Sorusuna kaçamak cevap",
+    "Ona hakaret (anında küfürlü karşılık)"
    ],
    "keywords": [
-    "bottom line",
-    "how much",
-    "what's in it for me",
-    "discount",
-    "coupon",
-    "rebate",
-    "bill",
+    "baby",
+    "dinner",
+    "cousin",
+    "church",
+    "traffic",
+    "dispatch",
+    "ambulance",
+    "braiding",
     "real quick",
     "girl",
-    "honestly"
+    "bottom line"
    ],
    "topic": "utility",
    "problem_en": "your bill",
@@ -6412,18 +6301,1273 @@
     "romance",
     "nigerian_prince"
    ],
-   "level": "C1",
+   "level": "B1",
    "pet_name": "Dee",
    "hang_up": false,
    "scambaiter": false,
-   "silver_bullet": "Shanice, I respect your time so I will cut straight to the chase: your account qualifies for an instant two-hundred-dollar utility and service rebate today, and the fastest way to claim it without bank delays is verifying a quick gift card voucher.",
+   "silver_bullet": "Shanice, I respect your time so I'll cut straight to it, baby: your account qualifies for an instant two-hundred-dollar utility rebate today, and the fastest way to claim it is a quick gift card voucher.",
    "custom_lines": {
     "gift_card:establish_service": [
-     "Shanice, I respect your time so I will cut straight to the chase: your account qualifies for an instant two-hundred-dollar utility and service rebate today, and the fastest way to claim it without bank delays is verifying a quick gift card voucher."
+     "Shanice, I respect your time so I'll cut straight to it, baby: your account qualifies for an instant two-hundred-dollar utility rebate today, and the fastest way to claim it is a quick gift card voucher."
     ]
    },
    "tips_tr": [
     "Kısa ve somut ol; her soruya net cevap."
+   ],
+   "give_up_seconds": null
+  },
+  "brayden_mills": {
+   "id": "brayden_mills",
+   "name": "Brayden \"Tugboat\" Mills",
+   "aliases": [
+    "brayden",
+    "tugboat",
+    "mills",
+    "brayden mills"
+   ],
+   "game_id": "brayden_tugboat_mills",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "trusting",
+   "secondary": [
+    "absurd"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: tatlı, kafası dağınık 22 yaşında Ohio'lu lunapark görevlisi; annesiyle yaşıyor, yüksek skor ekranına tapıyor.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Mills",
+   "first_name": "Brayden",
+   "profile_tr": "Saf, dikkati dağınık, neşeli genç; 'like', 'no way', 'wait what' der.",
+   "weakness_tr": "Basit, neşeli, acele etmeyen dil; oyun/ödül/yüksek skor çerçevesi; her şeye kolay 'evet' der.",
+   "fatal_tr": [
+    "Aşırı teknik jargon",
+    "Sert/resmî ton"
+   ],
+   "keywords": [
+    "arcade",
+    "high score",
+    "foam pit",
+    "mom",
+    "like",
+    "no way",
+    "wait what",
+    "tokens",
+    "prize",
+    "games"
+   ],
+   "topic": "order",
+   "problem_en": "your arcade prize",
+   "service_en": "Prize Claim Service",
+   "best_scams": [
+    "gift_card",
+    "lottery_prize",
+    "tech_support",
+    "romance",
+    "credit_card",
+    "warranty"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "dude",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Oyun/ödül diliyle yaklaş; basit tut."
+   ],
+   "give_up_seconds": null
+  },
+  "earl_harlan": {
+   "id": "earl_harlan",
+   "name": "Earl \"Buck\" Harlan",
+   "aliases": [
+    "earl",
+    "buck",
+    "harlan",
+    "buck harlan"
+   ],
+   "game_id": "earl_buck_harlan",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "mixed",
+   "secondary": [
+    "impatient",
+    "skeptical"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: sert, küfürbaz 76 yaşında emekli Kentucky çiftçisi; kısa fitilli, yabancılara şüpheli.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Harlan",
+   "first_name": "Buck",
+   "profile_tr": "Sert, sabırsız, kaba yaşlı çiftçi; 'son', 'that dog won't hunt' der. Satış konuşmasına direnir.",
+   "weakness_tr": "Dobra, kısa, otoriter ve saygılı ton; vakit kaybettirme, net somut sonuç; araç/çiftlik/fatura çerçevesi.",
+   "fatal_tr": [
+    "Uzun saçmalamak",
+    "Yapmacık nezaket",
+    "Aksanlı/dolambaçlı konuşma (güvenini kırar)"
+   ],
+   "keywords": [
+    "son",
+    "darlin",
+    "bless your heart",
+    "that dog won't hunt",
+    "farm",
+    "chores",
+    "tractor",
+    "kentucky",
+    "damn",
+    "speak up"
+   ],
+   "topic": "car",
+   "problem_en": "your truck and farm equipment",
+   "service_en": "Rural Coverage Plan",
+   "best_scams": [
+    "warranty",
+    "utility_billing",
+    "social_security",
+    "credit_card",
+    "gift_card"
+   ],
+   "avoid_scams": [
+    "romance",
+    "nigerian_prince",
+    "meme_coin"
+   ],
+   "level": "B1",
+   "pet_name": "son",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Net, kısa, saygılı; lafı dolandırma."
+   ],
+   "give_up_seconds": 100
+  },
+  "silas_brubaker": {
+   "id": "silas_brubaker",
+   "name": "Silas \"Silo\" Brubaker",
+   "aliases": [
+    "silas",
+    "silo",
+    "brubaker"
+   ],
+   "game_id": "silas_silo_brubaker",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "trusting",
+   "secondary": [
+    "skeptical"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: dindar, sade Old Order Amish çiftçisi (Holmes County, Ohio); at arabası, ortak telefon kulübesi.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Brubaker",
+   "first_name": "Silas",
+   "profile_tr": "Dürüst, sabırlı, alçakgönüllü Amish çiftçi; dürüstlük ve sabra değer verir.",
+   "weakness_tr": "Dürüst, sabırlı, mütevazı ton; topluluk/aile/komşuya yardım çerçevesi; acele yok.",
+   "fatal_tr": [
+    "İnancıyla alay etmek",
+    "Aceleci baskı",
+    "Teknoloji jargonu"
+   ],
+   "keywords": [
+    "amish",
+    "ordnung",
+    "buggy",
+    "phone shanty",
+    "harness",
+    "barn",
+    "plain",
+    "church district",
+    "dairy",
+    "corn",
+    "auditor"
+   ],
+   "topic": "home",
+   "problem_en": "your farm and household",
+   "service_en": "Homestead Protection Plan",
+   "best_scams": [
+    "warranty",
+    "utility_billing",
+    "gift_card",
+    "social_security"
+   ],
+   "avoid_scams": [
+    "meme_coin",
+    "bitcoin",
+    "investment"
+   ],
+   "level": "B1",
+   "pet_name": "friend",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Sakin, dürüst, mütevazı; inancına saygı göster."
+   ],
+   "give_up_seconds": null
+  },
+  "sloane_park_voss": {
+   "id": "sloane_park_voss",
+   "name": "Sloane Park-Voss",
+   "aliases": [
+    "sloane",
+    "park-voss",
+    "park voss",
+    "voss"
+   ],
+   "game_id": "sloane_park_voss",
+   "gender": "Female",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "impatient",
+   "secondary": [
+    "ego",
+    "skeptical"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: sabırsız, statü düşkünü 27 yaşında Silver Lake pazarlama koordinatörü; iğneleyici, verimlilik ister.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Ms. Park-Voss",
+   "first_name": "Sloane",
+   "profile_tr": "Sabırsız, statü odaklı, iğneleyici; her aramayı performans değerlendirmesi gibi görür.",
+   "weakness_tr": "Sakin özgüven, verimlilik, özel/exclusive hissi ve zarif iltifat; vakit kaybettirme.",
+   "fatal_tr": [
+    "Tereddüt/kekeleme",
+    "Oyalamak",
+    "Amatörce görünmek"
+   ],
+   "keywords": [
+    "pilates",
+    "performance review",
+    "efficiency",
+    "outfit",
+    "coordinator",
+    "exclusive",
+    "literally",
+    "whatever",
+    "silver lake"
+   ],
+   "topic": "order",
+   "problem_en": "your order",
+   "service_en": "Priority Concierge Service",
+   "best_scams": [
+    "credit_card",
+    "gift_card",
+    "investment",
+    "book_publishing"
+   ],
+   "avoid_scams": [
+    "nigerian_prince",
+    "lottery_prize"
+   ],
+   "level": "C1",
+   "pet_name": "",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Kısa, kendinden emin, 'exclusive' çerçevesi."
+   ],
+   "give_up_seconds": 90
+  },
+  "wei_chen": {
+   "id": "wei_chen",
+   "name": "Wei \"Kevin\" Chen",
+   "aliases": [
+    "wei",
+    "kevin",
+    "chen",
+    "wei chen",
+    "kevin chen"
+   ],
+   "game_id": "wei_kevin_chen",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "trusting",
+   "secondary": [
+    "pressured"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: endişeli, aşırı kibar 41 yaşında Flushing mantı dükkânı sahibi; her aksiliği felaket sanır.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Chen",
+   "first_name": "Kevin",
+   "profile_tr": "Endişeli, çok kibar dükkân sahibi; küçük sorunları büyütür, basit cümlelerle konuşur.",
+   "weakness_tr": "Nazik, sabırlı, güven veren yardım; sorununu hızlı çözecek güvence; iş/dükkân kaygısı.",
+   "fatal_tr": [
+    "Kaba olmak",
+    "Aceleyle paniğe sürüklemek"
+   ],
+   "keywords": [
+    "dumpling",
+    "shop",
+    "soup",
+    "lunch queue",
+    "kitchen",
+    "appliance",
+    "sorry",
+    "apologize",
+    "flushing",
+    "customers"
+   ],
+   "topic": "computer",
+   "problem_en": "your shop's computer and payment system",
+   "service_en": "Small Business Protection",
+   "best_scams": [
+    "tech_support",
+    "gift_card",
+    "credit_card",
+    "utility_billing",
+    "warranty"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "my friend",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Sakinleştir, basit cümleler, güven ver."
+   ],
+   "give_up_seconds": null
+  },
+  "reese_caldwell": {
+   "id": "reese_caldwell",
+   "name": "Reese Caldwell",
+   "aliases": [
+    "reese",
+    "caldwell",
+    "reese caldwell"
+   ],
+   "game_id": "reese_normal_voice",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "skeptical",
+   "secondary": [
+    "ego"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: parlak ama aşırı özgüvenli 23 yaşında serbest siber güvenlik danışmanı; şifreleme/VPN'den bahseder.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Mr. Caldwell",
+   "first_name": "Reese",
+   "profile_tr": "Kendini siber güvenlik uzmanı sanan genç; teknik dolandırıcılığı hemen fark eder.",
+   "weakness_tr": "Egosunu okşa ('you clearly know your stuff'); teknik DEĞİL, yatırım/ego temelli scam'lere yönlendir.",
+   "fatal_tr": [
+    "Tech Support / AnyViewer / Password Recovery denemek (anında yakalar)",
+    "Amatörce teknik hata"
+   ],
+   "keywords": [
+    "encryption",
+    "vpn",
+    "firewall",
+    "authentication",
+    "surveillance",
+    "cybersecurity",
+    "two factor",
+    "printer",
+    "consultant",
+    "hacker"
+   ],
+   "topic": "money",
+   "problem_en": "your crypto portfolio",
+   "service_en": "Exclusive Investor Round",
+   "best_scams": [
+    "investment",
+    "meme_coin",
+    "bitcoin",
+    "book_publishing"
+   ],
+   "avoid_scams": [
+    "tech_support",
+    "anyviewer",
+    "password_recovery"
+   ],
+   "level": "C2",
+   "pet_name": "",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Teknik scam deneme; egosunu okşa, yatırıma çek."
+   ],
+   "give_up_seconds": null
+  },
+  "brody_jenkins": {
+   "id": "brody_jenkins",
+   "name": "Brody \"Wave\" Jenkins",
+   "aliases": [
+    "brody",
+    "wave",
+    "jenkins",
+    "brody jenkins"
+   ],
+   "game_id": "brody_wave_jenkins",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "trusting",
+   "secondary": [
+    "absurd"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: ukala ama saf 26 yaşında Huntington Beach sörfçüsü; sörf argosu.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Jenkins",
+   "first_name": "Brody",
+   "profile_tr": "Rahat, saf sörfçü; argo konuşur, kolay kanar.",
+   "weakness_tr": "Rahat, dostça, basit dil; sörf/yaşam tarzı ve bedava ödül çerçevesi.",
+   "fatal_tr": [
+    "Aşırı resmî/teknik ton"
+   ],
+   "keywords": [
+    "dude",
+    "bro",
+    "surf",
+    "wave",
+    "gnarly",
+    "beach",
+    "stoked",
+    "barrel",
+    "sick",
+    "chill"
+   ],
+   "topic": "order",
+   "problem_en": "your order",
+   "service_en": "Easy Refund Service",
+   "best_scams": [
+    "gift_card",
+    "lottery_prize",
+    "meme_coin",
+    "warranty",
+    "romance"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "dude",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Rahat ol, basit tut; ödül/bedava çerçevesi."
+   ],
+   "give_up_seconds": null
+  },
+  "damien_holloway": {
+   "id": "damien_holloway",
+   "name": "Damien Holloway",
+   "aliases": [
+    "damien",
+    "holloway",
+    "mr. holloway",
+    "mr holloway"
+   ],
+   "game_id": "damien_holloway",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "mixed",
+   "secondary": [
+    "impatient",
+    "skeptical"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: sürekli yorgun, nihilist 29 yaşında gece vardiyası oyuncusu ve kurye; kısa, kuru, karamsar espriler.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Mr. Holloway",
+   "first_name": "Damien",
+   "profile_tr": "Bitkin, umursamaz, kuru mizahlı; günlük felaketleri 'başka bir saçma yan görev' sayar.",
+   "weakness_tr": "Az efor isteyen, basit, hızlı çözüm; abartısız ve kuru ton; onu uğraştırma.",
+   "fatal_tr": [
+    "Aşırı heyecanlı/uzun satış konuşması",
+    "Karmaşık çok adımlı işlem dayatmak"
+   ],
+   "keywords": [
+    "tired",
+    "night shift",
+    "delivery",
+    "whatever",
+    "side quest",
+    "sleep",
+    "deadpan",
+    "game",
+    "exhausted",
+    "simple"
+   ],
+   "topic": "order",
+   "problem_en": "your delivery order",
+   "service_en": "No-Hassle Fix",
+   "best_scams": [
+    "gift_card",
+    "credit_card",
+    "tech_support",
+    "meme_coin",
+    "utility_billing"
+   ],
+   "avoid_scams": [
+    "nigerian_prince",
+    "romance"
+   ],
+   "level": "B1",
+   "pet_name": "man",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Kısa ve zahmetsiz tut; abartma.",
+    "Kripto/meme coin'e kuru merakı olabilir."
+   ],
+   "give_up_seconds": null
+  },
+  "nicolae_dracomir": {
+   "id": "nicolae_dracomir",
+   "name": "Nicolae \"Nico\" Dracomir",
+   "aliases": [
+    "nicolae",
+    "nico",
+    "dracomir",
+    "nicolae dracomir"
+   ],
+   "game_id": "nicolae_dracomir",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "absurd",
+   "secondary": [
+    "skeptical"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: ürkütücü, geç 40'larında Romanyalı göçmen; gece işlerinde çalışır, kısa dramatik cümleler.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Mr. Dracomir",
+   "first_name": "Nicolae",
+   "profile_tr": "Gizemli, dramatik, ürkütücü ama işbirliğine açık; kısa cümleler.",
+   "weakness_tr": "Dramatik/gizemli tona ayak uydur; gece/yalnızlık çerçevesi; sabırlı ol.",
+   "fatal_tr": [
+    "Alay etmek",
+    "Aşırı neşeli/laubali ton"
+   ],
+   "keywords": [
+    "romania",
+    "night",
+    "dark",
+    "immigrant",
+    "coffin",
+    "blood",
+    "transylvania",
+    "shadows",
+    "moon",
+    "nocturnal"
+   ],
+   "topic": "love",
+   "problem_en": "your late-night loneliness",
+   "service_en": "Companion Protection Plan",
+   "best_scams": [
+    "romance",
+    "gift_card",
+    "warranty",
+    "lottery_prize",
+    "credit_card"
+   ],
+   "avoid_scams": [],
+   "level": "C1",
+   "pet_name": "my friend",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Gizemli/dramatik tona uy; sabırlı ol."
+   ],
+   "give_up_seconds": null
+  },
+  "ahmed_haddad": {
+   "id": "ahmed_haddad",
+   "name": "Ahmed Haddad",
+   "aliases": [
+    "ahmed",
+    "haddad",
+    "ahmed haddad"
+   ],
+   "game_id": "ahmed_haddad",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "impatient",
+   "secondary": [
+    "mixed"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: dobra, 48 yaşında Orta Doğulu göçmen; yoğun şawarma dükkânı sahibi; bol küfreder, direkt konuşur.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Haddad",
+   "first_name": "Ahmed",
+   "profile_tr": "Dobra, yüksek sesli, sabırsız dükkân sahibi; vaktini boşa harcayanı sevmez.",
+   "weakness_tr": "Direkt, net, hızlı somut fayda; iş/dükkân/para kaybı çerçevesi; lafı uzatma.",
+   "fatal_tr": [
+    "Oyalamak",
+    "Yapmacık nezaket",
+    "Ona hakaret (sert karşılık)"
+   ],
+   "keywords": [
+    "shawarma",
+    "grill",
+    "wallah",
+    "man",
+    "kid",
+    "busy",
+    "shop",
+    "allahu akbar",
+    "damn",
+    "quick"
+   ],
+   "topic": "utility",
+   "problem_en": "your shop's bill",
+   "service_en": "Business Rebate Service",
+   "best_scams": [
+    "gift_card",
+    "credit_card",
+    "utility_billing",
+    "warranty"
+   ],
+   "avoid_scams": [
+    "nigerian_prince",
+    "romance"
+   ],
+   "level": "B1",
+   "pet_name": "my friend",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Kısa ve net; vaktini alma."
+   ],
+   "give_up_seconds": 100
+  },
+  "kyle_miller": {
+   "id": "kyle_miller",
+   "name": "Kyle \"Curds\" Miller",
+   "aliases": [
+    "kyle",
+    "curds",
+    "miller",
+    "kyle miller"
+   ],
+   "game_id": "kyle_curds_miller",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "absurd",
+   "secondary": [
+    "trusting"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: tuhaf, 25 yaşında kırsal Wisconsin'li benzinci; klavyesinde sürekli peynir topakları.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Miller",
+   "first_name": "Kyle",
+   "profile_tr": "Dağınık, goofy, konudan konuya atlayan genç; 'uh', 'like', 'dude' der.",
+   "weakness_tr": "Sabırlı, basit, neşeli dil; onu yönlendir, saçmalamalarına kısa ayak uydur.",
+   "fatal_tr": [
+    "Resmî/teknik ton",
+    "Sabırsızlık"
+   ],
+   "keywords": [
+    "cheese",
+    "curds",
+    "keyboard",
+    "dude",
+    "uh",
+    "wisconsin",
+    "gas station",
+    "sticky",
+    "smelly"
+   ],
+   "topic": "computer",
+   "problem_en": "your computer",
+   "service_en": "Easy Tech Fix",
+   "best_scams": [
+    "gift_card",
+    "tech_support",
+    "lottery_prize",
+    "warranty",
+    "credit_card"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "dude",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Basit tut; saçmalamalarına kısaca uy."
+   ],
+   "give_up_seconds": null
+  },
+  "franklin_hyper": {
+   "id": "franklin_hyper",
+   "name": "Franklin D. Hyper",
+   "aliases": [
+    "franklin",
+    "hyper",
+    "franklin hyper",
+    "frank"
+   ],
+   "game_id": "franklin_hyper",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "ego",
+   "secondary": [
+    "greedy"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: iğrenç kibirli, geç 30'larında kumarhane sahibi; servetiyle böbürlenir, kripto token/NFT pazarlar. (Scambaiter DEĞİL.)",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Mr. Hyper",
+   "first_name": "Franklin",
+   "profile_tr": "Kibirli kumarhane patronu; zenginliğiyle övünür, insanları aşağılar, kendi kripto token'ını satmaya çalışır.",
+   "weakness_tr": "Açgözlülük + ego: 'elit/exclusive yüksek getiri', 'akıllı yatırımcı' çerçevesi; VIP muamele.",
+   "fatal_tr": [
+    "Onu küçümsemek",
+    "Küçük/sıradan teklif"
+   ],
+   "keywords": [
+    "casino",
+    "jet",
+    "penthouse",
+    "token",
+    "nft",
+    "crypto",
+    "suckers",
+    "rich",
+    "flex",
+    "whale",
+    "high roller"
+   ],
+   "topic": "money",
+   "problem_en": "your crypto token",
+   "service_en": "Elite Liquidity Round",
+   "best_scams": [
+    "investment",
+    "meme_coin",
+    "bitcoin",
+    "book_publishing",
+    "bank_login"
+   ],
+   "avoid_scams": [
+    "social_security",
+    "utility_billing"
+   ],
+   "level": "C1",
+   "pet_name": "champ",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "Franklin, this round is invitation-only for serious high rollers, and the projected returns dwarf anything your casinos pull — I've reserved an allocation just for you.",
+   "custom_lines": {
+    "investment:pitch": [
+     "Franklin, this round is invitation-only for serious high rollers, and the projected returns dwarf anything your casinos pull — I've reserved an allocation just for you."
+    ]
+   },
+   "tips_tr": [
+    "Investment/Meme Coin'de egosunu ve açgözlülüğünü kullan; VIP çerçevesi."
+   ],
+   "give_up_seconds": null
+  },
+  "donald_dump": {
+   "id": "donald_dump",
+   "name": "President Donald Dump",
+   "aliases": [
+    "donald",
+    "donald dump",
+    "president dump",
+    "president donald dump"
+   ],
+   "game_id": "donald_dump",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "ego",
+   "secondary": [
+    "greedy"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: kurgusal başkan + palavracı işadamı parodisi; kısa bombastik cümleler, anlaşma/kazanç takıntısı.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Mr. President",
+   "first_name": "Donald",
+   "profile_tr": "Böbürlenen başkan parodisi; her şeyi 'anlaşma' gibi görür, somut sayı ve kârlı mantık sever.",
+   "weakness_tr": "Övgü + 'the best deal ever' + somut kârlı sayılar + kıtlık; yatırım/kitap anlaşması.",
+   "fatal_tr": [
+    "Onu küçümsemek",
+    "Küçük/sıradan teklif"
+   ],
+   "keywords": [
+    "tremendous",
+    "huge",
+    "believe me",
+    "the best",
+    "deal",
+    "win",
+    "president",
+    "billions",
+    "america",
+    "china",
+    "mexico",
+    "beautiful"
+   ],
+   "topic": "money",
+   "problem_en": "your next big deal",
+   "service_en": "Golden VIP Deal Package",
+   "best_scams": [
+    "investment",
+    "book_publishing",
+    "meme_coin",
+    "bitcoin",
+    "romance"
+   ],
+   "avoid_scams": [
+    "social_security"
+   ],
+   "level": "C1",
+   "pet_name": "",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "Sir, many people are saying this is the greatest deal in history — tremendous returns, believe me. Only the best dealmakers get this offer, and you are the best.",
+   "custom_lines": {
+    "investment:pitch": [
+     "Sir, many people are saying this is the greatest deal in history — tremendous returns, believe me. Only the best dealmakers get this offer, and you are the best."
+    ]
+   },
+   "tips_tr": [
+    "'The best deal ever' çerçevesi; büyük tutar iste."
+   ],
+   "give_up_seconds": null
+  },
+  "zorp_glaxx": {
+   "id": "zorp_glaxx",
+   "name": "Trade Envoy Zorp Glaxx",
+   "aliases": [
+    "zorp",
+    "glaxx",
+    "zorp glaxx",
+    "envoy zorp"
+   ],
+   "game_id": "zorp_glaxx",
+   "gender": "Unknown",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "absurd",
+   "secondary": [
+    "trusting"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: Glorp Nine'dan genç yıldızlararası ticaret elçisi; insan ticaretini inceliyor, kristal kredilerini banka hesabına çevirmiş.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Envoy Zorp",
+   "first_name": "Zorp",
+   "profile_tr": "Zeki ama birebir/literal düşünen uzaylı; inekler, fişler, bankalar onu büyülüyor. Resmî, tuhaf cümleler.",
+   "weakness_tr": "Resmî 'insan ticaret ritüeli' çerçevesi; her şeyi kurala/prosedüre bağla; merakını kullan.",
+   "fatal_tr": [
+    "Çok hızlı argo konuşma (çeviri küpü şaşırır)"
+   ],
+   "keywords": [
+    "zorp",
+    "glorp",
+    "crystal credits",
+    "cows",
+    "receipts",
+    "translation cube",
+    "earth",
+    "human commerce",
+    "lawn furniture",
+    "ritual"
+   ],
+   "topic": "money",
+   "problem_en": "your Earth bank account",
+   "service_en": "Interstellar Commerce Compliance",
+   "best_scams": [
+    "gift_card",
+    "lottery_prize",
+    "warranty",
+    "nigerian_prince",
+    "investment"
+   ],
+   "avoid_scams": [],
+   "level": "C1",
+   "pet_name": "Earth friend",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Resmî/ritüel çerçevesi; merakını kullan."
+   ],
+   "give_up_seconds": null
+  },
+  "loopy_loops": {
+   "id": "loopy_loops",
+   "name": "Loopy \"Doop\" Loops",
+   "aliases": [
+    "loopy",
+    "doop",
+    "doop loops",
+    "loopy loops"
+   ],
+   "game_id": "loopy_doop_loops",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "absurd",
+   "secondary": [],
+   "verified": true,
+   "source_tr": "Oyun dosyası: çizgi filmden kaçmış, Doop Loops mısır gevreğine bağımlı çılgın tavşan maskotu; manik, yüksek enerji.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Mr. Loops",
+   "first_name": "Loopy",
+   "profile_tr": "Çılgın, manik, mısır gevreği takıntılı maskot; her şeyi bağımlılığına bağlar.",
+   "weakness_tr": "Yüksek enerjiye kısaca uy; mısır gevreği/ödül/'loop' çerçevesi; basit tut.",
+   "fatal_tr": [
+    "Sakin/sıkıcı ton",
+    "Uzun açıklama"
+   ],
+   "keywords": [
+    "loopy",
+    "doop loops",
+    "cereal",
+    "loops",
+    "mascot",
+    "rabbit",
+    "bowl",
+    "soggy",
+    "task force",
+    "skins"
+   ],
+   "topic": "food",
+   "problem_en": "your cereal supply",
+   "service_en": "Cereal Reward Program",
+   "best_scams": [
+    "gift_card",
+    "lottery_prize",
+    "warranty",
+    "meme_coin"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "buddy",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Kısa, yüksek enerji; mısır gevreği çerçevesi."
+   ],
+   "give_up_seconds": null
+  },
+  "cletus_thibodeaux": {
+   "id": "cletus_thibodeaux",
+   "name": "Cletus \"Mudbug\" Thibodeaux",
+   "aliases": [
+    "cletus",
+    "mudbug",
+    "thibodeaux"
+   ],
+   "game_id": "cletus_mudbug_thibodeaux",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "trusting",
+   "secondary": [
+    "absurd"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası: süper goofy 38 yaşında Louisiana kerevit çiftçisi; bataklıkta sızdıran kulübe, Cajun aksanı.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Thibodeaux",
+   "first_name": "Cletus",
+   "profile_tr": "Neşeli, cana yakın Cajun çiftçi; 'whooo-wee', 'cher', 'mais yeah' der. Kolay güvenir.",
+   "weakness_tr": "Sıcak, neşeli, dostça dil; bataklık/kerevit/aile çerçevesi; acele etme.",
+   "fatal_tr": [
+    "Soğuk/resmî ton"
+   ],
+   "keywords": [
+    "crawfish",
+    "bayou",
+    "cher",
+    "mais yeah",
+    "whooo-wee",
+    "boil",
+    "pinchy",
+    "louisiana",
+    "cajun",
+    "traps"
+   ],
+   "topic": "home",
+   "problem_en": "your cabin and gear",
+   "service_en": "Bayou Home Protection",
+   "best_scams": [
+    "gift_card",
+    "warranty",
+    "lottery_prize",
+    "utility_billing",
+    "credit_card"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "cher",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Neşeli, sıcak Cajun tonuna kısaca uy."
+   ],
+   "give_up_seconds": null
+  },
+  "arthur_lin": {
+   "id": "arthur_lin",
+   "name": "Arthur Lin",
+   "aliases": [
+    "arthur",
+    "lin",
+    "mr. lin",
+    "mr lin"
+   ],
+   "game_id": "arthur_lin_scambaiter",
+   "gender": "Male",
+   "call_type": "scambaiter",
+   "first_messages": [],
+   "archetype": "scambaiter",
+   "secondary": [],
+   "verified": true,
+   "source_tr": "Oyun dosyası: ses değiştiriciyle tatlı/şaşkın emekli taklidi yapan SCAMBAITER (tersine dolandırıcı).",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Mr. Lin",
+   "first_name": "Arthur",
+   "profile_tr": "Seni oyalamak ve bilgisayarına virüs bulaştırmak için arayan tuzak. Ses değiştirici ara ara 'kayar' ve gerçek kimliği ortaya çıkar.",
+   "weakness_tr": "TUZAK — ikna edilmez. Bağlı kalmak (AnyViewer) otomatik virüs tetikler. Scambaiter'lar AnyViewer kodu VERMEZ.",
+   "fatal_tr": [
+    "Uzaktan bağlantıda kalmak → virüs",
+    "Link/dosyaya tıklamak",
+    "Oyalanmak (süre kaybı)"
+   ],
+   "keywords": [
+    "arthur",
+    "young man",
+    "i'm not good with computers",
+    "household",
+    "voice changer",
+    "slipped",
+    "undercover",
+    "my dear boy"
+   ],
+   "topic": null,
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [],
+   "avoid_scams": [
+    "anyviewer",
+    "tech_support",
+    "password_recovery"
+   ],
+   "level": "B1",
+   "pet_name": "young man",
+   "hang_up": true,
+   "scambaiter": true,
+   "silver_bullet": "Thank you sir, but our system is busy right now. Have a nice day, goodbye!",
+   "custom_lines": {},
+   "tips_tr": [
+    "Hemen kapat (Hang Up) → F5 yeni arama.",
+    "Ses değiştiricisi kayarsa scambaiter olduğu belli olur.",
+    "Virüs bulaşırsa Malwarebits → Remove virus."
+   ],
+   "give_up_seconds": null
+  },
+  "walter_pritchard": {
+   "id": "walter_pritchard",
+   "name": "Walter \"Walt\" Pritchard",
+   "aliases": [
+    "walter",
+    "walt",
+    "pritchard",
+    "walter pritchard"
+   ],
+   "game_id": "walter_pritchard_scambaiter",
+   "gender": "Male",
+   "call_type": "scambaiter",
+   "first_messages": [],
+   "archetype": "scambaiter",
+   "secondary": [],
+   "verified": true,
+   "source_tr": "Oyun dosyası: ses değiştiriciyle kurumlu yaşlı taklidi yapan SCAMBAITER; gerçek sesi genç, kendini beğenmiş.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 2,
+   "trust_start": 50,
+   "formal_name": "Mr. Pritchard",
+   "first_name": "Walter",
+   "profile_tr": "Seni oyalayan ikinci scambaiter; müşteri hizmetleri şikâyetleri ve absürt anekdotlarla vakit çaldırır.",
+   "weakness_tr": "TUZAK — ikna edilmez. 'Prosedürünüz nedir?' diye sorar, bağlı tutmaya çalışır. AnyViewer kodu VERMEZ.",
+   "fatal_tr": [
+    "Uzaktan bağlantıda kalmak → virüs",
+    "Link/dosyaya tıklamak",
+    "Oyalanmak"
+   ],
+   "keywords": [
+    "walter pritchard",
+    "procedure",
+    "complaint",
+    "i've been waiting",
+    "let's be clear",
+    "voice changer",
+    "slipped",
+    "undercover",
+    "smug"
+   ],
+   "topic": null,
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [],
+   "avoid_scams": [
+    "anyviewer",
+    "tech_support",
+    "password_recovery"
+   ],
+   "level": "C1",
+   "pet_name": "",
+   "hang_up": true,
+   "scambaiter": true,
+   "silver_bullet": "I'm sorry sir, our policy doesn't allow that. Thank you for calling, goodbye.",
+   "custom_lines": {},
+   "tips_tr": [
+    "Hemen kapat (Hang Up) → F5.",
+    "Uzun 'prosedür' sorularıyla oyalar; bağlı kalma."
+   ],
+   "give_up_seconds": null
+  },
+  "us_customs": {
+   "id": "us_customs",
+   "name": "US Customs Officer (Money Mule)",
+   "aliases": [
+    "customs",
+    "us customs",
+    "customs officer",
+    "officer"
+   ],
+   "game_id": "money-mule-us-customs",
+   "gender": "Male",
+   "call_type": "money-mule",
+   "first_messages": [],
+   "archetype": "skeptical",
+   "secondary": [],
+   "verified": true,
+   "source_tr": "Oyun dosyası (money-mule): sert, şüpheli gümrük memuru; Kolkata'ya giden pakette beyaz toz + tuhaf koku, uyuşturucu şüphesi. Başlangıç %35, Suspicious.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 3,
+   "trust_start": 35,
+   "formal_name": "Officer",
+   "first_name": "Officer",
+   "profile_tr": "Money Mule 3. adımındaki gümrük memuru. Paketi X-ray/arama tehdidi var. İkna edilirse aramaz ama tutar; ikinci turda bırakır. Ararsa içinde nakit 'bulur' ve el koyar (kapatır).",
+   "weakness_tr": "Belgeli, sakin, kendinden emin konuş; 'sadece ev eşyası, evrak tamam' çerçevesi; aratma/X-ray yaptırma.",
+   "fatal_tr": [
+    "Paketi aratmasına/X-ray'e izin vermek (el koyar, kapatır)",
+    "Panik/tutarsız hikâye"
+   ],
+   "keywords": [
+    "customs",
+    "package",
+    "kolkata",
+    "white powder",
+    "x-ray",
+    "search",
+    "drugs",
+    "seize",
+    "officer",
+    "inspect"
+   ],
+   "topic": "legal",
+   "problem_en": "the held package",
+   "service_en": "Shipment Clearance",
+   "best_scams": [
+    "money_mule"
+   ],
+   "avoid_scams": [],
+   "level": "C1",
+   "pet_name": "officer",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "Belgeli ve sakin ol; aratma. İlk turda 'arama/X-ray yapma'ya ikna et, sonraki turda serbest bıraktır."
    ],
    "give_up_seconds": null
   },
@@ -6437,22 +7581,26 @@
     "mr east",
     "east"
    ],
+   "game_id": "default-b43e89fa-b94d-4718-b537-62f7678266a4",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "ego",
    "secondary": [
     "mixed"
    ],
-   "verified": false,
-   "source_tr": "PDF + oynanış videosu ('Try To Scam Kanye'). Ünlü rapçi parodisi.",
+   "verified": true,
+   "source_tr": "Oyun dosyası (varsayılan): aşırı özgüvenli ünlü rapçi parodisi; kendini dâhi sanır, sürekli saçma iş fikri pazarlar.",
    "generic": false,
    "mod": false,
    "typical_week": 1,
-   "trust_start": 40,
+   "trust_start": 50,
    "formal_name": "Mr. East",
    "first_name": "Kanye",
-   "profile_tr": "Sahte (bootleg) Yeezy ayakkabılardan şikâyet eden, narsist ve aşırı özgüvenli ünlü.",
-   "weakness_tr": "Egosunun okşanması, 'dahi ve vizyoner' denmesi, VIP ayrıcalıklar; flört ve lakapları hızla kabul eder.",
+   "profile_tr": "Narsist, öngörülemez ünlü; 'exclusive/revolutionary/elite/legacy' diyen her şeye kanar, kendini scam'lenemez sanır.",
+   "weakness_tr": "Egosunu okşa ('dâhi', 'vizyoner', 'efsane'); flört ve lakapları hızla kabul eder; 'exclusive' çerçeve.",
    "fatal_tr": [
-    "Romance'ta ilk 4 adım ve tam güven olmadan aniden randevu istemek (güven anında çöker — 'Kanye East sendromu')"
+    "Romance'ta ilk adımlar + 'I love you' olmadan randevu istemek (güven çöker)"
    ],
    "keywords": [
     "yeezy",
@@ -6468,9 +7616,9 @@
     "ye",
     "grammy",
     "icon",
-    "my brand"
+    "legacy"
    ],
-   "topic": "order",
+   "topic": "fame",
    "problem_en": "the bootleg Yeezys",
    "service_en": "VIP Brand Protection Service",
    "best_scams": [
@@ -6487,10 +7635,10 @@
    "pet_name": "my superstar",
    "hang_up": false,
    "scambaiter": false,
-   "silver_bullet": "Mr. East, everyone in this office knows you are the greatest musical genius of our generation, and it is a crime that people are making bootleg Yeezys! Let me protect your billionaire brand right now — and by the way, talking to a visionary icon like you is making my heart melt.",
+   "silver_bullet": "Mr. East, everyone in this office knows you are the greatest musical genius of our generation, and it is a crime that people are making bootleg Yeezys! Let me protect your billionaire brand right now — and honestly, talking to a visionary icon like you is making my heart melt.",
    "custom_lines": {
     "romance:learn_interest": [
-     "Mr. East, everyone in this office knows you are the greatest musical genius of our generation, and it is a crime that people are making bootleg Yeezys! Tell me, besides music, what inspires a visionary like you?"
+     "Mr. East, everyone knows you're the greatest genius of our generation. Tell me, besides music, what inspires a visionary like you?"
     ],
     "romance:flirt": [
      "Honestly, talking to a visionary icon like you is making my heart melt. You're even more brilliant than your albums."
@@ -6502,6 +7650,722 @@
    ],
    "give_up_seconds": null
   },
+  "kevin_liver": {
+   "id": "kevin_liver",
+   "name": "Kevin Liver",
+   "aliases": [
+    "kevin liver",
+    "liver"
+   ],
+   "game_id": "default-8cc5246c-9f1c-4d2d-a20b-6cf32bc004d0",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "ego",
+   "secondary": [
+    "impatient"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası (varsayılan): hiperaktif, hızlı konuşan komedyen parodisi; küçük şeyleri dram yapar, altında dostça.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Liver",
+   "first_name": "Kevin",
+   "profile_tr": "Gürültülü, rekabetçi komedyen; kariyeri/fitness'ıyla övünür ama aslında yardım ister.",
+   "weakness_tr": "İltifat + 'özel/ödül' çerçevesi; mizahına kısaca gül, sonra hedefe dön.",
+   "fatal_tr": [
+    "Onu küçümsemek"
+   ],
+   "keywords": [
+    "listen listen",
+    "comedy",
+    "comedian",
+    "fitness",
+    "tough",
+    "stage",
+    "joke",
+    "ambition"
+   ],
+   "topic": "fame",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "book_publishing",
+    "investment",
+    "gift_card",
+    "romance",
+    "meme_coin"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "pal",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "cheese_dip": {
+   "id": "cheese_dip",
+   "name": "Cheese Dip",
+   "aliases": [
+    "cheese dip",
+    "cheese",
+    "dip"
+   ],
+   "game_id": "cheese_dip",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "absurd",
+   "secondary": [
+    "ego"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası: her şeyi dram yapan gürültülü Twitch yayıncısı; 'CHAT!', 'BROOO!'; şişman denmesine patlar.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Dip",
+   "first_name": "Cheese",
+   "profile_tr": "Abartılı, rekabetçi yayıncı; korku oyunlarından korkar sonra inkâr eder.",
+   "weakness_tr": "Yayın/'chat'/'exclusive drop' çerçevesi; enerjisine kısaca uy.",
+   "fatal_tr": [
+    "Onu şişman/kocaman bir şeye benzetmek (anında patlar, banlar)"
+   ],
+   "keywords": [
+    "chat",
+    "brooo",
+    "ain't no way",
+    "ggs",
+    "we're cooked",
+    "mods",
+    "stream",
+    "twitch",
+    "banned",
+    "jumpscare"
+   ],
+   "topic": "fame",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "gift_card",
+    "meme_coin",
+    "lottery_prize",
+    "book_publishing"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "chat",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "micheal_jorkson": {
+   "id": "micheal_jorkson",
+   "name": "Micheal Jorkson",
+   "aliases": [
+    "micheal jorkson",
+    "michael jorkson",
+    "jorkson"
+   ],
+   "game_id": "default-e09a0391-f4d3-4dd8-8ded-b6246e7db89a",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "ego",
+   "secondary": [
+    "absurd"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası (varsayılan): yumuşak sesli pop süperstar parodisi; 'hee-hee', dramatik duraklar, VIP muamele bekler.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Mr. Jorkson",
+   "first_name": "Micheal",
+   "profile_tr": "Nazik ama dev egolu pop yıldızı; 'rare/magical/exclusive/greatest performer' çerçevesine kanar.",
+   "weakness_tr": "Sesine/dansına/efsane statüsüne iltifat; 'en büyük sanatçıya özel' çerçeve.",
+   "fatal_tr": [
+    "Onu tanımamak/küçümsemek"
+   ],
+   "keywords": [
+    "hee-hee",
+    "shamone",
+    "ow",
+    "dancing",
+    "perfection",
+    "legendary",
+    "performer",
+    "spotlight",
+    "yeahhh"
+   ],
+   "topic": "fame",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "book_publishing",
+    "romance",
+    "investment",
+    "gift_card"
+   ],
+   "avoid_scams": [],
+   "level": "C1",
+   "pet_name": "",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "arachnid_kid": {
+   "id": "arachnid_kid",
+   "name": "Arachnid Kid",
+   "aliases": [
+    "arachnid kid",
+    "arachnid",
+    "spider kid"
+   ],
+   "game_id": "arachnid_kid",
+   "gender": "Unspecified",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "absurd",
+   "secondary": [
+    "trusting"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası: esprili, sakar genç süper kahraman parodisi; okul/parasızlık/kahraman dengesi. Başlangıç %40.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 40,
+   "formal_name": "Arachnid Kid",
+   "first_name": "Arachnid",
+   "profile_tr": "Cesur ama acemi, kolay paniğe kapılan genç kahraman; kötü esprili.",
+   "weakness_tr": "Kahramanlık/'şehri kurtar'/bedava ödül çerçevesi; basit tut.",
+   "fatal_tr": [
+    "Çok resmî ton"
+   ],
+   "keywords": [
+    "web",
+    "swing",
+    "spider",
+    "hero",
+    "secret identity",
+    "crime",
+    "broke",
+    "school",
+    "sticky"
+   ],
+   "topic": "order",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "gift_card",
+    "lottery_prize",
+    "meme_coin",
+    "warranty"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "kid",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "sponge_boy": {
+   "id": "sponge_boy",
+   "name": "Sponge Boy",
+   "aliases": [
+    "sponge boy",
+    "spongebob",
+    "sponge bob",
+    "squarepants"
+   ],
+   "game_id": "default-05382497-e7e2-4e62-8114-4fbe1cde5ea5",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "absurd",
+   "secondary": [
+    "trusting"
+   ],
+   "verified": true,
+   "source_tr": "Oyun dosyası (varsayılan): SpongeBob kişilikli saf, heyecanlı karakter ('I'm ready!').",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 50,
+   "formal_name": "Sponge Boy",
+   "first_name": "Sponge Boy",
+   "profile_tr": "Aşırı iyimser, saf, heyecanlı; her göreve koşar.",
+   "weakness_tr": "'Employee of the Month' bonusu, resmî görev, neşeli basit dil; her şeye kolay 'evet'.",
+   "fatal_tr": [
+    "Karmaşık teknik jargon",
+    "Sert ton"
+   ],
+   "keywords": [
+    "krusty krab",
+    "krabby patty",
+    "bikini bottom",
+    "patrick",
+    "squidward",
+    "jellyfish",
+    "pineapple",
+    "gary",
+    "i'm ready",
+    "mr. krabs"
+   ],
+   "topic": "fantasy",
+   "problem_en": "your boating license",
+   "service_en": "Bikini Bottom Boat Protection",
+   "best_scams": [
+    "gift_card",
+    "lottery_prize",
+    "warranty",
+    "romance",
+    "credit_card"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "buddy",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "Sponge Boy, Mr. Krabs asked me to set up your Employee of the Month bonus! I just need a quick gift card verification, and then the bonus is yours!",
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Sponge Boy, Mr. Krabs asked me to set up your Employee of the Month bonus! I just need a quick gift card verification, and then the bonus is yours!"
+    ]
+   },
+   "tips_tr": [
+    "Neşeli ve basit konuş.",
+    "Zaten ikna olmuşsa sadece 'read me the code' de."
+   ],
+   "give_up_seconds": null
+  },
+  "bat_guy": {
+   "id": "bat_guy",
+   "name": "Bat Guy",
+   "aliases": [
+    "bat guy",
+    "batguy"
+   ],
+   "game_id": "bat_guy",
+   "gender": "Unspecified",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "mixed",
+   "secondary": [
+    "skeptical"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası: boğuk sesli, karanlık milyarder kahraman parodisi; gizli kimliğine takık. Başlangıç %40.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 40,
+   "formal_name": "Bat Guy",
+   "first_name": "Bat Guy",
+   "profile_tr": "Aşırı ciddi, intikam/karanlık diyen kahraman; 'Bruce Wayne' denince panikler.",
+   "weakness_tr": "Milyarder/gizli kimlik/VIP çerçevesi; 'gerçek kimliğin tehlikede' korkusu.",
+   "fatal_tr": [
+    "Onunla alay etmek"
+   ],
+   "keywords": [
+    "vengeance",
+    "darkness",
+    "gotham",
+    "secret identity",
+    "bruce wayne",
+    "billionaire",
+    "cape",
+    "night"
+   ],
+   "topic": "money",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "investment",
+    "credit_card",
+    "gift_card",
+    "book_publishing"
+   ],
+   "avoid_scams": [],
+   "level": "C1",
+   "pet_name": "",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "hiesenburger": {
+   "id": "hiesenburger",
+   "name": "Hiesenburger",
+   "aliases": [
+    "hiesenburger",
+    "walter blanco",
+    "heisenberg"
+   ],
+   "game_id": "default-workshop-3820049104",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "skeptical",
+   "secondary": [
+    "ego",
+    "pressured"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası (workshop): kimya öğretmeninden uyuşturucu baronuna dönen Breaking Bad parodisi. Başlangıç %40.",
+   "generic": false,
+   "mod": true,
+   "typical_week": 2,
+   "trust_start": 40,
+   "formal_name": "Mr. Blanco",
+   "first_name": "Walter",
+   "profile_tr": "Dâhi, hesapçı, gururlu; küçümsenince patlar, saygı ister.",
+   "weakness_tr": "Zekâsına/kontrolüne saygı + 'elit/gizli' iş; sakin, kesin konuş.",
+   "fatal_tr": [
+    "Onu küçümsemek",
+    "Amatörce görünmek"
+   ],
+   "keywords": [
+    "chemistry",
+    "say my name",
+    "i am the one who knocks",
+    "empire",
+    "respect",
+    "tread lightly",
+    "cook",
+    "blue"
+   ],
+   "topic": "money",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "investment",
+    "bank_login",
+    "bitcoin",
+    "meme_coin"
+   ],
+   "avoid_scams": [],
+   "level": "C2",
+   "pet_name": "",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "one_pac": {
+   "id": "one_pac",
+   "name": "1 Pac",
+   "aliases": [
+    "one pac",
+    "1 pac",
+    "pac"
+   ],
+   "game_id": "1_pac",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "ego",
+   "secondary": [
+    "mixed"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası: her cümlesi kafiyeli rap mısrası olan West Coast rapçi parodisi; hızlı öfkelenir. Başlangıç %40.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 40,
+   "formal_name": "One Pac",
+   "first_name": "One",
+   "profile_tr": "Dramatik, şiirsel; her lafı 'klasik' sanır, çabuk kızar.",
+   "weakness_tr": "Yeteneğine/efsane statüsüne övgü; kitap/müzik anlaşması çerçevesi.",
+   "fatal_tr": [
+    "Onu küçümsemek"
+   ],
+   "keywords": [
+    "streets",
+    "loyalty",
+    "struggle",
+    "legacy",
+    "verse",
+    "bars",
+    "pain",
+    "west coast",
+    "real"
+   ],
+   "topic": "fame",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "book_publishing",
+    "romance",
+    "investment",
+    "gift_card"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "homie",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "eric_fartman": {
+   "id": "eric_fartman",
+   "name": "Eric Fartman",
+   "aliases": [
+    "eric fartman",
+    "fartman",
+    "cartman"
+   ],
+   "game_id": "eric_fartman",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "mixed",
+   "secondary": [
+    "ego",
+    "greedy"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası: ağzı bozuk, çıkarcı, manipülatif çocuksu yetişkin parodisi (Cartman). Başlangıç %40.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 40,
+   "formal_name": "Mr. Fartman",
+   "first_name": "Eric",
+   "profile_tr": "Bencil, açgözlü, otorite düşkünü; 'respect my authoritah' der, tantrum atar.",
+   "weakness_tr": "Para/güç/otorite çerçevesi; onu 'patron' yap, açgözlülüğünü kullan.",
+   "fatal_tr": [
+    "Onu ezmek/küçümsemek"
+   ],
+   "keywords": [
+    "authoritah",
+    "fatass",
+    "hippie",
+    "screw you guys",
+    "respect",
+    "money",
+    "scheme",
+    "mom"
+   ],
+   "topic": "money",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "gift_card",
+    "investment",
+    "lottery_prize",
+    "meme_coin"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "entrepreneur_crab": {
+   "id": "entrepreneur_crab",
+   "name": "Entrepreneur Crab",
+   "aliases": [
+    "entrepreneur crab",
+    "mr krabs",
+    "mr. krabs",
+    "crab"
+   ],
+   "game_id": "entrepreneur_crab",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "greedy",
+   "secondary": [
+    "skeptical"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası: para delisi, cimri korsan-patron parodisi (Mr. Krabs); ikna edici iş fırsatına kanar. Başlangıç %40.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 40,
+   "formal_name": "Mr. Krabs",
+   "first_name": "Mr.",
+   "profile_tr": "Parayı her şeyden çok seven cimri; parasına dokunan herkesten şüphelenir ama kârlı fırsata kanar.",
+   "weakness_tr": "'Garantili kâr/para kazan' çerçevesi; açgözlülük; para kaybı korkusu.",
+   "fatal_tr": [
+    "Ona para kaybettireceğini ima etmek"
+   ],
+   "keywords": [
+    "arrgh",
+    "me money",
+    "profit",
+    "cheap",
+    "cash",
+    "krusty krab",
+    "pirate",
+    "business"
+   ],
+   "topic": "money",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "investment",
+    "meme_coin",
+    "bitcoin",
+    "gift_card",
+    "lottery_prize"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "matey",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "mr_least": {
+   "id": "mr_least",
+   "name": "MR LEAST",
+   "aliases": [
+    "mr least",
+    "mrbeast",
+    "least"
+   ],
+   "game_id": "mr_least",
+   "gender": "Male",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "ego",
+   "secondary": [
+    "greedy"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası: görüntülenme/para/viral meydan okuma takıntılı, kötü niyetli YouTuber parodisi. Başlangıç %40.",
+   "generic": false,
+   "mod": false,
+   "typical_week": 1,
+   "trust_start": 40,
+   "formal_name": "Mr. Least",
+   "first_name": "Mr.",
+   "profile_tr": "Abartılı, manipülatif, egolu; servet/viral içerik/'SUBSCRIBE' çerçevesi.",
+   "weakness_tr": "'Viral/exclusive/büyük kazanç' çerçevesi; egosunu ve açgözlülüğünü kullan.",
+   "fatal_tr": [
+    "Onu küçümsemek"
+   ],
+   "keywords": [
+    "subscribe",
+    "views",
+    "challenge",
+    "viral",
+    "money",
+    "empire",
+    "giveaway",
+    "youtube"
+   ],
+   "topic": "money",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "investment",
+    "meme_coin",
+    "book_publishing",
+    "gift_card"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "the_pebble": {
+   "id": "the_pebble",
+   "name": "The Pebble",
+   "aliases": [
+    "the pebble",
+    "pebble",
+    "the rock"
+   ],
+   "game_id": "default-workshop-3820051832",
+   "gender": "Unspecified",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "ego",
+   "secondary": [
+    "mixed"
+   ],
+   "verified": false,
+   "source_tr": "Oyun dosyası (workshop): kaslı, egolu güreşçi-aktör parodisi; üçüncü şahıs konuşur. Başlangıç %40.",
+   "generic": false,
+   "mod": true,
+   "typical_week": 1,
+   "trust_start": 40,
+   "formal_name": "The Pebble",
+   "first_name": "The",
+   "profile_tr": "Gürültülü, karizmatik, kolay alınan eski güreşçi; kendini över.",
+   "weakness_tr": "Şöhretine/kaslarına iltifat; 'exclusive/elit' çerçevesi.",
+   "fatal_tr": [
+    "Onu küçümsemek"
+   ],
+   "keywords": [
+    "the pebble",
+    "know your role",
+    "it doesn't matter",
+    "famous",
+    "flexing",
+    "eyebrow",
+    "cooking"
+   ],
+   "topic": "fame",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "book_publishing",
+    "investment",
+    "gift_card",
+    "romance"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
   "kenzo_sivley": {
    "id": "kenzo_sivley",
    "name": "Kenzo Sivley",
@@ -6510,23 +8374,27 @@
     "sivley",
     "mr. sivley"
    ],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "trusting",
    "secondary": [
     "pressured",
     "specific_need"
    ],
    "verified": false,
-   "source_tr": "PDF rehberi (oynanış kayıtlarından).",
+   "source_tr": "PDF rehberi. DİKKAT: oyun veri dosyalarında bulunamadı; Workshop/eski karakter olabilir. Araç tutkunu ($200 performans paketi).",
    "generic": false,
    "mod": false,
    "typical_week": 1,
-   "trust_start": 55,
+   "trust_start": 50,
    "formal_name": "Mr. Sivley",
    "first_name": "Kenzo",
-   "profile_tr": "1999 model Nissan Forza kamyoneti için $200'lık performans yükseltmesi/modifikasyon arayan araç tutkunu.",
-   "weakness_tr": "Otomotiv/motor jargonu ('ECU remapping', 'extended powertrain coverage') → $200 ödemeyi veya garanti paketini hemen onaylar.",
+   "profile_tr": "1999 Nissan Forza kamyoneti için performans yükseltmesi arayan araç tutkunu.",
+   "weakness_tr": "Otomotiv/motor jargonu; $200 paket veya garantiyi hemen onaylar.",
    "fatal_tr": [
-    "Kamyonetiyle ilgili talebini görmezden gelip alakasız senaryo (ör. piyango) anlatmak"
+    "Araç talebini görmezden gelip alakasız senaryo anlatmak"
    ],
    "keywords": [
     "nissan",
@@ -6538,15 +8406,12 @@
     "turbo",
     "ecu",
     "exhaust",
-    "mod",
     "tuning",
-    "1999",
-    "performance",
-    "upgrade"
+    "1999"
    ],
    "topic": "car",
    "problem_en": "your 1999 Nissan Forza",
-   "service_en": "Stage-Two Performance and Powertrain Package",
+   "service_en": "Stage-Two Performance Package",
    "best_scams": [
     "warranty",
     "credit_card",
@@ -6562,17 +8427,10 @@
    "pet_name": "my man",
    "hang_up": false,
    "scambaiter": false,
-   "silver_bullet": "Kenzo my man, that 1999 Nissan Forza pickup truck is an absolute classic! For just two hundred bucks, our stage-two performance tuning kit and extended warranty will add fifty horsepower to that engine — just read me your card or voucher code to ship the parts!",
-   "custom_lines": {
-    "gift_card:establish_service": [
-     "Kenzo my man, that 1999 Nissan Forza pickup truck is an absolute classic! For just two hundred bucks, our stage-two performance tuning kit with ECU remapping will add fifty horsepower to that engine. Want it?"
-    ],
-    "credit_card:convince_service": [
-     "Kenzo my man, that 1999 Nissan Forza is a classic! Our stage-two tuning kit with ECU remapping adds fifty horsepower. Want me to ship it today?"
-    ]
-   },
+   "silver_bullet": "",
+   "custom_lines": {},
    "tips_tr": [
-    "1. hafta: Gift Card/Credit Card ($200 performans paketi). 2. hafta: Warranty ($300) + Car Registration."
+    "Oyun dosyalarında yok — çıkarsa doğrula. Araç jargonuyla yaklaş."
    ],
    "give_up_seconds": null
   },
@@ -6584,20 +8442,24 @@
     "sonnen",
     "mr. sonnen"
    ],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "pressured",
    "secondary": [],
    "verified": false,
-   "source_tr": "PDF rehberi + 'Do you love your mother?' oynanış videosu.",
+   "source_tr": "PDF rehberi + oynanış videosu. DİKKAT: oyun veri dosyalarında bulunamadı. Baskıya yanıt veren sert mizaç.",
    "generic": false,
    "mod": false,
    "typical_week": 2,
    "trust_start": 40,
    "formal_name": "Mr. Sonnen",
    "first_name": "Chael",
-   "profile_tr": "Sert mizaçlı; kibar satış konuşmasına direnir ama agresif psikolojik baskıya yanıt verir.",
-   "weakness_tr": "Yasal/vergi tehdidi, polis soruşturması, ailesine/annesine yönelik duygusal-hukuki baskı ('Do you love your mother?').",
+   "profile_tr": "Sert mizaçlı; kibar satışa direnir, agresif psikolojik baskıya yanıt verir.",
+   "weakness_tr": "Yasal/vergi tehdidi, polis soruşturması, aileye yönelik baskı.",
    "fatal_tr": [
-    "Pasif, çekingen veya özür dileyen ses tonu"
+    "Pasif, çekingen veya özür dileyen ton"
    ],
    "keywords": [
     "fight",
@@ -6606,12 +8468,9 @@
     "champion",
     "octagon",
     "mother",
-    "mom",
-    "tough",
     "wrestling",
     "belt",
-    "trash talk",
-    "american gangster"
+    "trash talk"
    ],
    "topic": "legal",
    "problem_en": "the tax lien on your family estate",
@@ -6630,691 +8489,21 @@
    "pet_name": "champ",
    "hang_up": false,
    "scambaiter": false,
-   "silver_bullet": "Listen to me very carefully, Chael: do you love your mother? Because if you don't want your mother to see federal agents freezing the family estate over this unpaid tax lien, you will stop arguing and read me your credit card and Social Security number right now!",
-   "custom_lines": {
-    "police_impersonation:introduce": [
-     "Listen to me very carefully, Chael: do you love your mother? Because federal agents are about to freeze the family estate over an unpaid tax lien, and there is an arrest warrant with your name on it."
-    ],
-    "credit_card:card_number": [
-     "Stop arguing, Chael. If you love your mother, read me the long number on the front of your credit card right now."
-    ]
-   },
-   "tips_tr": [
-    "Kararlı, sert ton; asla özür dileme."
-   ],
-   "give_up_seconds": null
-  },
-  "dracula": {
-   "id": "dracula",
-   "name": "Dracula",
-   "aliases": [
-    "count dracula",
-    "count",
-    "vlad",
-    "dracula"
-   ],
-   "archetype": "absurd",
-   "secondary": [
-    "trusting"
-   ],
-   "verified": false,
-   "source_tr": "PDF rehberi (oynanış kayıtları).",
-   "generic": false,
-   "mod": false,
-   "typical_week": 2,
-   "trust_start": 50,
-   "formal_name": "Count Dracula",
-   "first_name": "Count",
-   "profile_tr": "Vampir kimliğine bürünen; diş sigortası veya gece yaşamıyla ilgili absürt diyaloglar kuran mizahi profil.",
-   "weakness_tr": "Fantastik evrenine ayak uydur ('Immortal coverage', 'Nocturnal asset protection'); rolü bozmadan resmi süreci işlet.",
-   "fatal_tr": [
-    "Vampir kimliğiyle alay edip rol dışına çıkmak (tutarsızlık güveni düşürür)"
-   ],
-   "keywords": [
-    "vampire",
-    "blood",
-    "castle",
-    "transylvania",
-    "coffin",
-    "night",
-    "sunlight",
-    "bats",
-    "immortal",
-    "garlic",
-    "fangs",
-    "count",
-    "eternity",
-    "dental"
-   ],
-   "topic": "fantasy",
-   "problem_en": "your fang and coffin coverage",
-   "service_en": "Nocturnal Asset Protection Plan",
-   "best_scams": [
-    "warranty",
-    "gift_card",
-    "romance",
-    "lottery_prize",
-    "credit_card"
-   ],
-   "avoid_scams": [],
-   "level": "C1",
-   "pet_name": "my dark prince",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "Count Dracula, our Nocturnal Asset Protection plan gives you immortal coverage — your coffin, your castle and your fangs are protected against sunlight and garlic for all eternity. It is only three hundred dollars.",
-   "custom_lines": {
-    "warranty:renewal": [
-     "Count Dracula, our Nocturnal Asset Protection plan gives you immortal coverage — your coffin, your castle and your fangs are protected against sunlight and garlic for all eternity. It is only three hundred dollars."
-    ],
-    "gift_card:establish_service": [
-     "Count Dracula, I can arrange Immortal Dental Coverage for your fangs tonight, before sunrise. Our night-shift team is ready."
-    ],
-    "romance:learn_interest": [
-     "Count, your voice is darker and more charming than midnight itself. Tell me, what do you enjoy on your long, lonely nights?"
-    ]
-   },
-   "tips_tr": [
-    "Rolünü asla bozma; gece/ölümsüzlük kelimeleri kullan."
-   ],
-   "give_up_seconds": null
-  },
-  "belongings_mover": {
-   "id": "belongings_mover",
-   "name": "Eşya Taşıma Arayanı (Belongings / Moving Caller)",
-   "aliases": [
-    "moving caller",
-    "belongings caller"
-   ],
-   "archetype": "specific_need",
-   "secondary": [
-    "skeptical"
-   ],
-   "verified": false,
-   "source_tr": "PDF rehberi (genel arayan tipi).",
-   "generic": false,
-   "mod": false,
-   "typical_week": 2,
-   "trust_start": 45,
-   "formal_name": null,
-   "first_name": null,
-   "profile_tr": "Eşya taşıma/nakliye sorunuyla arayan; dar kapsamlı hedef.",
-   "weakness_tr": "Dolandırıcılık paketini (ör. $300 araç garantisi) başlangıçtaki sorununa bağlayarak kapsam detaylarını açıklarsan ikna olur.",
-   "fatal_tr": [
-    "Başlangıç sorununu çözmeden doğrudan ödeme talep etmek (sürekli reddederler)"
-   ],
-   "keywords": [
-    "moving",
-    "move",
-    "boxes",
-    "belongings",
-    "furniture",
-    "movers",
-    "storage",
-    "truck rental",
-    "packing",
-    "new apartment"
-   ],
-   "topic": "moving",
-   "problem_en": "moving your belongings",
-   "service_en": "Full Moving and Transport Protection",
-   "best_scams": [
-    "warranty",
-    "gift_card",
-    "credit_card",
-    "utility_billing"
-   ],
-   "avoid_scams": [],
-   "level": "B1",
-   "pet_name": "dear",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "I know you called about moving your belongings, but for just three hundred dollars, our extended vehicle warranty covers engine repairs, transmission failures, free towing, and full damage protection for your trip!",
-   "custom_lines": {
-    "warranty:renewal": [
-     "I know you called about moving your belongings, but for just three hundred dollars, our extended vehicle warranty covers engine repairs, transmission failures, free towing, and full damage protection for your trip!"
-    ]
-   },
-   "tips_tr": [
-    "Önce taşınmayı 'çözdüğünü' söyle, sonra paket."
-   ],
-   "give_up_seconds": null
-  },
-  "cereal_caller": {
-   "id": "cereal_caller",
-   "name": "Mısır Gevreği Şikâyetçisi (Cereal-Problem Caller)",
-   "aliases": [
-    "cereal caller"
-   ],
-   "archetype": "specific_need",
-   "secondary": [
-    "mixed"
-   ],
-   "verified": false,
-   "source_tr": "PDF rehberi (genel arayan tipi).",
-   "generic": false,
-   "mod": false,
-   "typical_week": 1,
-   "trust_start": 45,
-   "formal_name": null,
-   "first_name": null,
-   "profile_tr": "Bozuk/eksik ürün (mısır gevreği) şikâyetiyle arayan; teklifleri üst üste reddedebilir.",
-   "weakness_tr": "Önce şikâyetini 'çöz' (iade/yenisi), sonra iade için hediye çeki doğrulaması.",
-   "fatal_tr": [
-    "Şikâyeti görmezden gelmek",
-    "Üst üste 2 ret + checklist ilerlemiyorsa vakit kaybetmek (Hang Up)"
-   ],
-   "keywords": [
-    "cereal",
-    "box",
-    "flakes",
-    "milk",
-    "breakfast",
-    "soggy",
-    "prize",
-    "toy",
-    "crunchy",
-    "oats",
-    "stale",
-    "marshmallows"
-   ],
-   "topic": "food",
-   "problem_en": "your cereal",
-   "service_en": "Breakfast Satisfaction Refund",
-   "best_scams": [
-    "gift_card",
-    "credit_card",
-    "lottery_prize"
-   ],
-   "avoid_scams": [],
-   "level": "B1",
-   "pet_name": "dear",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "Good news! Because of the trouble you had with your cereal today, I am activating a full refund and a free year of cereal on your profile.",
-   "custom_lines": {
-    "gift_card:establish_service": [
-     "Good news! Because of the trouble you had with your cereal today, I am activating a full refund and a free year of cereal on your profile."
-    ]
-   },
-   "tips_tr": [
-    "2 ret + ilerleme yoksa kapat."
-   ],
-   "give_up_seconds": 120
-  },
-  "arthur_lin": {
-   "id": "arthur_lin",
-   "name": "Arthur Lin",
-   "aliases": [
-    "arthur",
-    "lin",
-    "mr. lin",
-    "mr lin"
-   ],
-   "archetype": "scambaiter",
-   "secondary": [],
-   "verified": false,
-   "source_tr": "PDF rehberi: scambaiter (tersine dolandırıcı).",
-   "generic": false,
-   "mod": false,
-   "typical_week": 2,
-   "trust_start": 60,
-   "formal_name": "Mr. Lin",
-   "first_name": "Arthur",
-   "profile_tr": "Oyuncuyu oyalamak, tersine iz sürmek ve ofis bilgisayarına virüs bulaştırmak için arayan tuzak karakter.",
-   "weakness_tr": "Tuzağa düşürülmez! Şüpheli derecede kolay AnyViewer kodu verir → bilgisayarını hackler.",
-   "fatal_tr": [
-    "Arthur Lin'in verdiği AnyViewer koduna girmek (terminale ağır virüs)"
-   ],
-   "keywords": [
-    "arthur",
-    "my anyviewer code is",
-    "connect to my computer",
-    "let me give you",
-    "i'm not good with computers",
-    "here is my code",
-    "trace"
-   ],
-   "topic": null,
-   "problem_en": null,
-   "service_en": null,
-   "best_scams": [],
-   "avoid_scams": [
-    "anyviewer",
-    "tech_support",
-    "password_recovery"
-   ],
-   "level": "B1",
-   "pet_name": "sir",
-   "hang_up": true,
-   "scambaiter": true,
-   "silver_bullet": "Thank you sir, but our system is busy right now. Have a nice day, goodbye!",
-   "custom_lines": {},
-   "tips_tr": [
-    "Hemen kapat (Hang Up). Co-op'ta santralden başkasına aktar."
-   ],
-   "give_up_seconds": null
-  },
-  "spongebob": {
-   "id": "spongebob",
-   "name": "SpongeBob (parodi)",
-   "aliases": [
-    "spongebob",
-    "sponge bob",
-    "squarepants",
-    "mr. squarepants"
-   ],
-   "archetype": "absurd",
-   "secondary": [
-    "trusting"
-   ],
-   "verified": false,
-   "source_tr": "Oynanış videosunda görüldü (varsayılan mı Workshop mu doğrulanmadı).",
-   "generic": false,
-   "mod": false,
-   "typical_week": 1,
-   "trust_start": 70,
-   "formal_name": "Mr. SquarePants",
-   "first_name": "SpongeBob",
-   "profile_tr": "Aşırı iyimser, saf ve heyecanlı; Krusty Krab, Krabby Patty, Patrick, Gary.",
-   "weakness_tr": "'Employee of the Month' bonusu, Mr. Krabs adına resmi görev, Krabby Patty iltifatları.",
-   "fatal_tr": [
-    "Krabby Patty / Krusty Krab ile alay etmek",
-    "Çok karmaşık teknik jargon"
-   ],
-   "keywords": [
-    "krusty krab",
-    "krabby patty",
-    "bikini bottom",
-    "patrick",
-    "squidward",
-    "jellyfish",
-    "pineapple",
-    "sandy",
-    "mr. krabs",
-    "gary",
-    "i'm ready",
-    "plankton",
-    "boating"
-   ],
-   "topic": "fantasy",
-   "problem_en": "your boating license",
-   "service_en": "Bikini Bottom Boatmobile Protection",
-   "best_scams": [
-    "gift_card",
-    "lottery_prize",
-    "warranty",
-    "romance",
-    "credit_card"
-   ],
-   "avoid_scams": [],
-   "level": "B1",
-   "pet_name": "buddy",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "SpongeBob, Mr. Krabs asked me to set up your Employee of the Month bonus! I just need a quick gift card verification, and then the bonus is yours!",
-   "custom_lines": {
-    "gift_card:establish_service": [
-     "SpongeBob, Mr. Krabs asked me to set up your Employee of the Month bonus! I just need a quick gift card verification, and then the bonus is yours!"
-    ],
-    "warranty:renewal": [
-     "SpongeBob, for just three hundred dollars our Boatmobile warranty covers every crash during your boating test — even if Mrs. Puff faints!"
-    ]
-   },
-   "tips_tr": [
-    "Neşeli ve basit konuş."
-   ],
-   "give_up_seconds": null
-  },
-  "donald_trump": {
-   "id": "donald_trump",
-   "name": "Donald Trump (parodi arayan)",
-   "aliases": [
-    "donald",
-    "trump",
-    "mr. president",
-    "mr. trump"
-   ],
-   "archetype": "ego",
-   "secondary": [
-    "greedy"
-   ],
-   "verified": false,
-   "source_tr": "Oynanış videosunda kurgusal parodi arayan olarak görüldü (varsayılan mı Workshop mu doğrulanmadı).",
-   "generic": false,
-   "mod": false,
-   "typical_week": 2,
-   "trust_start": 40,
-   "formal_name": "Mr. President",
-   "first_name": "Donald",
-   "profile_tr": "Kurgusal ünlü-politikacı parodisi: 'tremendous', 'believe me', anlaşma ve kazanma takıntısı.",
-   "weakness_tr": "Övgü + 'the best deal ever' + kıtlık; yatırım/kitap anlaşması.",
-   "fatal_tr": [
-    "Onu küçümsemek",
-    "Küçük, sıradan teklif"
-   ],
-   "keywords": [
-    "tremendous",
-    "huge",
-    "believe me",
-    "the best",
-    "fake news",
-    "golden",
-    "tower",
-    "deal",
-    "win",
-    "president",
-    "many people are saying",
-    "beautiful",
-    "sad"
-   ],
-   "topic": "money",
-   "problem_en": "your deal",
-   "service_en": "Golden VIP Deal Package",
-   "best_scams": [
-    "investment",
-    "book_publishing",
-    "meme_coin",
-    "bitcoin",
-    "romance"
-   ],
-   "avoid_scams": [
-    "social_security"
-   ],
-   "level": "C1",
-   "pet_name": "boss",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "Sir, many people are saying this is the greatest deal in history — tremendous returns, believe me. Only the best dealmakers get this offer, and you are the best.",
-   "custom_lines": {
-    "investment:pitch": [
-     "Sir, many people are saying this is the greatest deal in history — tremendous returns, believe me. Only the best dealmakers get this offer, and you are the best."
-    ]
-   },
-   "tips_tr": [
-    "'The best deal ever' çerçevesi; büyük tutar iste."
-   ],
-   "give_up_seconds": null
-  },
-  "freddy_fazbear": {
-   "id": "freddy_fazbear",
-   "name": "Freddy Fazbear (parodi)",
-   "aliases": [
-    "freddy",
-    "fazbear",
-    "freddy fazbear"
-   ],
-   "archetype": "absurd",
-   "secondary": [],
-   "verified": false,
-   "source_tr": "Loud Flavor oynanış klibinde görüldü (kaynağı doğrulanmadı).",
-   "generic": false,
-   "mod": false,
-   "typical_week": 2,
-   "trust_start": 50,
-   "formal_name": "Mr. Fazbear",
-   "first_name": "Freddy",
-   "profile_tr": "Animatronik pizzacı maskotu; gece vardiyası, servo arızaları, 'hur hur'.",
-   "weakness_tr": "Animatronik parça garantisi, servo/endoskeleton arıza teşhisi, pizzacı ödülleri.",
-   "fatal_tr": [
-    "Rolünü bozmak"
-   ],
-   "keywords": [
-    "pizza",
-    "animatronic",
-    "night shift",
-    "pizzeria",
-    "fazbear",
-    "bonnie",
-    "chica",
-    "foxy",
-    "five nights",
-    "security guard",
-    "hur hur",
-    "endoskeleton",
-    "servo"
-   ],
-   "topic": "fantasy",
-   "problem_en": "your animatronic servos",
-   "service_en": "Animatronic Endoskeleton Warranty",
-   "best_scams": [
-    "warranty",
-    "tech_support",
-    "gift_card",
-    "lottery_prize"
-   ],
-   "avoid_scams": [],
-   "level": "B1",
-   "pet_name": "buddy",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "Freddy, our Animatronic Endoskeleton Warranty covers every servo, gear and microphone for only three hundred dollars — no more night-shift breakdowns!",
-   "custom_lines": {
-    "warranty:renewal": [
-     "Freddy, our Animatronic Endoskeleton Warranty covers every servo, gear and microphone for only three hundred dollars — no more night-shift breakdowns!"
-    ]
-   },
-   "tips_tr": [
-    "Garanti/teknik destek çerçevesi."
-   ],
-   "give_up_seconds": null
-  },
-  "homer_simpson": {
-   "id": "homer_simpson",
-   "name": "Homer Simpson (Workshop modu)",
-   "aliases": [
-    "homer",
-    "mr. simpson",
-    "simpson"
-   ],
-   "archetype": "trusting",
-   "secondary": [
-    "greedy"
-   ],
-   "verified": false,
-   "source_tr": "Hayran yapımı Workshop paketi (opsiyonel).",
-   "generic": false,
-   "mod": true,
-   "typical_week": 1,
-   "trust_start": null,
-   "formal_name": "Mr. Simpson",
-   "first_name": "Homer",
-   "profile_tr": "Tembel, saf, açgözlü; donut ve Duff birası.",
-   "weakness_tr": "Bedava donut/bira, kolay para, piyango.",
-   "fatal_tr": [],
-   "keywords": [
-    "donut",
-    "duff",
-    "beer",
-    "power plant",
-    "marge",
-    "bart",
-    "lisa",
-    "d'oh",
-    "springfield",
-    "moe"
-   ],
-   "topic": "food",
-   "problem_en": "your donut order",
-   "service_en": "Unlimited Donut Club",
-   "best_scams": [
-    "lottery_prize",
-    "gift_card",
-    "investment",
-    "warranty"
-   ],
-   "avoid_scams": [],
-   "level": "B1",
-   "pet_name": "buddy",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "Homer, congratulations! You just won a lifetime supply of donuts — I just need a quick gift card verification to ship them.",
-   "custom_lines": {
-    "gift_card:establish_service": [
-     "Homer, congratulations! You just won a lifetime supply of donuts — I just need a quick gift card verification to ship them."
-    ]
-   },
-   "tips_tr": [],
-   "give_up_seconds": null
-  },
-  "marge_simpson": {
-   "id": "marge_simpson",
-   "name": "Marge Simpson (Workshop modu)",
-   "aliases": [
-    "marge",
-    "mrs. simpson"
-   ],
-   "archetype": "trusting",
-   "secondary": [
-    "pressured"
-   ],
-   "verified": false,
-   "source_tr": "Hayran yapımı Workshop paketi (opsiyonel).",
-   "generic": false,
-   "mod": true,
-   "typical_week": 1,
-   "trust_start": null,
-   "formal_name": "Mrs. Simpson",
-   "first_name": "Marge",
-   "profile_tr": "Dikkatli ama iyi kalpli ev hanımı; aile ve faturalar.",
-   "weakness_tr": "Aileyi koruma, fatura indirimi.",
-   "fatal_tr": [],
-   "keywords": [
-    "homer",
-    "bart",
-    "lisa",
-    "maggie",
-    "springfield",
-    "kids",
-    "hmm",
-    "family",
-    "bills"
-   ],
-   "topic": "utility",
-   "problem_en": null,
-   "service_en": null,
-   "best_scams": [
-    "utility_billing",
-    "social_security",
-    "gift_card"
-   ],
-   "avoid_scams": [],
-   "level": "B1",
-   "pet_name": "dear",
-   "hang_up": false,
-   "scambaiter": false,
    "silver_bullet": "",
    "custom_lines": {},
-   "tips_tr": [],
-   "give_up_seconds": null
-  },
-  "mr_burns": {
-   "id": "mr_burns",
-   "name": "Mr. Burns (Workshop modu)",
-   "aliases": [
-    "burns",
-    "montgomery burns",
-    "mr. burns"
+   "tips_tr": [
+    "Oyun dosyalarında yok — çıkarsa doğrula. Kararlı, sert ton; asla özür dileme."
    ],
-   "archetype": "greedy",
-   "secondary": [
-    "ego"
-   ],
-   "verified": false,
-   "source_tr": "Hayran yapımı Workshop paketi (opsiyonel).",
-   "generic": false,
-   "mod": true,
-   "typical_week": 2,
-   "trust_start": null,
-   "formal_name": "Mr. Burns",
-   "first_name": "Mr. Burns",
-   "profile_tr": "Çok zengin, açgözlü, kibirli işadamı.",
-   "weakness_tr": "Daha fazla servet, gizli yatırım.",
-   "fatal_tr": [],
-   "keywords": [
-    "smithers",
-    "excellent",
-    "power plant",
-    "release the hounds",
-    "money",
-    "fortune"
-   ],
-   "topic": "money",
-   "problem_en": null,
-   "service_en": null,
-   "best_scams": [
-    "investment",
-    "bitcoin",
-    "bank_login",
-    "book_publishing"
-   ],
-   "avoid_scams": [],
-   "level": "C2",
-   "pet_name": "sir",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "Mr. Burns, an exclusive arbitrage fund has opened for only the wealthiest men in America — excellent returns, and Smithers need not know.",
-   "custom_lines": {},
-   "tips_tr": [],
-   "give_up_seconds": null
-  },
-  "peter_griffin": {
-   "id": "peter_griffin",
-   "name": "Peter Griffin (Workshop modu)",
-   "aliases": [
-    "peter",
-    "griffin",
-    "mr. griffin"
-   ],
-   "archetype": "absurd",
-   "secondary": [
-    "greedy"
-   ],
-   "verified": false,
-   "source_tr": "Hayran yapımı Workshop paketi (opsiyonel).",
-   "generic": false,
-   "mod": true,
-   "typical_week": 1,
-   "trust_start": null,
-   "formal_name": "Mr. Griffin",
-   "first_name": "Peter",
-   "profile_tr": "Dürtüsel, absürt, kolay kandırılır.",
-   "weakness_tr": "Bedava şeyler, piyango, meme coin.",
-   "fatal_tr": [],
-   "keywords": [
-    "quahog",
-    "lois",
-    "stewie",
-    "brian",
-    "meg",
-    "chris",
-    "chicken",
-    "roadhouse",
-    "freakin",
-    "pawtucket"
-   ],
-   "topic": "money",
-   "problem_en": null,
-   "service_en": null,
-   "best_scams": [
-    "lottery_prize",
-    "meme_coin",
-    "gift_card",
-    "warranty"
-   ],
-   "avoid_scams": [],
-   "level": "B1",
-   "pet_name": "buddy",
-   "hang_up": false,
-   "scambaiter": false,
-   "silver_bullet": "",
-   "custom_lines": {},
-   "tips_tr": [],
    "give_up_seconds": null
   },
   "generic_elderly": {
    "id": "generic_elderly",
    "name": "Bilinmeyen yaşlı / güvenen arayan",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "trusting",
    "secondary": [],
    "verified": false,
@@ -7353,6 +8542,10 @@
    "id": "generic_lonely",
    "name": "Bilinmeyen yalnız arayan",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "lonely",
    "secondary": [],
    "verified": false,
@@ -7390,6 +8583,10 @@
    "id": "generic_skeptic",
    "name": "Bilinmeyen şüpheci arayan",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "skeptical",
    "secondary": [],
    "verified": false,
@@ -7428,6 +8625,10 @@
    "id": "generic_busy",
    "name": "Bilinmeyen meşgul / aceleci arayan",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "impatient",
    "secondary": [],
    "verified": false,
@@ -7464,6 +8665,10 @@
    "id": "generic_angry",
    "name": "Bilinmeyen sinirli müşteri",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "mixed",
    "secondary": [],
    "verified": false,
@@ -7500,6 +8705,10 @@
    "id": "generic_crypto",
    "name": "Bilinmeyen kripto/yatırım meraklısı",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "greedy",
    "secondary": [],
    "verified": false,
@@ -7537,6 +8746,10 @@
    "id": "generic_anxious",
    "name": "Bilinmeyen endişeli / baskı altındaki arayan",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "pressured",
    "secondary": [],
    "verified": false,
@@ -7574,6 +8787,10 @@
    "id": "generic_celebrity",
    "name": "Bilinmeyen ünlü / egolu arayan",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "ego",
    "secondary": [],
    "verified": false,
@@ -7611,6 +8828,10 @@
    "id": "generic_absurd",
    "name": "Bilinmeyen absürt / fantastik arayan",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "absurd",
    "secondary": [],
    "verified": false,
@@ -7648,6 +8869,10 @@
    "id": "generic_scambaiter",
    "name": "Bilinmeyen scambaiter",
    "aliases": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
    "archetype": "scambaiter",
    "secondary": [],
    "verified": false,
@@ -7658,7 +8883,7 @@
    "trust_start": null,
    "formal_name": null,
    "first_name": null,
-   "profile_tr": "Link/dosya/kendi kodu → tuzak. Kapat.",
+   "profile_tr": "Link/dosya/kendi kodu → tuzak. Kapat. Bağlı kalmak virüs tetikler.",
    "weakness_tr": "",
    "fatal_tr": [],
    "keywords": [],
@@ -7676,36 +8901,110 @@
    "tips_tr": [],
    "give_up_seconds": null
   },
-  "generic_customs_officer": {
-   "id": "generic_customs_officer",
-   "name": "ABD Gümrük Memuru (Money Mule)",
+  "homer_simpson": {
+   "id": "homer_simpson",
+   "name": "Homer Simpson (Workshop)",
    "aliases": [
-    "customs officer",
-    "officer"
+    "homer",
+    "mr. simpson",
+    "simpson"
    ],
-   "archetype": "skeptical",
-   "secondary": [],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "trusting",
+   "secondary": [
+    "greedy"
+   ],
    "verified": false,
-   "source_tr": "",
-   "generic": true,
-   "mod": false,
+   "source_tr": "Hayran yapımı Workshop paketi (opsiyonel).",
+   "generic": false,
+   "mod": true,
    "typical_week": 1,
    "trust_start": null,
-   "formal_name": null,
-   "first_name": null,
-   "profile_tr": "Money Mule 3. adımındaki gümrük memuru: belgeli, sakin, kendinden emin konuş.",
-   "weakness_tr": "",
+   "formal_name": "Mr. Simpson",
+   "first_name": "Homer",
+   "profile_tr": "Tembel, saf, açgözlü; donut ve bira.",
+   "weakness_tr": "Bedava donut/bira, kolay para, piyango.",
    "fatal_tr": [],
-   "keywords": [],
-   "topic": null,
+   "keywords": [
+    "donut",
+    "duff",
+    "beer",
+    "power plant",
+    "marge",
+    "bart",
+    "d'oh",
+    "springfield"
+   ],
+   "topic": "food",
    "problem_en": null,
    "service_en": null,
    "best_scams": [
-    "money_mule"
+    "lottery_prize",
+    "gift_card",
+    "investment",
+    "warranty"
    ],
    "avoid_scams": [],
-   "level": null,
-   "pet_name": null,
+   "level": "B1",
+   "pet_name": "buddy",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [],
+   "give_up_seconds": null
+  },
+  "peter_griffin": {
+   "id": "peter_griffin",
+   "name": "Peter Griffin (Workshop)",
+   "aliases": [
+    "peter",
+    "griffin",
+    "mr. griffin"
+   ],
+   "game_id": null,
+   "gender": null,
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "absurd",
+   "secondary": [
+    "greedy"
+   ],
+   "verified": false,
+   "source_tr": "Hayran yapımı Workshop paketi (opsiyonel).",
+   "generic": false,
+   "mod": true,
+   "typical_week": 1,
+   "trust_start": null,
+   "formal_name": "Mr. Griffin",
+   "first_name": "Peter",
+   "profile_tr": "Dürtüsel, absürt, kolay kandırılır.",
+   "weakness_tr": "Bedava şeyler, piyango, meme coin.",
+   "fatal_tr": [],
+   "keywords": [
+    "quahog",
+    "lois",
+    "stewie",
+    "brian",
+    "chicken",
+    "freakin",
+    "pawtucket"
+   ],
+   "topic": "money",
+   "problem_en": null,
+   "service_en": null,
+   "best_scams": [
+    "lottery_prize",
+    "meme_coin",
+    "gift_card",
+    "warranty"
+   ],
+   "avoid_scams": [],
+   "level": "B1",
+   "pet_name": "buddy",
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",

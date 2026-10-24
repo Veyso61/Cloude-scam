@@ -171,7 +171,8 @@ def load_db(path: str = DB_PATH, custom_path: str = CUSTOM_DB_PATH, imported_pat
 
 def _character_defaults(cid: str) -> dict:
     return {
-        "id": cid, "name": cid, "aliases": [], "archetype": "trusting", "secondary": [], "verified": False,
+        "id": cid, "name": cid, "aliases": [], "game_id": None, "gender": None, "call_type": "victim",
+        "first_messages": [], "archetype": "trusting", "secondary": [], "verified": False,
         "source_tr": "", "generic": False, "mod": False, "typical_week": 1, "trust_start": None,
         "formal_name": None, "first_name": None, "profile_tr": "", "weakness_tr": "", "fatal_tr": [],
         "keywords": [], "topic": None, "problem_en": None, "service_en": None, "best_scams": [],

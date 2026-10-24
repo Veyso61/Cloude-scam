@@ -92,8 +92,9 @@ class DbIntegrityTest(unittest.TestCase):
     def test_pdf_and_research_characters_present(self):
         names = {c["name"] for c in self.db["characters"].values()}
         for must in ["Dorothy Mayfield", "Commander Miles \"Orbit\" Vega", "Kanye East", "Kenzo Sivley", "Chael Sonnen",
-                     "Dracula", "Arthur Lin", "Franklin D. Hyper", "Damien Holloway", "Shanice \"Dee\" Bishop",
-                     "Brittany \"Lexi\" Summers", "Eleanor \"Granny\" Grimshaw"]:
+                     "Nicolae \"Nico\" Dracomir", "Arthur Lin", "Walter \"Walt\" Pritchard", "Franklin D. Hyper",
+                     "Damien Holloway", "Shanice \"Dee\" Bishop", "Brittany \"Lexi\" Summers",
+                     "Eleanor \"Granny\" Grimshaw", "President Donald Dump", "US Customs Officer (Money Mule)"]:
             self.assertIn(must, names)
 
     def test_week_schedule_matches_unlock_days(self):
