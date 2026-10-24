@@ -836,7 +836,7 @@
      "goal_tr": "Arayanın sorununu dinle ve onu çözecek sahte bir hizmet/iade/ödül öner. Kabul etsin.",
      "lines": {
       "B1": [
-       "Hello {name}, I see your problem right here in our system, and I can fix {problem} for you today with our special {service}.",
+       "Hello {name}, I see your problem right here in our system, and I can fix {problem} for you today with our special {service}. It's only {amount_words}, one time.",
        "Don't worry about that {name}, our technical team has a complete solution ready to fix {problem} right now.",
        "Good news! Because of the trouble you had today, I am activating a full repair and refund package on your profile."
       ],
@@ -5999,7 +5999,13 @@
     "SSN ($250) ile başla, sonra Gift Card ve Utility Billing zincirle.",
     "Her adımda 'I will protect you' çerçevesi."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "explain things slowly for me",
+    "not quite sure where to start",
+    "dear i'm hoping you can help"
+   ],
+   "parody_of": ""
   },
   "eleanor_grimshaw": {
    "id": "eleanor_grimshaw",
@@ -6079,7 +6085,13 @@
     "Romance ($600) ile başla; lakap ve 'I love you' kolay gelir.",
     "SSN isterken 'bu iyi bir alamet' de."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "hello dearie",
+    "lights just flickered",
+    "afraid i need a little help"
+   ],
+   "parody_of": ""
   },
   "miles_vega": {
    "id": "miles_vega",
@@ -6166,7 +6178,16 @@
     "Her cümleyi 'over' ile bitir.",
     "Tech Support → AnyViewer → Password Recovery zinciri."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "liberty seven",
+    "commander vega",
+    "miles vega",
+    "do you read me",
+    "orbital night",
+    "right channel"
+   ],
+   "parody_of": ""
   },
   "lexi_summers": {
    "id": "lexi_summers",
@@ -6241,7 +6262,13 @@
     "90 sn içinde adım ilerlemezse başka scam'e geç veya kapat.",
     "Uzun açıklama yapma; iltifat + hız."
    ],
-   "give_up_seconds": 90
+   "give_up_seconds": 90,
+   "fingerprints": [
+    "about to start filming",
+    "is this a person",
+    "this is brittany"
+   ],
+   "parody_of": ""
   },
   "shanice_bishop": {
    "id": "shanice_bishop",
@@ -6317,7 +6344,14 @@
    "tips_tr": [
     "Kısa ve somut ol; her soruya net cevap."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "hello baby",
+    "hi baby",
+    "this is shanice",
+    "not to burn dinner"
+   ],
+   "parody_of": ""
   },
   "brayden_mills": {
    "id": "brayden_mills",
@@ -6383,7 +6417,13 @@
    "tips_tr": [
     "Oyun/ödül diliyle yaklaş; basit tut."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "the arcade's loud",
+    "arcade is loud",
+    "a little lost here"
+   ],
+   "parody_of": ""
   },
   "earl_harlan": {
    "id": "earl_harlan",
@@ -6454,7 +6494,15 @@
    "tips_tr": [
     "Net, kısa, saygılı; lafı dolandırma."
    ],
-   "give_up_seconds": 100
+   "give_up_seconds": 100,
+   "fingerprints": [
+    "buck harlan",
+    "this is buck",
+    "buck here",
+    "speak up a little",
+    "chores waiting"
+   ],
+   "parody_of": ""
   },
   "silas_brubaker": {
    "id": "silas_brubaker",
@@ -6523,7 +6571,15 @@
    "tips_tr": [
     "Sakin, dürüst, mütevazı; inancına saygı göster."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "silas brubaker",
+    "silas speaking",
+    "community phone",
+    "between chores",
+    "plain explanation"
+   ],
+   "parody_of": ""
   },
   "sloane_park_voss": {
    "id": "sloane_park_voss",
@@ -6591,7 +6647,12 @@
    "tips_tr": [
     "Kısa, kendinden emin, 'exclusive' çerçevesi."
    ],
-   "give_up_seconds": 90
+   "give_up_seconds": 90,
+   "fingerprints": [
+    "pilates soon",
+    "i have very little time"
+   ],
+   "parody_of": ""
   },
   "wei_chen": {
    "id": "wei_chen",
@@ -6657,7 +6718,14 @@
    "tips_tr": [
     "Sakinleştir, basit cümleler, güven ver."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "this is wei chen",
+    "wei chen",
+    "i'm at the shop",
+    "explain slowly so i understand"
+   ],
+   "parody_of": ""
   },
   "reese_caldwell": {
    "id": "reese_caldwell",
@@ -6724,7 +6792,12 @@
    "tips_tr": [
     "Teknik scam deneme; egosunu okşa, yatırıma çek."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "this is reese",
+    "reese caldwell"
+   ],
+   "parody_of": ""
   },
   "brody_jenkins": {
    "id": "brody_jenkins",
@@ -6788,7 +6861,12 @@
    "tips_tr": [
     "Rahat ol, basit tut; ödül/bedava çerçevesi."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "this is brody",
+    "before i head out"
+   ],
+   "parody_of": ""
   },
   "damien_holloway": {
    "id": "damien_holloway",
@@ -6858,7 +6936,12 @@
     "Kısa ve zahmetsiz tut; abartma.",
     "Kripto/meme coin'e kuru merakı olabilir."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "haven't slept yet",
+    "so i can go to bed"
+   ],
+   "parody_of": ""
   },
   "nicolae_dracomir": {
    "id": "nicolae_dracomir",
@@ -6923,7 +7006,14 @@
    "tips_tr": [
     "Gizemli/dramatik tona uy; sabırlı ol."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "this is nicolae",
+    "only just woken",
+    "you have my attention",
+    "i trust i have reached"
+   ],
+   "parody_of": "ürkütücü gece adamı"
   },
   "ahmed_haddad": {
    "id": "ahmed_haddad",
@@ -6990,7 +7080,14 @@
    "tips_tr": [
     "Kısa ve net; vaktini alma."
    ],
-   "give_up_seconds": 100
+   "give_up_seconds": 100,
+   "fingerprints": [
+    "ahmed here",
+    "ahmed haddad",
+    "grill's packed",
+    "what the hell is going on"
+   ],
+   "parody_of": ""
   },
   "kyle_miller": {
    "id": "kyle_miller",
@@ -7054,7 +7151,13 @@
    "tips_tr": [
     "Basit tut; saçmalamalarına kısaca uy."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "cheese in the spacebar",
+    "keyboard's busted",
+    "keyboard is busted"
+   ],
+   "parody_of": ""
   },
   "franklin_hyper": {
    "id": "franklin_hyper",
@@ -7122,12 +7225,23 @@
    "custom_lines": {
     "investment:pitch": [
      "Franklin, this round is invitation-only for serious high rollers, and the projected returns dwarf anything your casinos pull — I've reserved an allocation just for you."
+    ],
+    "gift_card:establish_service": [
+     "Mr. Hyper, a high roller like you gets the VIP table: I'll fix your problem today with our platinum plan, only {amount_words}."
     ]
    },
    "tips_tr": [
     "Investment/Meme Coin'de egosunu ve açgözlülüğünü kullan; VIP çerçevesi."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "franklin d hyper",
+    "franklin hyper",
+    "this is hyper",
+    "who am i dealing with",
+    "my time is valuable"
+   ],
+   "parody_of": ""
   },
   "donald_dump": {
    "id": "donald_dump",
@@ -7195,12 +7309,22 @@
    "custom_lines": {
     "investment:pitch": [
      "Sir, many people are saying this is the greatest deal in history — tremendous returns, believe me. Only the best dealmakers get this offer, and you are the best."
+    ],
+    "gift_card:establish_service": [
+     "Mr. President, a tremendous deal for a tremendous man: I fix your problem today for only {amount_words}, the best deal you'll ever see."
     ]
    },
    "tips_tr": [
     "'The best deal ever' çerçevesi; büyük tutar iste."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "donald dump",
+    "president dump",
+    "tremendous schedule",
+    "i expect excellent service"
+   ],
+   "parody_of": "Trump parodisi"
   },
   "zorp_glaxx": {
    "id": "zorp_glaxx",
@@ -7264,7 +7388,15 @@
    "tips_tr": [
     "Resmî/ritüel çerçevesi; merakını kullan."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "zorp glaxx",
+    "earth worker",
+    "communication ritual",
+    "my translator is ready",
+    "which human am i addressing"
+   ],
+   "parody_of": "uzaylı elçi"
   },
   "loopy_loops": {
    "id": "loopy_loops",
@@ -7326,7 +7458,16 @@
    "tips_tr": [
     "Kısa, yüksek enerji; mısır gevreği çerçevesi."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "loopy for doop loops",
+    "doop loops",
+    "it's cereal time",
+    "loops in my bowl",
+    "loopy here",
+    "this is loopy"
+   ],
+   "parody_of": "mısır gevreği maskotu"
   },
   "cletus_thibodeaux": {
    "id": "cletus_thibodeaux",
@@ -7389,7 +7530,17 @@
    "tips_tr": [
     "Neşeli, sıcak Cajun tonuna kısaca uy."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "whoo-wee",
+    "whoo wee",
+    "whoo wee",
+    "hey there cher",
+    "one of my crawfish",
+    "mais yeah",
+    "cletus thibodeaux"
+   ],
+   "parody_of": ""
   },
   "arthur_lin": {
    "id": "arthur_lin",
@@ -7451,7 +7602,13 @@
     "Ses değiştiricisi kayarsa scambaiter olduğu belli olur.",
     "Virüs bulaşırsa Malwarebits → Remove virus."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "hello young man",
+    "hear me all right",
+    "reached someone who can help me"
+   ],
+   "parody_of": "SCAMBAITER"
   },
   "walter_pritchard": {
    "id": "walter_pritchard",
@@ -7513,7 +7670,14 @@
     "Hemen kapat (Hang Up) → F5.",
     "Uzun 'prosedür' sorularıyla oyalar; bağlı kalma."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "walter pritchard",
+    "explain your procedure",
+    "clear and concise",
+    "who am i addressing"
+   ],
+   "parody_of": "SCAMBAITER"
   },
   "us_customs": {
    "id": "us_customs",
@@ -7572,7 +7736,14 @@
    "tips_tr": [
     "Belgeli ve sakin ol; aratma. İlk turda 'arama/X-ray yapma'ya ikna et, sonraki turda serbest bıraktır."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "this is us customs",
+    "this is u s customs",
+    "white powder",
+    "x-ray and search"
+   ],
+   "parody_of": "Money Mule gümrük memuru"
   },
   "kanye_east": {
    "id": "kanye_east",
@@ -7582,7 +7753,8 @@
     "ye",
     "mr. east",
     "mr east",
-    "east"
+    "east",
+    "kanye west"
    ],
    "game_id": "default-b43e89fa-b94d-4718-b537-62f7678266a4",
    "gender": "Male",
@@ -7645,20 +7817,30 @@
     ],
     "romance:flirt": [
      "Honestly, talking to a visionary icon like you is making my heart melt. You're even more brilliant than your albums."
+    ],
+    "gift_card:establish_service": [
+     "Mr. East, a visionary like you deserves VIP service. I'll fix your problem today with our exclusive Legacy plan, only {amount_words}."
     ]
    },
    "tips_tr": [
     "Romance: hobi → flört → lakap → 'I love you' → ANCAK sonra randevu.",
     "Sonra Book Publishing / Investment zincirle."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "it's kanye east",
+    "kanye east",
+    "kanye west"
+   ],
+   "parody_of": "Kanye West parodisi"
   },
   "kevin_liver": {
    "id": "kevin_liver",
    "name": "Kevin Liver",
    "aliases": [
     "kevin liver",
-    "liver"
+    "liver",
+    "kevin hart"
    ],
    "game_id": "default-8cc5246c-9f1c-4d2d-a20b-6cf32bc004d0",
    "gender": "Male",
@@ -7707,9 +7889,18 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Kevin, you're a legend, man! Let me fix your problem fast with our VIP plan, only {amount_words}."
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "who is this the pebble",
+    "listen listen listen"
+   ],
+   "parody_of": "Kevin Hart parodisi"
   },
   "cheese_dip": {
    "id": "cheese_dip",
@@ -7767,9 +7958,18 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Cheese Dip! Chat is gonna love this: I'll fix your problem live for only {amount_words}, GG easy!"
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "cheese dip here",
+    "cheese dip"
+   ],
+   "parody_of": "Twitch yayıncısı"
   },
   "micheal_jorkson": {
    "id": "micheal_jorkson",
@@ -7777,7 +7977,8 @@
    "aliases": [
     "micheal jorkson",
     "michael jorkson",
-    "jorkson"
+    "jorkson",
+    "michael jackson"
    ],
    "game_id": "default-e09a0391-f4d3-4dd8-8ded-b6246e7db89a",
    "gender": "Male",
@@ -7826,9 +8027,22 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Mr. Jorkson, what an honor, the greatest entertainer in the world! I'll personally fix your problem today with our VIP Star Service, only {amount_words}."
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "hee-hee",
+    "hee hee",
+    "michael jorkson",
+    "micheal jorkson",
+    "michael jackson",
+    "shamone"
+   ],
+   "parody_of": "Michael Jackson parodisi"
   },
   "arachnid_kid": {
    "id": "arachnid_kid",
@@ -7836,7 +8050,10 @@
    "aliases": [
     "arachnid kid",
     "arachnid",
-    "spider kid"
+    "spider kid",
+    "spider-man",
+    "spiderman",
+    "spider man"
    ],
    "game_id": "arachnid_kid",
    "gender": "Unspecified",
@@ -7885,9 +8102,19 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Hey hero, your secret identity is safe with me. I'll fix your problem today with our hero discount, only {amount_words}."
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "friendly local arachnid",
+    "arachnid kid",
+    "your friendly local"
+   ],
+   "parody_of": "Spider-Man parodisi"
   },
   "sponge_boy": {
    "id": "sponge_boy",
@@ -7957,14 +8184,21 @@
     "Neşeli ve basit konuş.",
     "Zaten ikna olmuşsa sadece 'read me the code' de."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "re:^\\W*i'?m ready\\W*$",
+    "sponge boy"
+   ],
+   "parody_of": "SpongeBob parodisi"
   },
   "bat_guy": {
    "id": "bat_guy",
    "name": "Bat Guy",
    "aliases": [
     "bat guy",
-    "batguy"
+    "batguy",
+    "batman",
+    "bat man"
    ],
    "game_id": "bat_guy",
    "gender": "Unspecified",
@@ -8012,9 +8246,19 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Your secret is safe with me, Bat Guy. I'll quietly fix your problem tonight with our Dark Knight protection plan, only {amount_words}."
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "i'm bat guy",
+    "im bat guy",
+    "this is bat guy"
+   ],
+   "parody_of": "Batman parodisi"
   },
   "hiesenburger": {
    "id": "hiesenburger",
@@ -8022,7 +8266,9 @@
    "aliases": [
     "hiesenburger",
     "walter blanco",
-    "heisenberg"
+    "heisenberg",
+    "heisenburger",
+    "walter white"
    ],
    "game_id": "default-workshop-3820049104",
    "gender": "Male",
@@ -8072,9 +8318,22 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Of course I know who I'm talking to, sir. The one and only Heisenberg. A genius like you gets VIP service, so I'll fix your problem today with our premium plan, only {amount_words}."
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "know who you are talking to",
+    "know who you're talking to",
+    "say my name",
+    "the one who knocks",
+    "heisenberg",
+    "heisenburger"
+   ],
+   "parody_of": "Heisenberg / Breaking Bad parodisi"
   },
   "one_pac": {
    "id": "one_pac",
@@ -8082,7 +8341,11 @@
    "aliases": [
     "one pac",
     "1 pac",
-    "pac"
+    "pac",
+    "tupac",
+    "two pac",
+    "2pac",
+    "one pack"
    ],
    "game_id": "1_pac",
    "gender": "Male",
@@ -8131,9 +8394,20 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Respect, legend, your verses are classics. Let me fix your problem today with our street legend plan, only {amount_words}, real talk."
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "interruptin' my peace",
+    "interrupting my peace",
+    "who callin'",
+    "who calling"
+   ],
+   "parody_of": "Tupac parodisi"
   },
   "eric_fartman": {
    "id": "eric_fartman",
@@ -8141,7 +8415,8 @@
    "aliases": [
     "eric fartman",
     "fartman",
-    "cartman"
+    "cartman",
+    "eric cartman"
    ],
    "game_id": "eric_fartman",
    "gender": "Male",
@@ -8190,9 +8465,19 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Yes sir, I totally respect your authority. You deserve special treatment, so I'll fix your problem today with our boss plan, only {amount_words}."
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "respect my authoritah",
+    "respect my authority",
+    "screw you guys"
+   ],
+   "parody_of": "Cartman parodisi"
   },
   "entrepreneur_crab": {
    "id": "entrepreneur_crab",
@@ -8201,7 +8486,8 @@
     "entrepreneur crab",
     "mr krabs",
     "mr. krabs",
-    "crab"
+    "crab",
+    "mister krabs"
    ],
    "game_id": "entrepreneur_crab",
    "gender": "Male",
@@ -8250,9 +8536,18 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Mr. Krabs, here's a money-saving deal: I fix your problem today for only {amount_words}, and it saves you a fortune later!"
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "re:^\\W*a+r+g*h*\\W*$",
+    "me money"
+   ],
+   "parody_of": "Mr. Krabs parodisi"
   },
   "mr_least": {
    "id": "mr_least",
@@ -8260,7 +8555,10 @@
    "aliases": [
     "mr least",
     "mrbeast",
-    "least"
+    "least",
+    "mr beast",
+    "mister beast",
+    "mister least"
    ],
    "game_id": "mr_least",
    "gender": "Male",
@@ -8308,9 +8606,20 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "Mr. Least, huge fan! Let's make it a challenge: I fix your problem in sixty seconds with our creator plan, only {amount_words}!"
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "mr least here",
+    "mr. least here",
+    "mister least",
+    "what's up guys"
+   ],
+   "parody_of": "MrBeast parodisi"
   },
   "the_pebble": {
    "id": "the_pebble",
@@ -8365,9 +8674,19 @@
    "hang_up": false,
    "scambaiter": false,
    "silver_bullet": "",
-   "custom_lines": {},
+   "custom_lines": {
+    "gift_card:establish_service": [
+     "The Pebble himself! The champ gets VIP service today: I'll fix your problem with our Champion plan, only {amount_words}."
+    ]
+   },
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [
+    "smell what the pebble",
+    "the pebble says",
+    "know your role"
+   ],
+   "parody_of": "The Rock parodisi"
   },
   "kenzo_sivley": {
    "id": "kenzo_sivley",
@@ -8435,7 +8754,9 @@
    "tips_tr": [
     "Oyun dosyalarında yok — çıkarsa doğrula. Araç jargonuyla yaklaş."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "chael_sonnen": {
    "id": "chael_sonnen",
@@ -8497,7 +8818,9 @@
    "tips_tr": [
     "Oyun dosyalarında yok — çıkarsa doğrula. Kararlı, sert ton; asla özür dileme."
    ],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_elderly": {
    "id": "generic_elderly",
@@ -8539,7 +8862,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_lonely": {
    "id": "generic_lonely",
@@ -8580,7 +8905,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_skeptic": {
    "id": "generic_skeptic",
@@ -8622,7 +8949,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_busy": {
    "id": "generic_busy",
@@ -8662,7 +8991,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_angry": {
    "id": "generic_angry",
@@ -8702,7 +9033,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_crypto": {
    "id": "generic_crypto",
@@ -8743,7 +9076,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_anxious": {
    "id": "generic_anxious",
@@ -8784,7 +9119,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_celebrity": {
    "id": "generic_celebrity",
@@ -8825,7 +9162,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_absurd": {
    "id": "generic_absurd",
@@ -8866,7 +9205,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "generic_scambaiter": {
    "id": "generic_scambaiter",
@@ -8902,7 +9243,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "homer_simpson": {
    "id": "homer_simpson",
@@ -8958,7 +9301,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   },
   "peter_griffin": {
    "id": "peter_griffin",
@@ -9013,7 +9358,9 @@
    "silver_bullet": "",
    "custom_lines": {},
    "tips_tr": [],
-   "give_up_seconds": null
+   "give_up_seconds": null,
+   "fingerprints": [],
+   "parody_of": ""
   }
  },
  "locations": {

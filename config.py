@@ -16,11 +16,14 @@ CUSTOM_DB_PATH = os.path.join(APP_DIR, "characters_custom.json")
 IMPORTED_DB_PATH = os.path.join(APP_DIR, "characters_imported.json")
 LOG_DIR = os.path.join(APP_DIR, "logs")
 
+CONFIG_VERSION = 2
+
 DEFAULT_CONFIG: Dict[str, Any] = {
+    "config_version": CONFIG_VERSION,
     "agent_name": "Steve",
     "company_name": "Customer Protection Center",
     "language_level": "auto",
-    "max_level": "C2",
+    "max_level": "C1",
     "show_turkish_notes": True,
     "translate_caller": True,
     "auto_copy_say": True,
@@ -56,7 +59,7 @@ DEFAULT_CONFIG: Dict[str, Any] = {
         "google_fallback": True
     },
     "ocr": {
-        "enabled": False,
+        "enabled": True,
         "interval_s": 3.0,
         "engine": "auto",
         "regions": [],
@@ -125,9 +128,23 @@ def load_config(path: str = CONFIG_PATH) -> dict:
         except (OSError, ValueError) as e:
             print(f"[config] {path} okunamadı ({e}); varsayılanlar kullanılıyor.")
     cfg = _merge(DEFAULT_CONFIG, user)
+    if user and int(user.get("config_version", 1)) < CONFIG_VERSION:
+        _migrate(cfg, user)
+        save_config(cfg, path)
     if not os.path.exists(path):
         save_config(cfg, path)
     return cfg
+
+
+def _migrate(cfg: dict, user: dict) -> None:
+    """Eski config.json'ları yeni varsayılanlara bir kez taşır."""
+    if int(user.get("config_version", 1)) < 2:
+        # Ekrandan arayan adını okumak otomatik tanımanın en güvenilir yolu → varsayılan açık.
+        cfg["ocr"]["enabled"] = True
+        # C2 cümleleri uzun ve jargonlu; oyundaki arayan 1 cümleyle cevap veriyor → en fazla C1.
+        if (user.get("max_level") or "C2").upper() == "C2":
+            cfg["max_level"] = "C1"
+    cfg["config_version"] = CONFIG_VERSION
 
 
 def save_config(cfg: dict, path: str = CONFIG_PATH) -> None:

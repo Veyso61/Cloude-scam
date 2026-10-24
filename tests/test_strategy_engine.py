@@ -332,3 +332,30 @@ class AutoCallAndTrustTest(unittest.TestCase):
         step1 = a.step_label
         a = say(eng, clock, "Oh, I see. And then what happens?")
         self.assertNotEqual(a.step_label, step1)
+
+    def test_identify_by_opening_line(self):
+        eng, st, clock = make(day=1)
+        eng.new_call()
+        a = say(eng, clock, "Do you know who you are talking to right now?")
+        self.assertEqual(a.caller_name, "Hiesenburger")
+        eng.new_call()
+        a = say(eng, clock, "Hello... hee-hee... this is Michael Jackson.")       # Whisper adı böyle yazar
+        self.assertEqual(a.caller_name, "Micheal Jorkson")
+        eng.new_call()
+        a = say(eng, clock, "I'm ready!")
+        self.assertEqual(a.caller_name, "Sponge Boy")
+
+    def test_wrong_manual_pick_is_corrected_by_opening_line(self):
+        # Ekran görüntüsü: listede Eleanor seçili kalmış, arayan Hiesenburger.
+        eng, st, clock = make(day=1)
+        eng.new_call()
+        eng.set_character("eleanor_grimshaw")
+        a = say(eng, clock, "Do you know who you are talking to right now?")
+        self.assertEqual(a.caller_name, "Hiesenburger")
+        self.assertIn("Açılış cümlesinden tanındı", a.note_tr)
+
+    def test_screen_name_is_not_overridden_by_fingerprint(self):
+        eng, st, clock = make(day=1)
+        eng.on_ocr_caller('ELEANOR "GRANNY" GRIMSHAW')
+        a = say(eng, clock, "Hello dearie, I'm ready!")
+        self.assertEqual(a.caller_name, 'Eleanor "Granny" Grimshaw')

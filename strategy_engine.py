@@ -37,6 +37,12 @@ GREETING_RE = re.compile(r"^\W*(hi|hello|hey|hiya|yo|howdy|greetings|good (morni
 STILL_THERE_RE = re.compile(r"(still there|are you there|you there\??|can you hear me|^\W*(hello|hi|hey)\W*$|anyone there|what happened)", re.I)
 
 
+def _fp_norm(text: str) -> str:
+    t = (text or "").lower().replace("\u2019", "'").replace("\u2018", "'")
+    t = re.sub(r"[^a-z0-9' \-]+", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
 def _pretty_name(name: str) -> str:
     n = re.sub(r"\s+", " ", (name or "").strip())
     return n.title() if n.isupper() else n
@@ -154,6 +160,13 @@ class StrategyEngine:
         self.session = CallSession()
         self.last_advice: Optional[Advice] = None
         self._name_index = {cid: [c["name"]] + c.get("aliases", []) for cid, c in db["characters"].items() if not c.get("generic")}
+        self._fp_index: List[Tuple[str, re.Pattern, bool]] = []      # (karakter, desen, ham metne mi uygulanır)
+        for cid, c in db["characters"].items():
+            for fp in c.get("fingerprints", []):
+                if fp.startswith("re:"):
+                    self._fp_index.append((cid, re.compile(fp[3:], re.I), True))
+                else:
+                    self._fp_index.append((cid, re.compile(r"(?<![a-z0-9])" + re.escape(_fp_norm(fp)) + r"(?![a-z0-9])"), False))
         self._scam_name_res = [(sid, re.compile(r"\b" + re.escape(s["name"].split(" (")[0].split("'")[0].lower()) + r"\b", re.I))
                                for sid, s in db["scams"].items()]
 
@@ -250,10 +263,17 @@ class StrategyEngine:
         else:
             said = ta.extract_self_name(text)
             said_id = ta.best_fuzzy(said, self._name_index) if said else None
-            if said_id and s.profile.char_id and said_id != s.profile.char_id and s.utterances >= 1:
+            fp_id = self._fingerprint(text)
+            cur = s.profile.char_id
+            if said_id and cur and said_id != cur and s.utterances >= 1:
                 self.new_call(said_id, how="isim")
                 s = self.session
                 auto_note = "🆕 Farklı bir arayan kendini tanıttı → otomatik sıfırlandı. "
+            elif (fp_id and cur and fp_id != cur and s.profile.identified_by != "ekran"
+                  and (s.utterances == 0 or gap >= 6 or not self._has_progress())):
+                self.new_call(fp_id, how="ilk cümle")
+                s = self.session
+                auto_note = f"🆕 Açılış cümlesinden tanındı: {self.db['characters'][fp_id]['name']} → otomatik sıfırlandı. "
         s.pending_note = auto_note
         s.utterances += 1
         s.last_caller_at = now
@@ -721,8 +741,11 @@ class StrategyEngine:
                             break
                     if cid:
                         break
+            how = "isim"
+            if not cid:
+                cid, how = self._fingerprint(text), "ilk cümle"
             if cid:
-                self._set_char(cid, "isim")
+                self._set_char(cid, how)
             else:
                 for c_id, c in self.db["characters"].items():
                     if c.get("generic"):
@@ -742,6 +765,15 @@ class StrategyEngine:
             prof.locations[p] += 1
         for h in data.get("hints", []):
             prof.location_hints[h] += 1
+
+    def _fingerprint(self, text: str) -> Optional[str]:
+        """Oyundaki arayanların kendine özgü açılış cümlelerinden kimin aradığını bul."""
+        norm, raw = _fp_norm(text), (text or "").strip().lower()
+        hits = Counter(cid for cid, rx, on_raw in self._fp_index if rx.search(raw if on_raw else norm))
+        if not hits:
+            return None
+        (best, n), *rest = hits.most_common(2)
+        return best if not rest or n > rest[0][1] else None
 
     def _is_boss(self, text: str) -> bool:
         score = sum(w for rx, w in self.boss_patterns if rx.search(text))

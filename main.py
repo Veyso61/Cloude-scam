@@ -429,7 +429,7 @@ class App:
         if self.ui:
             self.ui.root.attributes("-alpha", float(self.cfg["overlay"]["opacity"]))
             self.ui.lbl_say.config(font=(self.cfg["overlay"].get("font_family", "Segoe UI"), int(self.cfg["overlay"]["say_font_size"]), "bold"))
-        if vals.get("character_id"):
+        if vals.get("character_id") and vals["character_id"] != self.engine.session.profile.char_id:
             self.emit(self.engine.set_character(vals["character_id"]))
         elif vals.get("archetype_id"):
             self.emit(self.engine.set_archetype(vals["archetype_id"]))
@@ -469,8 +469,17 @@ class App:
         self.status("OCR bölgeleri temizlendi (tüm ekran okunur).")
 
     def open_settings(self) -> None:
-        chars = sorted(((cid, c["name"]) for cid, c in self.db["characters"].items()), key=lambda x: x[1])
-        self.ui.open_settings(self.state, self.db, chars, self.apply_settings)
+        def label(c: dict) -> str:
+            return c["name"] + (f" — {c['parody_of']}" if c.get("parody_of") else "")
+
+        def order(c: dict) -> tuple:     # önce oyundaki arayanlar, sonra diğerleri, en sonda genel şablonlar
+            return (bool(c.get("generic")), not c.get("game_id"), c["name"].lower())
+
+        ordered = sorted(self.db["characters"].values(), key=order)
+        chars = [(c["id"], label(c)) for c in ordered]
+        cur = self.engine.session.profile.char_id
+        current = next((lbl for cid, lbl in chars if cid == cur), "(Otomatik)")
+        self.ui.open_settings(self.state, self.db, chars, self.apply_settings, current_character=current)
 
     def _pump(self) -> None:
         try:

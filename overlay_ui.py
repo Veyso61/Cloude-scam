@@ -360,7 +360,8 @@ class OverlayUI:
         top.focus_force()
 
     # ================================================================== settings window
-    def open_settings(self, state, db: dict, characters: List[tuple], apply_cb: Callable[[dict], None]) -> None:
+    def open_settings(self, state, db: dict, characters: List[tuple], apply_cb: Callable[[dict], None],
+                      current_character: str = "(Otomatik)") -> None:
         if self.settings_win is not None and self.settings_win.winfo_exists():
             self.settings_win.lift()
             return
@@ -418,7 +419,7 @@ class OverlayUI:
         add("Sayaç açık:", ttk.Checkbutton(f, variable=v["timer_enabled"]))
         v["time_left"] = tk.StringVar(value="" if state.time_left() is None else fmt_time(state.time_left()))
         add("Kalan süre (dd:ss):", ttk.Entry(f, textvariable=v["time_left"], width=8))
-        v["character"] = tk.StringVar(value="(Otomatik)")
+        v["character"] = tk.StringVar(value=current_character)
         names = ["(Otomatik)"] + [n for _, n in characters]
         add("Arayan:", ttk.Combobox(f, textvariable=v["character"], values=names, width=40, state="readonly"))
         v["archetype"] = tk.StringVar(value="(Otomatik)")

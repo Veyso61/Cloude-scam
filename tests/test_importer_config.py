@@ -63,6 +63,20 @@ class ImporterTest(unittest.TestCase):
         self.assertTrue(ned["scambaiter"] and ned["hang_up"])
         self.assertEqual(ned["call_type"], "scambaiter")
 
+    def test_old_config_migrates_ocr_on_and_level_c1(self):
+        tmp = tempfile.mkdtemp()
+        path = os.path.join(tmp, "config.json")
+        old = {"agent_name": "Kevin", "max_level": "C2", "ocr": {"enabled": False, "interval_s": 3.0}}
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(old, f)
+        cfg = C.load_config(path)
+        self.assertTrue(cfg["ocr"]["enabled"])
+        self.assertEqual(cfg["max_level"], "C1")
+        self.assertEqual(cfg["agent_name"], "Kevin")
+        cfg["ocr"]["enabled"] = False                      # kullanıcı sonradan kapatırsa kapalı kalır
+        C.save_config(cfg, path)
+        self.assertFalse(C.load_config(path)["ocr"]["enabled"])
+
     def test_config_defaults_written(self):
         tmp = tempfile.mkdtemp()
         path = os.path.join(tmp, "config.json")
