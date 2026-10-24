@@ -19,7 +19,13 @@ import queue
 import sys
 import threading
 import time
+import warnings
 from typing import Optional
+
+# Hugging Face model önbelleğinin zararsız uyarılarını (Windows symlink, HF_TOKEN) gizle.
+os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
+os.environ.setdefault("HF_HUB_VERBOSITY", "error")
+warnings.filterwarnings("ignore", module=r"huggingface_hub(\..*)?")
 
 import config as C
 from game_state import GameState, fmt_money, fmt_time
