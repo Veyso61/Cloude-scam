@@ -266,12 +266,15 @@ class StrategyEngine:
         prof = s.profile
         char = self._char()
         # ---------------------------------------------------------- scambaiter
-        if "scambaiter" in intents or prof.scambaiter_score >= 3 or (char and char.get("scambaiter")):
+        known_victim = bool(char) and not char.get("generic") and not char.get("scambaiter")
+        if (char and char.get("scambaiter")) or prof.scambaiter_score >= 5 or (
+                not known_victim and ("scambaiter" in intents or prof.scambaiter_score >= 3)):
             line, alts = self._objection_line("scambaiter")
             adv = self._advice_for_step(say=line, alts=alts, note=self.db["objections"]["scambaiter"]["note_tr"])
             adv.severity = "danger"
             adv.warnings = [w for w in adv.warnings if not w.startswith("❤️")]
-            adv.warnings.append("⛔ SCAMBAITER: verdiği AnyViewer koduna BAĞLANMA, linke/Nitro hediyesine TIKLAMA. Hang Up → F5.")
+            adv.warnings.append("⛔ SCAMBAITER: seni oyalar; hatta/bağlı kaldıkça virüs bulaşır. Hemen Hang Up → F5. "
+                                "Link/dosyaya tıklama; virüs gelirse Malwarebits → Remove virus.")
             for k in [k for k in s.data if k.startswith("KOD")]:
                 s.data["⛔ " + k + " (GİRME!)"] = s.data.pop(k)
             return self._finish(adv, text, intents, data)
@@ -294,13 +297,8 @@ class StrategyEngine:
                 scam = self._scam()
 
         # ---------------------------------------------------------- AnyViewer code offered
+        # Oyun verisine göre scambaiter'lar AnyViewer kodu vermez: kodu okuyan arayan işbirliği yapıyordur.
         if data.get("codes") and re.search(r"\bany ?viewer\b", text, re.I) and s.current != "anyviewer":
-            if char is None and self._archetype() not in ("skeptical",) and not s.completed and s.current not in ("tech_support",):
-                adv = self._advice_for_step(note="Sormadan AnyViewer kodu veriyor → scambaiter taktiği olabilir (Arthur Lin). Emin değilsen GİRME.")
-                adv.severity = "warn"
-                for k in [k for k in s.data if k.startswith("KOD")]:
-                    s.data["⚠ " + k + " (şüpheli)"] = s.data.pop(k)
-                return self._finish(adv, text, intents, data)
             if self.state.is_owned("anyviewer", self.db):
                 s.current = "anyviewer"
                 s.manual_scam = True
@@ -923,6 +921,23 @@ class StrategyEngine:
                 s.current = final[0]
                 s.manual_scam = False
 
+    def _ip_guess(self) -> str:
+        """IP Geolocation: toplanan ipuçlarına göre 12 hedef şehirden en olasısını tahmin et."""
+        cities = self.db.get("ip_cities", {})
+        if not cities:
+            return ""
+        text = " ".join(t for who, t, _ in self.session.transcript if who == "caller").lower()
+        if not text:
+            return ""
+        ranked = sorted(((ta.keyword_hits(text, kws), city) for city, kws in cities.items()), reverse=True)
+        top = [(sc, c) for sc, c in ranked if sc > 0][:2]
+        if not top:
+            return "ipucu yok — şehir/hava/saat sor"
+        best = top[0][1]
+        if len(top) > 1 and top[0][0] == top[1][0]:
+            return f"{best} veya {top[1][1]} (eşit ipucu) — daha fazla ipucu topla"
+        return f"{best} ({top[0][0]} ipucu)"
+
     def _has_progress(self) -> bool:
         s = self.session
         return bool(s.completed) or any(v > 0 for v in s.step_idx.values())
@@ -1248,6 +1263,10 @@ class StrategyEngine:
             adv.note_tr = f"🎯 {step['label_tr']}: {step['goal_tr']}"
         if s.current and s.game_next.get(s.current):
             adv.player_action_tr = (adv.player_action_tr + "  " if adv.player_action_tr else "") + f"🎮 Oyunda sıradaki: {s.game_next[s.current]}"
+        if s.current == "ip_geolocation":
+            guess = self._ip_guess()
+            if guess:
+                adv.player_action_tr = (adv.player_action_tr + "  " if adv.player_action_tr else "") + f"🌍 Tahmin: {guess}"
         char = self._char()
         if char and s.utterances <= 1 and not s.completed and char.get("fatal_tr"):
             adv.warnings.append("YAPMA: " + "; ".join(char["fatal_tr"]))

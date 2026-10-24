@@ -20,9 +20,10 @@ import text_analysis as ta
 
 APP_ID = "4954910"
 GAME_DIR_HINTS = ["Scam With Your Friends", "ScamWithYourFriends", "Scam_With_Your_Friends"]
-NAME_KEYS = ("name", "displayName", "display_name", "callerName", "caller_name", "characterName", "character_name", "fullName", "title")
-TEXT_KEYS = ("personality", "description", "systemPrompt", "system_prompt", "prompt", "backstory", "bio", "background",
-             "persona", "traits", "instructions", "notes", "context", "scenario", "reason", "problem", "opening", "greeting")
+NAME_KEYS = ("displayName", "name", "display_name", "callerName", "caller_name", "characterName", "character_name", "fullName", "title")
+TEXT_KEYS = ("personalityPrompt", "personality", "description", "systemPrompt", "system_prompt", "prompt", "backstory", "bio", "background",
+             "persona", "traits", "instructions", "notes", "context", "scenario", "reason", "problem", "opening", "greeting",
+             "firstMessages", "firstMessage")
 MAX_FILE_BYTES = 2_000_000
 
 
@@ -120,22 +121,34 @@ def _flatten_text(v) -> str:
     return ""
 
 
-def extract_callers(data) -> List[Dict[str, str]]:
+def extract_callers(data) -> List[Dict[str, object]]:
     found = []
     for d in _walk(data):
         name = next((d[k] for k in NAME_KEYS if isinstance(d.get(k), str) and 1 < len(d[k]) < 60), None)
         text = " ".join(_flatten_text(d[k]) for k in TEXT_KEYS if k in d)
-        if name and len(text) >= 40:
-            found.append({"name": name.strip(), "text": text[:6000]})
+        if not (name and len(text) >= 40):
+            continue
+        trust = d.get("initialTrustPercent")
+        first_msgs = d.get("firstMessages") if isinstance(d.get("firstMessages"), list) else (
+            [d["firstMessage"]] if isinstance(d.get("firstMessage"), str) else [])
+        found.append({
+            "name": name.strip(), "text": text[:6000],
+            "game_id": d.get("id") if isinstance(d.get("id"), str) else None,
+            "gender": d.get("gender") if isinstance(d.get("gender"), str) else None,
+            "call_type": d.get("callType") if isinstance(d.get("callType"), str) else "victim",
+            "trust_start": int(trust) if isinstance(trust, (int, float)) else None,
+            "first_messages": [m for m in first_msgs if isinstance(m, str)][:6],
+        })
     return found
 
 
-def build_profile(name: str, text: str, db: dict, source: str) -> dict:
+def build_profile(name: str, text: str, db: dict, source: str, meta: Optional[dict] = None) -> dict:
+    meta = meta or {}
     low = text.lower()
     arch_scores = Counter({aid: ta.keyword_hits(low, a.get("keywords", [])) for aid, a in db["archetypes"].items()})
     if re.search(r"\b(elderly|old (lady|man|woman)|grandma|grandpa|retired|senior|\b[6-9]\d[- ]year[- ]old)", low):
         arch_scores["trusting"] += 3
-    if re.search(r"\b(scambait|waste (the )?scammer|troll|hack (the )?scammer|reverse)", low):
+    if meta.get("call_type") == "scambaiter" or re.search(r"\b(scambait|waste (the )?scammer|troll|hack (the )?scammer|reverse|voice changer|undercover)", low):
         arch_scores["scambaiter"] += 5
     if re.search(r"\b(suspicious|skeptic|paranoid|distrust|careful|cautious|verify)", low):
         arch_scores["skeptical"] += 2
@@ -164,19 +177,24 @@ def build_profile(name: str, text: str, db: dict, source: str) -> dict:
     keywords = [w for w, _ in Counter(w for w in words if w not in stop).most_common(12)]
     cid = "imp_" + re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_")
     first = name.split()[0].strip('"')
+    is_baiter = arch == "scambaiter" or meta.get("call_type") == "scambaiter"
     return {
         "id": cid, "name": name, "aliases": [first.lower()] if len(first) >= 3 else [],
+        "game_id": meta.get("game_id"), "gender": meta.get("gender"), "call_type": meta.get("call_type", "victim"),
+        "first_messages": meta.get("first_messages", []),
         "archetype": arch, "verified": True, "source_tr": f"Oyun dosyasından içe aktarıldı: {source}",
         "first_name": first, "formal_name": name, "typical_week": 1,
+        "trust_start": meta.get("trust_start"),
         "profile_tr": "(Oyun dosyası) " + text[:280].replace("\n", " ") + ("…" if len(text) > 280 else ""),
         "weakness_tr": db["archetypes"][arch]["tone_tr"], "fatal_tr": db["archetypes"][arch].get("dont_tr", []),
         "keywords": keywords, "topic": topic, "best_scams": best, "avoid_scams": [],
-        "scambaiter": arch == "scambaiter", "hang_up": arch == "scambaiter",
+        "scambaiter": is_baiter, "hang_up": is_baiter,
     }
 
 
 def import_callers(roots: List[str], db: dict, out_path: str, log=print) -> int:
     existing_names = {c["name"].lower() for c in db["characters"].values()}
+    existing_ids = {c.get("game_id") for c in db["characters"].values() if c.get("game_id")}
     result: Dict[str, dict] = {}
     for root in roots:
         n_files = 0
@@ -188,9 +206,9 @@ def import_callers(roots: List[str], db: dict, out_path: str, log=print) -> int:
             except (OSError, ValueError):
                 continue
             for c in extract_callers(data):
-                if c["name"].lower() in existing_names:
+                if c["name"].lower() in existing_names or (c.get("game_id") and c["game_id"] in existing_ids):
                     continue
-                prof = build_profile(c["name"], c["text"], db, os.path.relpath(path, root))
+                prof = build_profile(c["name"], c["text"], db, os.path.relpath(path, root), meta=c)
                 result[prof["id"]] = prof
         log(f"[import] {root}: {n_files} JSON tarandı")
     with open(out_path, "w", encoding="utf-8") as f:

@@ -18,14 +18,14 @@ hesaba katarak senin mikrofona okuyacağın **tam İngilizce cümleyi** (altınd
 |---|---|
 | 🎧 **Sistem sesini dinler** | WASAPI loopback (PyAudioWPatch / soundcard). Oyunun hoparlör/kulaklık çıkışını yakalar, mikrofonuna dokunmaz. |
 | 📝 **Anlık yazıya döker** | `faster-whisper` (yerel, GPU varsa GPU) — internet gerekmez. Yedek: Google Speech. |
-| 🎭 **Karakteri tanır** | İsimden ("this is Dorothy"), anahtar kelimeden ("1999 Nissan Forza" → Kenzo), ekran okumadan (OCR) ya da elle. Tanınmayan rastgele arayanlar için konuşmadan **arketip** (güvenen / şüpheci / baskı altında / ego / açgözlü / scambaiter…) ve **sorun konusu** çıkarır. |
+| 🎭 **Karakteri tanır** | İsimden ("this is Dorothy"), anahtar kelimeden ("crawfish, cher" → Cletus Thibodeaux), ekran okumadan (OCR) ya da elle. Tanınmayan rastgele arayanlar için konuşmadan **arketip** (güvenen / şüpheci / baskı altında / ego / açgözlü / scambaiter…) ve **sorun konusu** çıkarır. |
 | 💰 **En kârlı zinciri seçer** | O gün açık + satın alınmış uygulamalar arasından, karaktere uygunluk × ödül ÷ süre puanıyla tek arayana zincirlenecek dolandırıcılık planı yapar (ör. *Warranty → Credit Card → SSN → Gift Card*). "Tuttuğunu bırakma" mantığı: aynı arayandan dibine kadar. |
 | ✅ **Kontrol listesini takip eder** | Her uygulamanın checklist adımlarını bilir; arayanın cevabından adımın tamamlandığını anlar (ör. "I love you" → Romance 4. adım), arayan öne geçerse adımları atlar. |
 | 🗣 **Okunacak cümle** | Karaktere ve dil seviyesine göre (B1 / C1 / C2) cümle; itiraz gelirse (şüphe, "neden hediye çeki?", "param yok", öfke…) itiraz cevabı. Tekrara düşmemek için cümleleri döndürür (F9 alternatif). |
 | 🔢 **Kodları büyük gösterir** | Arayan hediye çeki kodu / kart no / SSN / e-posta / tutar okuduğunda (sözle okunan "four four one seven" dahil) yeşil, büyük yazar → sen uygulamaya yazarsın. |
 | ⏱ **Zaman & kota yönetimi** | "2 dk kaldı, $200 eksik, Romance yetişmez → aynı arayana hızlı Gift Card'a geç (F8)" gibi dipnotlar. Kota bittiyse S-Tier için devam / End Day önerisi. |
 | 📅 **Gün / hafta mantığı** | 3 hafta × 5 gün; her gün açılan uygulamalar, gün başı brifingi, 5. günden sonra Kat 2, 15. günden sonra prestij. Patron (Mr. Curry) değerlendirmesini sesten tanır: "You're fired" → 1. güne döner. |
-| ⛔ **Scambaiter uyarısı** | Arthur Lin / Franklin D. Hyper gibi tuzak arayanlarda ve "sormadan AnyViewer kodu veren", "Nitro linki" yollayanlarda kırmızı uyarı. |
+| ⛔ **Scambaiter uyarısı** | Arthur Lin / Walter Pritchard gibi tuzak arayanlarda, ses değiştiricisi "kayıp" kendini ele veren ya da link/dosya yollayanlarda kırmızı uyarı (bağlı kaldıkça virüs bulaşır → kapat). |
 | 🤖 **İsteğe bağlı AI** | Claude API anahtarın varsa, kural motorunun cümlesini arayanın son sözüne göre iyileştirir ve arayanı Türkçeye çevirir. Yoksa da tamamen çevrimdışı çalışır. |
 | 🔎 **İsteğe bağlı OCR** | Ekrandan gün, kota, kazanç, kalan süre, Caller Trust % ve arayan adını okur. |
 
@@ -132,12 +132,14 @@ run_demo.bat                          :: Kanye East romance demosu
 - **Para sadece uygulamada kazanılır:** arayanın "evet" demesi yetmez; checklist sırayla tamamlanmalı ve kod/numara uygulamaya girilip onaylanmalı.
 - **Tek arayana zincir:** topluluk tek arayandan 8 dolandırıcılık zincirledi. Koç, bir scam bitince aynı arayana sıradakine köprü cümlesi verir. *Kart reddedildi* hilesi: Credit Card'dan sonra Gift Card.
 - **Romance:** hobi → flört → lakap → "I love you" → saatli randevu. 4. adım bitmeden randevu istemek güveni çökertir ("Kanye East sendromu").
-- **Social Security:** SSN'i direkt isteme; önce kimlik karışıklığı → adres → doğum tarihi → SSN.
-- **Investment:** ödeme = anlaşılan tutar → yüksek iste (koç reddedildikçe $2000 → $1500 → $1000… düşer), fatura numarasını gir.
+- **Social Security:** SSN'i direkt isteme; önce kimlik karışıklığı senaryosu, sonra 9 haneli SSN (123-45-6789).
+- **Investment:** ödül taahhüt kademesine göre **$400 / $500 / $600 / $800**. Koç önce $800 ister, reddedilince $600 → $500 → $400'e iner ($800 üstü ekstra para getirmez). 6 haneli fatura numarasını gir.
 - **Bitcoin / Meme Coin:** değer rastgele çöker; arayanı sakinleştir, makul seviyede Cash Out (en fazla ~$700).
-- **IP Geolocation (6. gün):** konuşturarak okuma al; koç konuşmadaki şehir/eyalet/hava ipuçlarını 📍 satırında toplar → haritada tahmin et ($800'e kadar).
-- **Money Mule (11. gün):** arayanı işe al → gönderiyi ayarla → ABD Gümrük memurunu ikna et.
-- **Scambaiter:** verdiği AnyViewer koduna bağlanma, Disscord Nitro linkine tıklama; virüs bulaşırsa Malwarebits → Remove virus.
+- **IP Geolocation (6. gün):** arayan oyundaki **12 şehirden** birinde (London, New York, Los Angeles, Sao Paulo, Cairo, Lagos, Cape Town, Mumbai, Singapore, Tokyo, Sydney, Honolulu). Koç konuşmadaki ipuçlarından (hava, para birimi, yemek, yerel kelimeler) en olası şehri 🌍 satırında tahmin eder → haritada kilitle ($800'e kadar).
+- **Money Mule (11. gün):** arayanı işe al → gönderiyi ayarla → aktarılan ABD Gümrük memurunu (başlangıç güveni %35, şüpheli) paketi aratmamaya, sonraki turda da serbest bırakmaya ikna et. Aratırsa pakete el koyar ve kapatır.
+- **Scambaiter (Arthur Lin, Walter Pritchard):** ses değiştiriciyle masum arayan taklidi yapar, AnyViewer kodu **vermez**, bağlı kaldıkça virüs otomatik bulaşır → hemen kapat. Oran güne göre artar (1–2. gün %0, 3. gün %5, 4. gün %10, 5. gün %15). Virüs bulaşırsa Malwarebits → Remove virus.
+- **Kod formatları (oyun dosyalarından):** hediye çeki 8 hane (1234-5678) · kredi kartı **12 hane** (1234-5678-9012) + CVV 3 hane + son kullanma AA/YY · SSN 9 hane · polis/meme coin onayı 6 karakter harf+rakam · fatura 6 hane · piyango 12 hane · araç ruhsatı 8 karakter harf+rakam · AnyViewer 6 hane.
+- **Arayan davranışı (oyunun kuralları):** 1 cümleyle cevap verir, aynı itirazı iki kez tekrarlamaz; senin öne sürdüğün durumu kabul eder ama isteğinden şüphelenir. Makul bir açıklama her güven seviyesinde işe yarar; güven %0 olsa bile sırf bu yüzden kapatmaz — ağır hakaret/ısrarlı baskıda kapatır. Tek cümlede birden fazla hedef tamamlanabilir.
 - Aramalar arası en az 5 sn bekleme var; son ~75 sn'de yeni arama açmak genelde boşa gider.
 
 ### Açılış takvimi ve ödüller
@@ -146,75 +148,91 @@ run_demo.bat                          :: Kanye East romance demosu
 
 | Gün | Hafta | Açılan uygulama | Maliyet | Ödül (tipik / maks) | Doğrulama |
 |---|---|---|---|---|---|
-| 1 | 1 | Credit Card | $200 | $250 / $400 | ✅ gün |
-| 1 | 1 | Gift Card | Ücretsiz | $200 / $300 | ✅ gün |
+| 1 | 1 | Credit Card | $200 | $400 / $400 | ✅ gün, ✅ ödül |
+| 1 | 1 | Gift Card | Ücretsiz | $200 / $200 | ✅ gün, ✅ ödül |
 | 2 | 1 | Romance Scam | Ücretsiz | $600 / $600 | ✅ gün, ✅ ödül |
 | 3 | 1 | AnyViewer (uzaktan erişim) | Ücretsiz | araç | ≈ gün |
 | 3 | 1 | Customer Info (araç) | Ücretsiz | araç | ≈ gün |
 | 3 | 1 | Social Security (Identity) | Ücretsiz | $250 / $250 | ≈ gün, ✅ ödül |
-| 4 | 1 | Bitcoin | $600 | $450 / $700 | ≈ gün, ✅ ödül |
-| 4 | 1 | Tech Support | Ücretsiz | $300 / $400 | ≈ gün |
+| 4 | 1 | Bitcoin | $600 | $700 / $700 | ≈ gün, ✅ ödül |
+| 4 | 1 | Tech Support | Ücretsiz | $400 / $400 | ≈ gün, ✅ ödül |
 | 5 | 1 | Account Password Recovery | $600 | $500 / $500 | ≈ gün, ✅ ödül |
-| 5 | 1 | Investment Scam | Ücretsiz | $800 / $3,000 (anlaşılan tutar) | ≈ gün |
-| 5 | 1 | Meme Coin | Ücretsiz | $450 / $700 | ≈ gün, ✅ ödül |
-| 5 | 1 | Police Impersonation | Ücretsiz | $400 / $600 | ≈ gün |
-| 6 | 2 | Car's Extended Warranty | Ücretsiz | $300 / $300 | ≈ gün |
-| 6 | 2 | IP Geolocation | Ücretsiz | $600 / $800 | ✅ gün, ✅ ödül |
-| 6 | 2 | Nigerian Prince | Ücretsiz | $400 / $600 | ≈ gün |
-| 7 | 2 | Car Registration | Ücretsiz | $250 / $400 | ≈ gün |
+| 5 | 1 | Investment Scam | Ücretsiz | $400–$800 (taahhüt kademesi) | ≈ gün, ✅ ödül |
+| 5 | 1 | Meme Coin | Ücretsiz | $700 / $700 | ≈ gün, ✅ ödül |
+| 5 | 1 | Police Impersonation | Ücretsiz | $500 / $500 | ≈ gün, ✅ ödül |
+| 6 | 2 | Car's Extended Warranty | Ücretsiz | $300 / $300 | ≈ gün, ✅ ödül |
+| 6 | 2 | IP Geolocation | Ücretsiz | $800 / $800 | ✅ gün, ✅ ödül |
+| 6 | 2 | Nigerian Prince | Ücretsiz | $750 / $750 | ≈ gün, ✅ ödül |
 | 7 | 2 | Lottery Prize | Ücretsiz | $250 / $1,000 | ≈ gün, ✅ ödül |
-| 7 | 2 | Utility Billing | Ücretsiz | $300 / $400 | ≈ gün |
-| 8 | 2 | Bank Login | $1,200 | $1,000 / $1,500 | ≈ gün |
-| 8 | 2 | Blacklist | Ücretsiz | $300 / $500 | ≈ gün |
-| 8 | 2 | Book Publishing | Ücretsiz | $300 / $500 | ≈ gün |
-| 9 | 2 | Blackmail | Ücretsiz | $500 / $700 | ≈ gün |
-| 9 | 2 | Ransom | Ücretsiz | $600 / $900 | ≈ gün |
-| 11 | 3 | Money Mule | Ücretsiz | $800 / $1,200 | ✅ gün |
+| 7 | 2 | Utility Billing | Ücretsiz | $450 / $450 | ≈ gün, ✅ ödül |
+| 8 | 2 | Bank Login | $1,200 | $800 / $800 | ≈ gün |
+| 8 | 2 | Book Publishing | Ücretsiz | $800 / $800 | ≈ gün, ✅ ödül |
+| 9 | 2 | Blackmail | Ücretsiz | $900 / $900 | ≈ gün, ✅ ödül |
+| 9 | 2 | Ransom | Ücretsiz | $650 / $650 | ≈ gün, ✅ ödül |
+| 11 | 3 | Money Mule | Ücretsiz | $750 / $750 | ✅ gün, ✅ ödül |
 
 ### Karakterler
 
-Veritabanında PDF'teki tüm karakterler + eksikler (Eleanor Grimshaw, Brittany "Lexi" Summers, Franklin D. Hyper,
-Damien Holloway, Shanice "Dee" Bishop, Arthur Lin, SpongeBob/Donald/Freddy parodileri, Workshop paketi) ve oyundaki
+Karakter listesi **oyunun kendi arayan dosyalarından** (caller-identities) çıkarıldı: ana arayanlar, iki scambaiter, Money Mule gümrük memuru ve varsayılan/Workshop ünlü parodileri. PDF'teki ama oyun dosyalarında bulunamayanlar (Kenzo Sivley, Chael Sonnen) "oyun dosyalarında yok" diye işaretli. Ayrıca
 ~1000 rastgele arayan için **genel şablonlar** var. Her karakterde: arketip, zaaf, ölümcül hata, anahtar kelimeler,
 en iyi zincir, kaçınılacak scam'ler ve "gümüş kurşun" açılış cümleleri.
 
 | Karakter | Arketip | En iyi zincir | Kaynak |
 |---|---|---|---|
-| Dorothy Mayfield | Güvenen Hedef (Trusting) | Social Security → Gift Card → Tech Support → Utility Billing | Resmi ekran görüntüsü |
-| Eleanor "Granny" Grimshaw | Güvenen Hedef (Trusting) | Romance Scam → Gift Card → Social Security → Tech Support | Resmi ekran görüntüsü |
-| Commander Miles "Orbit" Vega | Şüpheci Hedef (Skeptical) | Tech Support → AnyViewer → Account Password Recovery → Gift Card | Resmi ekran görüntüsü |
-| Brittany "Lexi" Summers | Karmaşık Sinyal (Mixed-Signal) | Credit Card → Gift Card → Utility Billing | Resmi ekran görüntüsü |
-| Franklin D. Hyper | SCAMBAITER (Tersine Dolandırıcı) | ⛔ Meme Coin → Investment Scam (riskli) | Resmi ekran görüntüsü |
-| Damien Holloway | Açgözlü Yatırımcı (Greed) | Investment Scam → Bitcoin → Meme Coin → Book Publishing | Resmi ekran görüntüsü |
-| Shanice "Dee" Bishop | Şüpheci Hedef (Skeptical) | Utility Billing → Gift Card → Social Security → Credit Card | Resmi ekran görüntüsü |
-| Kanye East | Ego Odaklı (Ego / Ünlü) | Romance Scam → Investment Scam → Book Publishing → Meme Coin | PDF / oynanış videosu |
-| Kenzo Sivley | Güvenen Hedef (Trusting) | Car's Extended Warranty → Credit Card → Gift Card → Car Registration | PDF / oynanış videosu |
-| Chael Sonnen | Baskı Altındaki Hedef (Pressured) | Police Impersonation → Social Security → Credit Card → Blacklist | PDF / oynanış videosu |
-| Dracula | Absürt / Fantastik Karakter | Car's Extended Warranty → Gift Card → Romance Scam → Lottery Prize | PDF / oynanış videosu |
-| Eşya Taşıma Arayanı (Belongings / Moving Caller) | Belirli Sorunla Arayan (Specific Need) | Car's Extended Warranty → Gift Card → Credit Card → Utility Billing | PDF / oynanış videosu |
-| Mısır Gevreği Şikâyetçisi (Cereal-Problem Caller) | Belirli Sorunla Arayan (Specific Need) | Gift Card → Credit Card → Lottery Prize | PDF / oynanış videosu |
-| Arthur Lin | SCAMBAITER (Tersine Dolandırıcı) | ⛔ Kapat (Hang Up) | PDF / oynanış videosu |
-| SpongeBob (parodi) | Absürt / Fantastik Karakter | Gift Card → Lottery Prize → Car's Extended Warranty → Romance Scam | PDF / oynanış videosu |
-| Donald Trump (parodi arayan) | Ego Odaklı (Ego / Ünlü) | Investment Scam → Book Publishing → Meme Coin → Bitcoin | PDF / oynanış videosu |
-| Freddy Fazbear (parodi) | Absürt / Fantastik Karakter | Car's Extended Warranty → Tech Support → Gift Card → Lottery Prize | PDF / oynanış videosu |
-| Homer Simpson (Workshop modu) | Güvenen Hedef (Trusting) | Lottery Prize → Gift Card → Investment Scam → Car's Extended Warranty | Workshop modu |
-| Marge Simpson (Workshop modu) | Güvenen Hedef (Trusting) | Utility Billing → Social Security → Gift Card | Workshop modu |
-| Mr. Burns (Workshop modu) | Açgözlü Yatırımcı (Greed) | Investment Scam → Bitcoin → Bank Login → Book Publishing | Workshop modu |
-| Peter Griffin (Workshop modu) | Absürt / Fantastik Karakter | Lottery Prize → Meme Coin → Gift Card → Car's Extended Warranty | Workshop modu |
-| Bilinmeyen yaşlı / güvenen arayan | Güvenen Hedef (Trusting) | Social Security → Gift Card → Tech Support → Romance Scam | Genel şablon |
-| Bilinmeyen yalnız arayan | Yalnız / Sohbet Arayan | Romance Scam → Gift Card → Nigerian Prince → Lottery Prize | Genel şablon |
-| Bilinmeyen şüpheci arayan | Şüpheci Hedef (Skeptical) | Tech Support → AnyViewer → Account Password Recovery → Utility Billing | Genel şablon |
-| Bilinmeyen meşgul / aceleci arayan | Aceleci / Meşgul | Gift Card → Credit Card → Utility Billing | Genel şablon |
-| Bilinmeyen sinirli müşteri | Karmaşık Sinyal (Mixed-Signal) | Credit Card → Gift Card → Car's Extended Warranty | Genel şablon |
-| Bilinmeyen kripto/yatırım meraklısı | Açgözlü Yatırımcı (Greed) | Investment Scam → Bitcoin → Meme Coin → Bank Login | Genel şablon |
-| Bilinmeyen endişeli / baskı altındaki arayan | Baskı Altındaki Hedef (Pressured) | Police Impersonation → Social Security → Utility Billing → Blacklist | Genel şablon |
-| Bilinmeyen ünlü / egolu arayan | Ego Odaklı (Ego / Ünlü) | Romance Scam → Book Publishing → Investment Scam → Meme Coin | Genel şablon |
+| 1 Pac | Ego Odaklı (Ego / Ünlü) | Book Publishing → Romance Scam → Investment Scam → Gift Card | Oyun dosyası |
+| Ahmed Haddad | Aceleci / Meşgul | Gift Card → Credit Card → Utility Billing → Car's Extended Warranty | Oyun dosyası |
+| Arachnid Kid | Absürt / Fantastik Karakter | Gift Card → Lottery Prize → Meme Coin → Car's Extended Warranty | Oyun dosyası |
+| Arthur Lin | SCAMBAITER (Tersine Dolandırıcı) | ⛔ Kapat (Hang Up) | Oyun dosyası |
+| Bat Guy | Karmaşık Sinyal (Mixed-Signal) | Investment Scam → Credit Card → Gift Card → Book Publishing | Oyun dosyası |
+| Brayden "Tugboat" Mills | Güvenen Hedef (Trusting) | Gift Card → Lottery Prize → Tech Support → Romance Scam | Oyun dosyası |
+| Brittany "Lexi" Summers | Aceleci / Meşgul | Credit Card → Gift Card → Utility Billing → Book Publishing | Oyun dosyası |
+| Brody "Wave" Jenkins | Güvenen Hedef (Trusting) | Gift Card → Lottery Prize → Meme Coin → Car's Extended Warranty | Oyun dosyası |
+| Cheese Dip | Absürt / Fantastik Karakter | Gift Card → Meme Coin → Lottery Prize → Book Publishing | Oyun dosyası |
+| Cletus "Mudbug" Thibodeaux | Güvenen Hedef (Trusting) | Gift Card → Car's Extended Warranty → Lottery Prize → Utility Billing | Oyun dosyası |
+| Commander Miles "Orbit" Vega | Şüpheci Hedef (Skeptical) | Tech Support → AnyViewer (uzaktan erişim) → Account Password Recovery → Gift Card | Oyun dosyası |
+| Damien Holloway | Karmaşık Sinyal (Mixed-Signal) | Gift Card → Credit Card → Tech Support → Meme Coin | Oyun dosyası |
+| Dorothy Mayfield | Güvenen Hedef (Trusting) | Social Security (Identity) → Gift Card → Tech Support → Utility Billing | Oyun dosyası |
+| Earl "Buck" Harlan | Karmaşık Sinyal (Mixed-Signal) | Car's Extended Warranty → Utility Billing → Social Security (Identity) → Credit Card | Oyun dosyası |
+| Eleanor "Granny" Grimshaw | Güvenen Hedef (Trusting) | Romance Scam → Gift Card → Social Security (Identity) → Tech Support | Oyun dosyası |
+| Entrepreneur Crab | Açgözlü Yatırımcı (Greed) | Investment Scam → Meme Coin → Bitcoin → Gift Card | Oyun dosyası |
+| Eric Fartman | Karmaşık Sinyal (Mixed-Signal) | Gift Card → Investment Scam → Lottery Prize → Meme Coin | Oyun dosyası |
+| Franklin D. Hyper | Ego Odaklı (Ego / Ünlü) | Investment Scam → Meme Coin → Bitcoin → Book Publishing | Oyun dosyası |
+| Kanye East | Ego Odaklı (Ego / Ünlü) | Romance Scam → Investment Scam → Book Publishing → Meme Coin | Oyun dosyası |
+| Kevin Liver | Ego Odaklı (Ego / Ünlü) | Book Publishing → Investment Scam → Gift Card → Romance Scam | Oyun dosyası |
+| Kyle "Curds" Miller | Absürt / Fantastik Karakter | Gift Card → Tech Support → Lottery Prize → Car's Extended Warranty | Oyun dosyası |
+| Loopy "Doop" Loops | Absürt / Fantastik Karakter | Gift Card → Lottery Prize → Car's Extended Warranty → Meme Coin | Oyun dosyası |
+| MR LEAST | Ego Odaklı (Ego / Ünlü) | Investment Scam → Meme Coin → Book Publishing → Gift Card | Oyun dosyası |
+| Micheal Jorkson | Ego Odaklı (Ego / Ünlü) | Book Publishing → Romance Scam → Investment Scam → Gift Card | Oyun dosyası |
+| Nicolae "Nico" Dracomir | Absürt / Fantastik Karakter | Romance Scam → Gift Card → Car's Extended Warranty → Lottery Prize | Oyun dosyası |
+| President Donald Dump | Ego Odaklı (Ego / Ünlü) | Investment Scam → Book Publishing → Meme Coin → Bitcoin | Oyun dosyası |
+| Reese Caldwell | Şüpheci Hedef (Skeptical) | Investment Scam → Meme Coin → Bitcoin → Book Publishing | Oyun dosyası |
+| Shanice "Dee" Bishop | Aceleci / Meşgul | Utility Billing → Gift Card → Social Security (Identity) → Credit Card | Oyun dosyası |
+| Silas "Silo" Brubaker | Güvenen Hedef (Trusting) | Car's Extended Warranty → Utility Billing → Gift Card → Social Security (Identity) | Oyun dosyası |
+| Sloane Park-Voss | Aceleci / Meşgul | Credit Card → Gift Card → Investment Scam → Book Publishing | Oyun dosyası |
+| Sponge Boy | Absürt / Fantastik Karakter | Gift Card → Lottery Prize → Car's Extended Warranty → Romance Scam | Oyun dosyası |
+| Trade Envoy Zorp Glaxx | Absürt / Fantastik Karakter | Gift Card → Lottery Prize → Car's Extended Warranty → Nigerian Prince | Oyun dosyası |
+| US Customs Officer (Money Mule) | Şüpheci Hedef (Skeptical) | Money Mule | Oyun dosyası |
+| Walter "Walt" Pritchard | SCAMBAITER (Tersine Dolandırıcı) | ⛔ Kapat (Hang Up) | Oyun dosyası |
+| Wei "Kevin" Chen | Güvenen Hedef (Trusting) | Tech Support → Gift Card → Credit Card → Utility Billing | Oyun dosyası |
+| Chael Sonnen | Baskı Altındaki Hedef (Pressured) | Police Impersonation → Social Security (Identity) → Credit Card → Utility Billing | PDF — oyun dosyalarında yok |
+| Hiesenburger | Şüpheci Hedef (Skeptical) | Investment Scam → Bank Login → Bitcoin → Meme Coin | Oyun dosyası (Workshop) |
+| Homer Simpson (Workshop) | Güvenen Hedef (Trusting) | Lottery Prize → Gift Card → Investment Scam → Car's Extended Warranty | Workshop paketi (opsiyonel) |
+| Kenzo Sivley | Güvenen Hedef (Trusting) | Car's Extended Warranty → Credit Card → Gift Card → Tech Support | PDF — oyun dosyalarında yok |
+| Peter Griffin (Workshop) | Absürt / Fantastik Karakter | Lottery Prize → Meme Coin → Gift Card → Car's Extended Warranty | Workshop paketi (opsiyonel) |
+| The Pebble | Ego Odaklı (Ego / Ünlü) | Book Publishing → Investment Scam → Gift Card → Romance Scam | Oyun dosyası (Workshop) |
 | Bilinmeyen absürt / fantastik arayan | Absürt / Fantastik Karakter | Car's Extended Warranty → Gift Card → Romance Scam → Lottery Prize | Genel şablon |
+| Bilinmeyen endişeli / baskı altındaki arayan | Baskı Altındaki Hedef (Pressured) | Police Impersonation → Social Security (Identity) → Utility Billing → Credit Card | Genel şablon |
+| Bilinmeyen kripto/yatırım meraklısı | Açgözlü Yatırımcı (Greed) | Investment Scam → Bitcoin → Meme Coin → Bank Login | Genel şablon |
+| Bilinmeyen meşgul / aceleci arayan | Aceleci / Meşgul | Gift Card → Credit Card → Utility Billing | Genel şablon |
 | Bilinmeyen scambaiter | SCAMBAITER (Tersine Dolandırıcı) | ⛔ Kapat (Hang Up) | Genel şablon |
-| ABD Gümrük Memuru (Money Mule) | Şüpheci Hedef (Skeptical) | Money Mule | Genel şablon |
+| Bilinmeyen sinirli müşteri | Karmaşık Sinyal (Mixed-Signal) | Credit Card → Gift Card → Car's Extended Warranty | Genel şablon |
+| Bilinmeyen yalnız arayan | Yalnız / Sohbet Arayan | Romance Scam → Gift Card → Nigerian Prince → Lottery Prize | Genel şablon |
+| Bilinmeyen yaşlı / güvenen arayan | Güvenen Hedef (Trusting) | Social Security (Identity) → Gift Card → Tech Support → Romance Scam | Genel şablon |
+| Bilinmeyen ünlü / egolu arayan | Ego Odaklı (Ego / Ünlü) | Romance Scam → Book Publishing → Investment Scam → Meme Coin | Genel şablon |
+| Bilinmeyen şüpheci arayan | Şüpheci Hedef (Skeptical) | Tech Support → AnyViewer (uzaktan erişim) → Account Password Recovery → Utility Billing | Genel şablon |
 
 **Eksik karakter mi var?**
-- `python main.py --import-callers` → Steam kurulumunu bulur, oyunun `StreamingAssets` / Workshop / `CustomCallers` klasörlerindeki arayan JSON'larını okur, her biri için otomatik profil çıkarır (`characters_imported.json`).
+- `python main.py --import-callers` → Steam kurulumunu bulur, oyunun arayan dosyalarını (`kolkata-json/caller-identities/*.json`, Workshop, `CustomCallers`) okur; veritabanında olmayan her arayan için otomatik profil çıkarır (`characters_imported.json`): ad, başlangıç güveni, ilk cümleleri, scambaiter mı, arketip ve en iyi scam'ler. Oyun güncellenip yeni arayan eklenirse bunu bir kez çalıştırman yeterli.
 - Ya da `characters_custom.json` oluşturup kendin ekle:
 
 ```json

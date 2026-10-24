@@ -34,6 +34,35 @@ class ImporterTest(unittest.TestCase):
         merged = C.load_db(os.path.join(ROOT, "characters_db.json"), custom_path=os.path.join(tmp, "none.json"), imported_path=out)
         self.assertIn("imp_margaret_pemberton", merged["characters"])
 
+    def test_import_real_identity_format(self):
+        # Oyunun gerçek biçimi: kolkata-json/caller-identities/*.json → kimlik listesi
+        tmp = tempfile.mkdtemp()
+        folder = os.path.join(tmp, "kolkata-json", "caller-identities")
+        os.makedirs(folder)
+        identities = [
+            {"id": "dorothy_mayfield", "displayName": "Dorothy Mayfield", "initialTrustPercent": 50,
+             "personalityPrompt": "You are Dorothy, a kind retired librarian who is bad with technology and calls people dear."},
+            {"id": "new_caller_x", "displayName": "Gus Peabody", "gender": "Male", "initialTrustPercent": 40,
+             "firstMessages": ["Howdy, is this the help line?"],
+             "personalityPrompt": "You are Gus, a grumpy 80 year old retired fisherman who is suspicious of phone calls."},
+            {"id": "baiter_y", "displayName": "Ned Trickster", "callType": "scambaiter", "initialTrustPercent": 50,
+             "personalityPrompt": "You are Ned, using a voice changer to play a sweet confused pensioner on the phone."},
+        ]
+        with open(os.path.join(folder, "set9.json"), "w", encoding="utf-8") as f:
+            json.dump(identities, f)
+        db = load_db()
+        out = os.path.join(tmp, "imported.json")
+        n = ci.import_callers([tmp], db, out, log=lambda *_: None)
+        self.assertEqual(n, 2)                        # Dorothy zaten veritabanında (game_id) → atlanır
+        with open(out, encoding="utf-8") as f:
+            data = json.load(f)["characters"]
+        gus = data["imp_gus_peabody"]
+        self.assertEqual((gus["game_id"], gus["trust_start"], gus["gender"]), ("new_caller_x", 40, "Male"))
+        self.assertEqual(gus["first_messages"], ["Howdy, is this the help line?"])
+        ned = data["imp_ned_trickster"]
+        self.assertTrue(ned["scambaiter"] and ned["hang_up"])
+        self.assertEqual(ned["call_type"], "scambaiter")
+
     def test_config_defaults_written(self):
         tmp = tempfile.mkdtemp()
         path = os.path.join(tmp, "config.json")

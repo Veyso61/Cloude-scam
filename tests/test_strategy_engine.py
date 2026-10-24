@@ -274,3 +274,33 @@ class AutoCallAndTrustTest(unittest.TestCase):
         a = say(eng, clock, "9981", wait=5)
         self.assertIn("credit_card", eng.session.completed)
         self.assertTrue(any("4417 2231 9981" in d for d in a.data_lines))
+
+    def test_ip_geolocation_city_guess(self):
+        eng, st, clock = make(day=6)
+        eng.new_call()
+        eng.session.current, eng.session.manual_scam = "ip_geolocation", True   # paralel scam; elle seçildi
+        say(eng, clock, "Ugh, it's raining again and the tube was packed this morning.")
+        a = say(eng, clock, "I just want a cup of tea and a few quid back, mate.")
+        self.assertIn("London", a.player_action_tr)
+
+    def test_cooperative_anyviewer_code_is_not_scambaiter(self):
+        # Oyun verisine göre scambaiter'lar AnyViewer kodu vermez; kodu okuyan normal arayan işbirliği yapıyordur.
+        eng, st, clock = make(day=5)
+        eng.new_call()
+        say(eng, clock, "Hi, my computer is acting weird.")
+        a = say(eng, clock, "Okay, my AnyViewer code is 482 991, go ahead.")
+        self.assertNotEqual(a.severity, "danger")
+        self.assertEqual(a.scam_id, "anyviewer")
+
+    def test_voice_changer_slip_flags_scambaiter(self):
+        eng, st, clock = make(day=5)
+        eng.new_call()
+        say(eng, clock, "Hello dear.")
+        a = say(eng, clock, "Ha! Oops, my voice changer slipped, I'm actually a scambaiter, gotcha!")
+        self.assertEqual(a.severity, "danger")
+
+    def test_known_streamer_is_not_flagged_as_scambaiter(self):
+        eng, st, clock = make(day=4)
+        eng.new_call("cheese_dip")
+        a = say(eng, clock, "YOOOO what's good, CHAT! This is a scam call, chat, I'm recording this for my stream!")
+        self.assertNotEqual(a.severity, "danger")

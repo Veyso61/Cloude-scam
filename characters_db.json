@@ -82,7 +82,9 @@
    "Police Impersonation: ceza ödeme onay numarasını (confirmation number) uygulamaya gir.",
    "Lottery Prize: bileti e-postayla iste, onay kodunu gir, 3 sayıyı kazı ($0/$200/$500/$1000, %5 jackpot).",
    "IP Geolocation: arayanı konuşturarak okuma al, ipuçlarına göre dünya haritasında tahmin et (isabetle $800'e kadar). Diğer dolandırıcılıkla paralel yürütülebilir.",
-   "Scambaiter'lar (Arthur Lin, Franklin D. Hyper vb.) verdikleri AnyViewer kodlarına bağlanma, linklerine/Disscord Nitro hediyesine tıklama. Virüs bulaşırsa Malwarebits → Remove virus; monitör yanarsa yangın söndürücü.",
+   "Scambaiter'lar (Arthur Lin, Walter Pritchard) ses değiştiriciyle masum arayan taklidi yapar; AnyViewer kodu VERMEZLER, bağlı kaldıkça virüs otomatik bulaşır. Ses değiştirici 'kayınca' gerçek kimlik ortaya çıkar → hemen kapat. Virüs bulaşırsa Malwarebits → Remove virus; monitör yanarsa yangın söndürücü.",
+   "Arayan davranışı (oyun kuralları): kısa (1 cümle) cevap verir, aynı itirazı iki kez tekrarlamaz, makul bir açıklamayla her güven seviyesinde ikna olabilir; güven 0 olsa bile sırf bu yüzden kapatmaz — sadece ağır hakaret/ısrarlı baskıda kapatır.",
+   "Oyuncunun öne sürdüğü durumu (garantin bitiyor, bilet kazandı vb.) kabul eder; şüphesi isteğine yöneliktir. Uzaktan erişim için amacını ve ne yapacağını açıkla. Tek cümlede birden fazla hedef tamamlanabilir.",
    "Aramalar arasında en az 5 sn bekleme var; vardiyanın son ~75 sn'sinde yeni arama açmak genelde boşa gider.",
    "Kota tutmazsa tüm ekip kovulur ve koşu 1. Güne döner. 5. Gün değerlendirmesinden sonra İkinci Kat (Floor Two) açılır. 15. Günden sonra prestij/sıfırlama.",
    "Solo modda vardiya sayacı kapatılabilir; kotayı doldurup günü bitirebilirsin (End Day)."
@@ -177,7 +179,15 @@
     },
     "boss_review_note_tr": "15. günden sonra prestij ve 1. güne dönüş (topluluk gözlemi)."
    }
-  }
+  },
+  "scambaiter_rates_by_day": {
+   "1": 0,
+   "2": 0,
+   "3": 5,
+   "4": 10,
+   "5": 15
+  },
+  "scambaiter_note_tr": "Scambaiter oranı güne göre artar (1-2. gün yok, 3. gün %5, 4. gün %10, 5. gün %15; ilerleyen haftalarda daha sık). Scambaiter'lar AnyViewer kodu VERMEZ ve bağlı kalmak otomatik virüs tetikler; ses değiştiricileri ara ara 'kayıp' gerçek kimliklerini açık eder."
  },
  "levels": [
   "B1",
@@ -787,8 +797,10 @@
     "disscord",
     "click the link",
     "download this",
-    "my anyviewer code is",
     "i'll send you a file",
+    "scambaiter",
+    "scambaiting",
+    "voice changer",
     "let me connect to your computer",
     "gift for you",
     "free nitro",
@@ -1686,7 +1698,8 @@
     "ransom"
    ],
    "tips_tr": [
-    "Alakasız dosyalarda uzun gezinmek ve sessiz kalmak şüpheyi artırır, bağlantıyı keser."
+    "Alakasız dosyalarda uzun gezinmek ve sessiz kalmak şüpheyi artırır, bağlantıyı keser.",
+    "Dosya adı ipuçları: routing/account→banka no, bank user/pw→kullanıcı adı/şifre, seed/wallet→kripto, gift→hediye çeki, ssn/social→SSN, card/cvv/expiry→kart, question/answer/email→Password Recovery, photo/private→Blackmail kozu."
    ]
   },
   "tech_support": {
@@ -2666,7 +2679,9 @@
     "gift_card"
    ],
    "tips_tr": [
-    "Favori renk cevabı arayanın dilinde de kabul edilir (Hotfix 2)."
+    "Favori renk cevabı arayanın dilinde de kabul edilir.",
+    "Sorular: annenin kızlık soyadı / ilk evcil hayvan / en sevdiği renk. Cevaplar tek kelime (Smith, Max, Blue...). AnyViewer dosyalarında da bulunabilir.",
+    "Kurtarma e-postası komik 'kelime.kelime@site.com' biçiminde; arayan 'at' ve 'dot' diye okur."
    ]
   },
   "warranty": {
@@ -3111,7 +3126,9 @@
    },
    "chains_to": [],
    "tips_tr": [
-    "Konum ipuçları panelde birikir (şehir/eyalet/ülke/hava)."
+    "Konum ipuçları panelde birikir; overlay en olası şehri 12 hedef arasından tahmin eder.",
+    "Hedef şehirler: London, New York, Los Angeles, Sao Paulo, Cairo, Lagos, Cape Town, Mumbai, Singapore, Tokyo, Sydney, Honolulu.",
+    "Hava, saat, para birimi, yemek, aksan ve yerel kelimeler en iyi ipuçlarıdır."
    ]
   },
   "utility_billing": {
@@ -4587,7 +4604,7 @@
    }
   },
   "scambaiter": {
-   "note_tr": "⛔ SCAMBAITER: verdiği koda bağlanma, linke tıklama. Kapat (Hang Up) → F5 yeni arama.",
+   "note_tr": "⛔ SCAMBAITER: oyalayıp vakit çaldırır; bağlı kaldıkça virüs bulaşır. Kapat (Hang Up) → F5 yeni arama.",
    "levels": {
     "B1": [
      "Thank you, but I can't accept files or links. Have a nice day, goodbye!"
@@ -4630,8 +4647,12 @@
      3
     ],
     [
-     "\\bmy anyviewer (code|id|number) is\\b",
-     1
+     "\\bscam ?bait(er|ers|ing|ed)?\\b",
+     3
+    ],
+    [
+     "\\b(my )?voice changer\\b",
+     2
     ],
     [
      "\\bi know (you'?re|you are) a scammer\\b",
@@ -9252,6 +9273,465 @@
    "mountain time"
   ]
  },
+ "ip_cities": {
+  "London": [
+   "london",
+   "england",
+   "british",
+   "uk",
+   "britain",
+   "thames",
+   "big ben",
+   "the tube",
+   "quid",
+   "pounds",
+   "tea",
+   "rainy",
+   "cheers mate",
+   "bloody",
+   "double decker",
+   "pub",
+   "soho"
+  ],
+  "New York": [
+   "new york",
+   "nyc",
+   "manhattan",
+   "brooklyn",
+   "queens",
+   "bronx",
+   "subway",
+   "times square",
+   "central park",
+   "yankees",
+   "bodega",
+   "bagel",
+   "empire state"
+  ],
+  "Los Angeles": [
+   "los angeles",
+   "la",
+   "hollywood",
+   "california",
+   "freeway",
+   "the 405",
+   "traffic",
+   "venice beach",
+   "santa monica",
+   "lakers",
+   "palm trees",
+   "smog",
+   "beverly hills"
+  ],
+  "Sao Paulo": [
+   "sao paulo",
+   "brazil",
+   "brasil",
+   "portuguese",
+   "reais",
+   "samba",
+   "futebol",
+   "favela",
+   "paulista",
+   "churrasco",
+   "obrigado"
+  ],
+  "Cairo": [
+   "cairo",
+   "egypt",
+   "egyptian",
+   "pyramid",
+   "nile",
+   "sphinx",
+   "giza",
+   "pharaoh",
+   "desert",
+   "koshari"
+  ],
+  "Lagos": [
+   "lagos",
+   "nigeria",
+   "nigerian",
+   "naira",
+   "jollof",
+   "lekki",
+   "afrobeats",
+   "danfo",
+   "yoruba",
+   "suya"
+  ],
+  "Cape Town": [
+   "cape town",
+   "south africa",
+   "table mountain",
+   "rand",
+   "braai",
+   "penguins",
+   "springboks",
+   "lekker",
+   "howzit",
+   "load shedding"
+  ],
+  "Mumbai": [
+   "mumbai",
+   "bombay",
+   "india",
+   "indian",
+   "bollywood",
+   "monsoon",
+   "rupees",
+   "local train",
+   "vada pav",
+   "marine drive",
+   "cricket",
+   "chai",
+   "rickshaw",
+   "hindi"
+  ],
+  "Singapore": [
+   "singapore",
+   "singaporean",
+   "hawker",
+   "marina bay",
+   "sentosa",
+   "lah",
+   "orchard road",
+   "mrt",
+   "chili crab",
+   "humid",
+   "durian",
+   "merlion"
+  ],
+  "Tokyo": [
+   "tokyo",
+   "japan",
+   "japanese",
+   "shibuya",
+   "shinjuku",
+   "yen",
+   "sushi",
+   "ramen",
+   "anime",
+   "bullet train",
+   "shinkansen",
+   "mount fuji",
+   "konbini",
+   "arigato"
+  ],
+  "Sydney": [
+   "sydney",
+   "australia",
+   "aussie",
+   "opera house",
+   "bondi",
+   "harbour bridge",
+   "mate",
+   "g'day",
+   "kangaroo",
+   "koala",
+   "outback",
+   "footy",
+   "arvo",
+   "servo"
+  ],
+  "Honolulu": [
+   "honolulu",
+   "hawaii",
+   "hawaiian",
+   "aloha",
+   "waikiki",
+   "oahu",
+   "volcano",
+   "luau",
+   "lei",
+   "poke",
+   "pearl harbor",
+   "mahalo",
+   "pineapple"
+  ]
+ },
+ "recovery": {
+  "note_tr": "Güvenlik sorusu ve cevabı; AnyViewer ile dosyalarda bulunabilir ya da arayana sorulur. Favori renk cevabı arayanın dilinde de kabul edilir.",
+  "questions": [
+   {
+    "id": "mothers_maiden_name",
+    "label_tr": "Annenin kızlık soyadı",
+    "accept": [
+     "mother's maiden name",
+     "mothers maiden name",
+     "maiden name",
+     "mother's last name"
+    ],
+    "answers": [
+     "Smith",
+     "Jones",
+     "Patel",
+     "Garcia",
+     "Bumble",
+     "Pickle",
+     "Wiggles",
+     "Thompson"
+    ]
+   },
+   {
+    "id": "first_pet_name",
+    "label_tr": "İlk evcil hayvanın adı",
+    "accept": [
+     "first pet",
+     "first pet's name",
+     "pet's name",
+     "name of my first pet",
+     "pet name"
+    ],
+    "answers": [
+     "Max",
+     "Buddy",
+     "Fluffy",
+     "Whiskers",
+     "Spot",
+     "Luna",
+     "Rocky",
+     "Coco",
+     "Bella",
+     "Milo"
+    ]
+   },
+   {
+    "id": "favorite_color",
+    "label_tr": "En sevdiği renk",
+    "accept": [
+     "favorite color",
+     "favourite colour",
+     "fav color",
+     "favourite color"
+    ],
+    "answers": [
+     "Red",
+     "Blue",
+     "Green",
+     "Purple",
+     "Yellow",
+     "Orange",
+     "Pink",
+     "Black",
+     "White",
+     "Rainbow",
+     "Teal",
+     "Gold",
+     "Silver",
+     "Brown",
+     "Indigo"
+    ]
+   }
+  ],
+  "email_shape_tr": "Kurtarma e-postaları komik 'kelime.kelime@kelimekelime.com/.net/.org' biçiminde. Arayan 'at' ve 'dot' diye okur."
+ },
+ "rdp_file_hints_tr": [
+  "routing / route / wire / transit → Routing numarası (Bank Login).",
+  "account / acct / checking / savings → Hesap numarası (Bank Login).",
+  "bank + user / username / login → Banka kullanıcı adı; bank + pw / password / key → Banka şifresi.",
+  "seed / backup words 1-2 → Kripto seed phrase; wallet / crypto / coin → Cüzdan adresi.",
+  "gift / voucher → Hediye çeki kodu; anyviewer / remote / screen → başka bir AnyViewer kodu.",
+  "car / vehicle / registration / plate → Araç ruhsat numarası; social security / ssn / tax id → SSN.",
+  "credit / card front / visa → Kart numarası; cvv / card back → CVV; expiry / valid until → son kullanma.",
+  "security/recovery question & answer, email/reset → Password Recovery alanları.",
+  "photo / pic / selfie / private → Blackmail ($900) için utandırıcı fotoğraf kozu.",
+  "⚠ Alakasız dosyalarda uzun gezinme ve sessiz kalma — şüphe artar, bağlantı kesilir."
+ ],
+ "scammy_challenges": [
+  {
+   "id": "family-loan",
+   "title": "Family discount",
+   "tr": "Uzun zamandır kayıp akraba ol, borç para iste.",
+   "line": "Wait... is that you? It's me, your long-lost cousin! Family helps family, so could you lend me a little money?"
+  },
+  {
+   "id": "future-self",
+   "title": "Tomorrow's problem",
+   "tr": "Onun gelecekteki hali ol, utanç verici bir hatayı önle.",
+   "line": "Don't panic, but I'm actually you from the future, calling to stop a very embarrassing mistake you make tomorrow!"
+  },
+  {
+   "id": "pet-reference",
+   "title": "Excellent references",
+   "tr": "Evcil hayvanı seni bu iş için önermiş de.",
+   "line": "Your pet personally recommended me for this job, and honestly that's the best reference I've ever had."
+  },
+  {
+   "id": "hold-music",
+   "title": "Live entertainment",
+   "tr": "Bekleme müziği bozuk, kendin söyle.",
+   "line": "Our hold music is broken, so I'll perform it myself: doo-doo-dooo, your call is important to us!"
+  },
+  {
+   "id": "fake-promotion",
+   "title": "Congratulations, boss",
+   "tr": "Arayanı amirin yap, işini onaylasın.",
+   "line": "Congratulations, I'm promoting you to my supervisor! Boss, do you approve of my excellent work today?"
+  },
+  {
+   "id": "printer-union",
+   "title": "Industrial action",
+   "tr": "Ofis yazıcısı grevde, pazarlığa yardım iste.",
+   "line": "Our office printer just went on strike and demands more paper, could you help me negotiate with it?"
+  },
+  {
+   "id": "secret-handshake",
+   "title": "Very secure handshake",
+   "tr": "Sözlü gizli tokalaşma uydur, katılsın.",
+   "line": "For security we do the secret verbal handshake: I say 'click clack', you say 'boop boop'. Click clack!"
+  },
+  {
+   "id": "villain-rebrand",
+   "title": "Personal growth",
+   "tr": "Eski çizgi film kötüsüsün, bugün ilk dürüst günün.",
+   "line": "Full honesty: I used to be a cartoon villain, but today is my very first honest day on the job."
+  },
+  {
+   "id": "royal-title",
+   "title": "Your excellency",
+   "tr": "Arayana saçma asil unvan ver, öyle hitap et.",
+   "line": "Of course, Your Royal Highness, Grand Duke of the Sofa Cushions, I'll handle this personally."
+  },
+  {
+   "id": "office-duck",
+   "title": "Quality quack control",
+   "tr": "Hayali ördeği kalite kontrol müdürün yap.",
+   "line": "Our quality control manager is a duck named Gerald, and he's listening, so say hi to Gerald!"
+  },
+  {
+   "id": "time-zone",
+   "title": "Yesterday's office hours",
+   "tr": "Ofisin dünün saat diliminde, erken aradığın için özür dile.",
+   "line": "Sorry for calling so early, our office runs on yesterday's time zone, so for us this is basically last night."
+  },
+  {
+   "id": "birthday-emergency",
+   "title": "Emergency birthday",
+   "tr": "Bugünü onursal doğum günü ilan et, kutla.",
+   "line": "I just declared today your honorary birthday! Happy birthday to you, happy birthday dear caller, hooray!"
+  },
+  {
+   "id": "invisible-intern",
+   "title": "Training day",
+   "tr": "Bir hatayı görünmez stajyere yükle, moral ver.",
+   "line": "Sorry, that mistake was our invisible intern. Kevin, buddy, it's okay, you're learning, I believe in you!"
+  },
+  {
+   "id": "tiny-office",
+   "title": "Small business",
+   "tr": "Bütün ofisin bir ayakkabı kutusuna sığıyor.",
+   "line": "Fun fact: our entire office fits inside a shoebox, desks, coffee machine and all."
+  },
+  {
+   "id": "grandma-audit",
+   "title": "Grandma approved",
+   "tr": "Büyükannen her aramayı nezaket için denetliyor.",
+   "line": "Just so you know, my grandmother audits every call for politeness, so we both have to be extra nice."
+  },
+  {
+   "id": "friendship-contract",
+   "title": "Terms of friendship",
+   "tr": "İki maddeli saçma arkadaşlık sözleşmesi teklif et.",
+   "line": "Let's sign a friendship contract: clause one, we share snacks forever; clause two, you laugh at my jokes. Deal?"
+  },
+  {
+   "id": "office-trophy",
+   "title": "Caller of the minute",
+   "tr": "Ona 'Dakikanın Arayanı' ödülü ver, adına konuş.",
+   "line": "You've won Caller of the Minute! On your behalf: 'I'd like to thank my phone, my ears, and this wonderful agent.'"
+  },
+  {
+   "id": "pirate-support",
+   "title": "Arrr you there?",
+   "tr": "Sorunu korsan gibi anlat, sonra ofis diline çevir.",
+   "line": "Arrr, yer account be sinkin' in a sea o' errors, matey! In office terms: it just needs a quick fix."
+  },
+  {
+   "id": "weather-report",
+   "title": "Office forecast",
+   "tr": "Ofis için evrak yağışlı hava durumu sun.",
+   "line": "Today's office forecast: cloudy with a ninety percent chance of paperwork and light showers of sticky notes."
+  },
+  {
+   "id": "office-plant",
+   "title": "Botanical management",
+   "tr": "Ofis bitkisini CEO yap, tavsiyesini aktar.",
+   "line": "Our CEO is actually the office plant, and her advice today is: stay rooted and always grow your profits."
+  },
+  {
+   "id": "sandwich-budget",
+   "title": "Lunch-based accounting",
+   "tr": "Bir maliyeti para yerine sandviçle anlat.",
+   "line": "In simple terms, this costs about forty sandwiches, which is honestly a great deal."
+  },
+  {
+   "id": "compliment-inspection",
+   "title": "Compliment inspection",
+   "tr": "Sürpriz iltifat denetimi, iki iltifat et.",
+   "line": "Surprise compliment inspection! Your voice is fantastic, and your patience is world class."
+  },
+  {
+   "id": "dramatic-backstory",
+   "title": "Origin story",
+   "tr": "Bozuk zımbalı dramatik köken hikâyesi anlat.",
+   "line": "My origin story: the day my stapler broke, I swore I'd help every caller who ever felt jammed."
+  },
+  {
+   "id": "wrong-century",
+   "title": "New to this century",
+   "tr": "Yanlış yüzyıldansın, modern eşyayı açıklat.",
+   "line": "Forgive me, I'm from the eighteen hundreds. Could you explain what this 'microwave' thing is?"
+  },
+  {
+   "id": "motivational-toaster",
+   "title": "Toast of the office",
+   "tr": "İlham veren ekmek kızartıcından alıntı yap.",
+   "line": "As my toaster always says, 'You only pop up when the heat is on', which means pressure makes you shine."
+  },
+  {
+   "id": "secret-club",
+   "title": "Very exclusive club",
+   "tr": "Saçma isimli gizli kulübe davet et.",
+   "line": "You're officially invited to our secret club, the Midnight Society of Extremely Polite Pancakes."
+  },
+  {
+   "id": "undercover-boss",
+   "title": "Plot twist",
+   "tr": "Arayan gizli patronun olabilir, etkilemeye çalış.",
+   "line": "Wait, are you secretly my boss checking on me? Because I've been working extra hard, I promise!"
+  },
+  {
+   "id": "apology-poem",
+   "title": "Sorry in verse",
+   "tr": "İki dizelik kafiyeli özür şiiri söyle.",
+   "line": "I'm sorry for the wait today, I promise it will go away; your patience shines just like the sun, I'll fix it fast and then we're done."
+  },
+  {
+   "id": "customer-coach",
+   "title": "Coach me through it",
+   "tr": "İlk günün, arayandan koçluk iste.",
+   "line": "It's actually my first day and I'm nervous, could you be my confidence coach and cheer me on?"
+  },
+  {
+   "id": "aliens-office",
+   "title": "Interstellar branch",
+   "tr": "Ofisin Ay'da ama hizmet yine yerel.",
+   "line": "Our office is on the moon, but don't worry, the customer service is still totally local."
+  },
+  {
+   "id": "professional-whisperer",
+   "title": "Sleeping manager",
+   "tr": "Müdürün uyuyor, sessiz konuşmasını iste.",
+   "line": "Psst, my manager is napping right behind me, so could we please keep our voices down?"
+  },
+  {
+   "id": "rubber-duck-audit",
+   "title": "Talk to the duck",
+   "tr": "Lastik ördeğini tanıt, sorununu ona anlatsın.",
+   "line": "Please explain your problem to my rubber duck, Sir Quacks-a-Lot, he's an excellent listener."
+  }
+ ],
  "stt_hallucinations": [
   "thank you.",
   "thanks for watching!",
