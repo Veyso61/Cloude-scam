@@ -1,0 +1,7 @@
+# İsteğe bağlı özellikler
+anthropic>=2.0           # AI danışmanı (Claude) — ANTHROPIC_API_KEY gerekir
+deep-translator>=1.11    # AI kapalıyken arayanı Türkçeye çevirme
+mss>=9.0                 # OCR için ekran görüntüsü
+rapidocr_onnxruntime>=1.3  # OCR motoru (pip ile kurulur, Tesseract gerekmez)
+SpeechRecognition>=3.10  # faster-whisper kurulamazsa Google Speech yedeği
+scipy>=1.10              # daha kaliteli yeniden örnekleme (opsiyonel)

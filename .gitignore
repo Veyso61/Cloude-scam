@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+config.json
+config.json.tmp
+state.json
+state.json.tmp
+characters_imported.json
+logs/
