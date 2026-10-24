@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """İsteğe bağlı ekran okuma (OCR): gün/hafta, kota, kazanç, kalan süre, Caller Trust ve arayan adı.
 
-Gereken paketler:  pip install mss rapidocr_onnxruntime     (Tesseract kuruluysa pytesseract da olur)
+Gereken paketler:  pip install mss rapidocr onnxruntime     (Tesseract kuruluysa pytesseract da olur)
 Bölgeler config.json → ocr.regions içinde [x, y, w, h] (ekran pikseli). Boşsa tüm birincil ekran
 (küçültülmüş) okunur. Overlay'deki "OCR bölgesi seç" ile fareyle seçilebilir.
 """
 from __future__ import annotations
 
+import logging
 import re
 import threading
 import time
@@ -98,6 +99,12 @@ def parse_hud_text(text: str, name_index: Optional[Dict[str, List[str]]] = None,
     return r
 
 
+def _join_sorted(items) -> str:
+    """(sol-üst nokta, metin) listesini satır satır, soldan sağa birleştirir."""
+    items = sorted(items, key=lambda it: (round(float(it[0][1]) / 12), float(it[0][0])))
+    return "\n".join(str(t) for _, t in items)
+
+
 class _OcrEngine:
     def __init__(self, engine: str = "auto"):
         self.kind = None
@@ -105,12 +112,20 @@ class _OcrEngine:
         errors = []
         if engine in ("auto", "rapidocr"):
             try:
-                from rapidocr_onnxruntime import RapidOCR  # type: ignore
+                from rapidocr import RapidOCR  # type: ignore  # rapidocr >= 2 (Python 3.13+ destekli)
                 self.impl = RapidOCR()
                 self.kind = "rapidocr"
+                logging.getLogger("RapidOCR").setLevel(logging.WARNING)
                 return
             except Exception as e:  # noqa: BLE001
                 errors.append(f"rapidocr: {e}")
+            try:
+                from rapidocr_onnxruntime import RapidOCR  # type: ignore  # eski paket (Python <= 3.12)
+                self.impl = RapidOCR()
+                self.kind = "rapidocr_legacy"
+                return
+            except Exception as e:  # noqa: BLE001
+                errors.append(f"rapidocr_onnxruntime: {e}")
         if engine in ("auto", "tesseract"):
             try:
                 import pytesseract  # type: ignore
@@ -120,15 +135,22 @@ class _OcrEngine:
                 return
             except Exception as e:  # noqa: BLE001
                 errors.append(f"tesseract: {e}")
-        raise RuntimeError("OCR motoru yok → pip install rapidocr_onnxruntime  (" + " | ".join(errors) + ")")
+        raise RuntimeError("OCR motoru yok → pip install rapidocr onnxruntime  (" + " | ".join(errors) + ")")
 
     def read(self, rgb: np.ndarray) -> str:
         if self.kind == "rapidocr":
+            out = self.impl(rgb)
+            txts = list(getattr(out, "txts", None) or [])
+            boxes = getattr(out, "boxes", None)
+            if not txts:
+                return ""
+            items = [(boxes[i][0], t) for i, t in enumerate(txts)] if boxes is not None and len(boxes) == len(txts) else [((0, i), t) for i, t in enumerate(txts)]
+            return _join_sorted(items)
+        if self.kind == "rapidocr_legacy":
             result, _ = self.impl(rgb)
             if not result:
                 return ""
-            result = sorted(result, key=lambda it: (round(it[0][0][1] / 12), it[0][0][0]))
-            return "\n".join(it[1] for it in result)
+            return _join_sorted([(it[0][0], it[1]) for it in result])
         from PIL import Image  # type: ignore
         return self.impl.image_to_string(Image.fromarray(rgb))
 

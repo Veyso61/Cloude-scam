@@ -1,4 +1,4 @@
-# Çekirdek (Windows 10/11, Python 3.10-3.12 64-bit)
+# Çekirdek (Windows 10/11, Python 3.10-3.14 64-bit)
 numpy>=1.24
 PyAudioWPatch>=0.2.12 ; sys_platform == "win32"
 soundcard>=0.4.3

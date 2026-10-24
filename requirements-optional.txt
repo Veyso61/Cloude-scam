@@ -1,7 +1,8 @@
-# İsteğe bağlı özellikler
+# İsteğe bağlı özellikler (install.bat bunları TEK TEK kurar; biri olmazsa diğerleri yine kurulur)
 anthropic>=2.0           # AI danışmanı (Claude) — ANTHROPIC_API_KEY gerekir
 deep-translator>=1.11    # AI kapalıyken arayanı Türkçeye çevirme
 mss>=9.0                 # OCR için ekran görüntüsü
-rapidocr_onnxruntime>=1.3  # OCR motoru (pip ile kurulur, Tesseract gerekmez)
+rapidocr>=2.0            # OCR motoru (Python 3.10-3.14, Tesseract gerekmez)
+onnxruntime>=1.17        # rapidocr'ın çalıştırma motoru
 SpeechRecognition>=3.10  # faster-whisper kurulamazsa Google Speech yedeği
-scipy>=1.10              # daha kaliteli yeniden örnekleme (opsiyonel)
+scipy>=1.10              # daha kaliteli yeniden örnekleme

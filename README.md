@@ -33,16 +33,34 @@ hesaba katarak senin mikrofona okuyacağın **tam İngilizce cümleyi** (altınd
 
 ## Kurulum (Windows 10/11)
 
-1. **Python 3.11 (64-bit)** kur → <https://www.python.org/downloads/> (kurulumda *Add Python to PATH* işaretle).
-   3.10 – 3.12 arası çalışır.
-2. Bu depoyu indir (Code → Download ZIP veya `git clone`).
-3. Klasörde **`install.bat`**'a çift tıkla. Sanal ortam (`.venv`) kurar ve paketleri yükler.
-   - Elle: `py -3.11 -m venv .venv && .venv\Scripts\pip install -r requirements.txt`
-   - Opsiyoneller (OCR, AI, çeviri, Google STT): `pip install -r requirements-optional.txt`
-4. **`run.bat`** ile başlat. İlk açılışta Whisper modeli (~150–500 MB) bir kez indirilir.
+1. **Python** kur → <https://www.python.org/downloads/> (kurulum ekranında **Add Python to PATH** kutusunu işaretle).
+   3.10 – 3.14 arası çalışır; 3.12 en sorunsuzudur.
+2. Bu depoyu indir (Code → Download ZIP) ve bir klasöre çıkar.
+3. Klasörde **`install.bat`**'a çift tıkla. **Her şeyi o kurar** — ayrıca bir komut yazmana gerek yok:
+   - `[2/3]` temel paketler (ses dinleme + konuşma tanıma). Burada hata çıkarsa program çalışmaz → ekran görüntüsünü gönder.
+   - `[3/3]` isteğe bağlı paketler (AI, OCR, çeviri) **tek tek** kurulur. Biri kurulamazsa sadece o özellik kapalı kalır
+     ve "atlandı" yazar; program yine çalışır.
+4. **`run.bat`** ile başlat. İlk açılışta konuşma tanıma modeli (~150–500 MB) bir kez indirilir; birkaç dakika sürebilir.
 
-**NVIDIA ekran kartı** varsa `faster-whisper` otomatik GPU kullanır (CUDA 12 + cuDNN 9 DLL'leri gerekir; yoksa
-otomatik CPU'ya düşer). CPU'da varsayılan model `base.en` (hızlı), GPU'da `small.en` (daha doğru).
+<details>
+<summary>Elle kurmak istersen (gerekli değil)</summary>
+
+Komutlar normal bir cmd penceresine değil, **proje klasöründe açılmış** cmd'ye yazılır: Dosya Gezgini'nde proje
+klasörünü aç → üstteki adres çubuğuna `cmd` yaz → Enter. Sonra:
+
+```bat
+py -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m pip install anthropic deep-translator mss onnxruntime rapidocr SpeechRecognition scipy
+```
+
+Başına `.venv\Scripts\python -m` koymadan düz `pip install ...` yazarsan paketler programın sanal ortamına (`.venv`) değil, bilgisayarın genel Python'una kurulur ve program onları görmez.
+</details>
+
+**Ekran kartı (bilgi, yapman gereken bir şey yok):** Program konuşmayı yazıya dökerken NVIDIA ekran kartın varsa onu
+kullanmayı **kendisi dener**; olmazsa (ör. CUDA sürücü dosyaları yoksa) **kendiliğinden işlemciye (CPU) geçer**.
+İşlemcide daha hızlı `base.en` modeli, ekran kartında daha doğru `small.en` modeli kullanılır. Yazıya dökme yavaş
+gelirse Sorun giderme bölümüne bak.
 
 ### Oyun ayarları (önemli)
 
@@ -210,7 +228,7 @@ en iyi zincir, kaçınılacak scam'ler ve "gümüş kurşun" açılış cümlele
 
 Kural motoru tamamen çevrimdışı çalışır. Daha esnek cevaplar ve arayanın Türkçe çevirisi için:
 
-1. `pip install -r requirements-optional.txt`
+1. `install.bat` bunu zaten kurar (`anthropic` paketi). Kurulmadıysa proje klasöründeki cmd'de: `.venv\Scripts\python -m pip install anthropic`
 2. <https://console.anthropic.com> → API anahtarı al → Windows'ta `setx ANTHROPIC_API_KEY "sk-ant-..."` (ya da ⚙ → Ayarlar → API anahtarı).
 3. ⚙ → Ayarlar → **AI danışmanı** işaretle. Varsayılan model `claude-opus-5-5` (en iyi kalite, `effort: low`). Daha hızlı/ucuz istersen `claude-haiku-5-5` seç.
 
@@ -218,7 +236,7 @@ AI gelince sarı kutunun başlığında **(AI)** yazar; kural motorunun cümlesi
 
 ## OCR (isteğe bağlı)
 
-`pip install mss rapidocr_onnxruntime` → ⚙ → Ayarlar → **OCR** işaretle → **Bölge ekle** ile HUD'u (gün, kota/kazanç,
+`install.bat` gerekli paketleri (`mss`, `rapidocr`, `onnxruntime`) kurar → ⚙ → Ayarlar → **OCR** işaretle → **Bölge ekle** ile HUD'u (gün, kota/kazanç,
 süre, Caller Trust, arayan adı) fareyle seç. Gün/kota/kazanç/süre otomatik güncellenir, arayan adı karakteri seçer.
 
 ---
