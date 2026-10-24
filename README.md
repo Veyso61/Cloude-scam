@@ -46,7 +46,7 @@ hesaba katarak senin mikrofona okuyacağın **tam İngilizce cümleyi** (altınd
 
 - **`update.bat`**'a çift tıkla: en son sürümü GitHub'dan indirir ve kopyalar. Ayarların (`config.json`), kayıtların
   (`state.json`), kendi eklediğin karakterler ve kurulu paketler (`.venv`) korunur. Koç açıksa önce kapat.
-- Hangi sürümü çalıştırdığın konsolun ilk satırında yazar: `SWYF Koç — sürüm 2026.10.24-6 (klasör: …)`. GitHub'da
+- Hangi sürümü çalıştırdığın konsolun ilk satırında yazar: `SWYF Koç — sürüm 2026.10.24-7 (klasör: …)`. GitHub'da
   daha yeni sürüm varsa açılışta **🔔 Yeni sürüm var** uyarısı çıkar.
 - `update.bat` dosyası olmayan eski bir sürümdeysen bir kereliğine elle güncelle. **Dikkat:** zip'in içinde
   `Cloude-scam-ccr-c56d4dc6-5mxr8o` adlı bir klasör var; zip'i doğrudan "ayıklarsan" Windows yeni (ya da iç içe) bir

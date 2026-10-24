@@ -131,6 +131,28 @@ class App:
         sys.stdout.flush()
 
     # ================================================================== optional services
+    def _auto_import_callers(self) -> None:
+        """Oyun / Workshop / AppData klasörlerindeki arayanları içe aktar (veritabanında olmayan Workshop arayanları için)."""
+        try:
+            import json
+            from caller_importer import auto_import
+            with open(C.DB_PATH, "r", encoding="utf-8") as f:
+                base = json.load(f)
+            n = auto_import(base, C.IMPORTED_DB_PATH, log=lambda *a: None)
+        except Exception as e:  # noqa: BLE001 — içe aktarma başarısız olsa da koç çalışmaya devam eder
+            print(f"[import] atlandı: {e}", flush=True)
+            return
+        self.q.put(("callers_imported", n))
+
+    def _reload_characters(self, n: int) -> None:
+        fresh = C.load_db()
+        self.db["characters"] = fresh["characters"]
+        self.engine.reload_characters()
+        if self.reader is not None and hasattr(self.reader, "name_index"):
+            self.reader.name_index = dict(self.engine._name_index)
+        if n:
+            self.status(f"🧩 Oyun/Workshop klasöründen {n} yeni arayan eklendi")
+
     def _check_update(self) -> None:
         latest = C.fetch_remote_version()
         if latest and C.version_key(latest) > C.version_key(C.APP_VERSION):
@@ -140,6 +162,8 @@ class App:
         print(f"SWYF Koç — sürüm {C.APP_VERSION}  (klasör: {C.APP_DIR})", flush=True)
         if not self.args.simulate and not self.args.demo:
             threading.Thread(target=self._check_update, daemon=True).start()
+            if self.cfg.get("auto_import_callers", True):
+                threading.Thread(target=self._auto_import_callers, daemon=True).start()
         if self.cfg["llm"].get("enabled"):
             try:
                 from llm_advisor import LLMAdvisor
@@ -184,7 +208,8 @@ class App:
             self.reader = ScreenReader(self.cfg["ocr"], lambda r: self.q.put(("hud", r)), self.status, name_index, scam_names)
             self.reader.start()
         except Exception as e:  # noqa: BLE001
-            self.status(f"OCR kapalı: {e}")
+            hint = " → install.bat'ı bir kez daha çalıştır (OCR paketleri)" if isinstance(e, ImportError) else ""
+            self.status(f"OCR kapalı: {e}{hint}")
 
     def _stt_prompt(self) -> str:
         name = self.engine.last_advice.caller_name if self.engine.last_advice else ""
@@ -249,6 +274,8 @@ class App:
             self.hotkey(ev[1])
         elif kind == "sim_text":
             self.handle(("caller_text", ev[1], {}))
+        elif kind == "callers_imported":
+            self._reload_characters(ev[1])
         elif kind == "quit":
             self._stop.set()
 

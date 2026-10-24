@@ -56,6 +56,10 @@ if errorlevel 8 (
 echo [3/3] Paketler kontrol ediliyor...
 if exist "%APPDIR%.venv\Scripts\python.exe" (
   "%APPDIR%.venv\Scripts\python.exe" -m pip install -q -r "%APPDIR%requirements.txt"
+  rem OCR - ekrandan arayan adini okuma - artik varsayilan acik; paketler yoksa kur, olmazsa atla.
+  for %%P in (mss rapidocr onnxruntime) do (
+    "%APPDIR%.venv\Scripts\python.exe" -m pip install -q %%P >nul 2>nul || echo   %%P kurulamadi, atlandi.
+  )
 ) else (
   echo Sanal ortam yok: once install.bat calistirin.
 )

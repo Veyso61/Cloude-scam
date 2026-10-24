@@ -269,7 +269,8 @@ class ScreenReader:
             import mss  # type: ignore
             engine = _OcrEngine(self.cfg.get("engine", "auto"))
         except Exception as e:  # noqa: BLE001
-            self.on_status(f"OCR kapalı: {e}")
+            hint = " → install.bat'ı bir kez daha çalıştır (OCR paketleri)" if isinstance(e, ImportError) else ""
+            self.on_status(f"OCR kapalı: {e}{hint}")
             return
         self.on_status(f"🔎 OCR açık ({engine.kind}), {len(self.cfg.get('regions') or [])} bölge")
         with mss.mss() as sct:

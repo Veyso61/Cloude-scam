@@ -159,18 +159,26 @@ class StrategyEngine:
         self.seq = 0
         self.session = CallSession()
         self.last_advice: Optional[Advice] = None
+        self.reload_characters()
+        self._scam_name_res = [(sid, re.compile(r"\b" + re.escape(s["name"].split(" (")[0].split("'")[0].lower()) + r"\b", re.I))
+                               for sid, s in db["scams"].items()]
+
+    # ================================================================== public API
+    def reload_characters(self) -> None:
+        """Karakter listesi değişince (ör. oyundan otomatik içe aktarma) isim ve açılış cümlesi dizinlerini yenile."""
+        db = self.db
         self._name_index = {cid: [c["name"]] + c.get("aliases", []) for cid, c in db["characters"].items() if not c.get("generic")}
         self._fp_index: List[Tuple[str, re.Pattern, bool]] = []      # (karakter, desen, ham metne mi uygulanır)
         for cid, c in db["characters"].items():
             for fp in c.get("fingerprints", []):
                 if fp.startswith("re:"):
                     self._fp_index.append((cid, re.compile(fp[3:], re.I), True))
+                elif fp.startswith("kw:"):           # kelimelerin hepsi geçmeli (sıra fark etmez)
+                    look = "".join(r"(?=.*(?<![a-z0-9])" + re.escape(w) + r"(?![a-z0-9]))" for w in fp[3:].split())
+                    self._fp_index.append((cid, re.compile("^" + look), False))
                 else:
                     self._fp_index.append((cid, re.compile(r"(?<![a-z0-9])" + re.escape(_fp_norm(fp)) + r"(?![a-z0-9])"), False))
-        self._scam_name_res = [(sid, re.compile(r"\b" + re.escape(s["name"].split(" (")[0].split("'")[0].lower()) + r"\b", re.I))
-                               for sid, s in db["scams"].items()]
 
-    # ================================================================== public API
     def new_call(self, char_id: Optional[str] = None, ocr_name: Optional[str] = None, how: str = "manuel") -> Advice:
         self.session = CallSession(started_at=self.now(), last_progress_at=self.now())
         self.app_seen = {}

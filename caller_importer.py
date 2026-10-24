@@ -142,6 +142,34 @@ def extract_callers(data) -> List[Dict[str, object]]:
     return found
 
 
+_GENERIC_WORDS = set("""
+hello there help with something right person place talking speaking have reached question second minute okay yeah
+sorry please explain what whats going here good evening morning afternoon hear know need quick make start begin where
+should someone speak little name calling call just sorted this that from your about could would today again thanks
+thank listening ready through slowly understand things problem issue worry sure well really maybe actually alright dear
+honey baby buddy dude friend guys folks line phone who's whos lets let's isn't don't can't won't they them their been
+were will what's where's when there's here's yours mine glad nice great hope hoping tell said says want wanted
+""".split())
+
+
+def fingerprints_from(first_messages: List[str]) -> List[str]:
+    """Açılış cümlelerinden 'kw:' parmak izleri: cümlenin en ayırt edici 1-2 kelimesi (sıra/yazım farkına dayanıklı)."""
+    fps: List[str] = []
+    for msg in first_messages or []:
+        content: List[str] = []
+        for w in re.findall(r"[a-z0-9']+", (msg or "").lower()):
+            w = re.sub(r"'(s|re|ll|ve|d|m|t)$", "", w).strip("'")
+            if len(w) >= 4 and w not in _GENERIC_WORDS and not re.search(r"(.)\1\1", w) and w not in content:
+                content.append(w)
+        if not content:
+            continue
+        pick = sorted(content, key=len, reverse=True)[:2]
+        if len(pick) == 1 and len(pick[0]) < 5:
+            continue
+        fps.append("kw:" + " ".join(pick))
+    return list(dict.fromkeys(fps))[:6]
+
+
 def build_profile(name: str, text: str, db: dict, source: str, meta: Optional[dict] = None) -> dict:
     meta = meta or {}
     low = text.lower()
@@ -182,6 +210,7 @@ def build_profile(name: str, text: str, db: dict, source: str, meta: Optional[di
         "id": cid, "name": name, "aliases": [first.lower()] if len(first) >= 3 else [],
         "game_id": meta.get("game_id"), "gender": meta.get("gender"), "call_type": meta.get("call_type", "victim"),
         "first_messages": meta.get("first_messages", []),
+        "fingerprints": fingerprints_from(meta.get("first_messages", [])),
         "archetype": arch, "verified": True, "source_tr": f"Oyun dosyasından içe aktarıldı: {source}",
         "first_name": first, "formal_name": name, "typical_week": 1,
         "trust_start": meta.get("trust_start"),
@@ -215,6 +244,14 @@ def import_callers(roots: List[str], db: dict, out_path: str, log=print) -> int:
         json.dump({"characters": result}, f, ensure_ascii=False, indent=1)
     log(f"[import] {len(result)} yeni arayan → {out_path}")
     return len(result)
+
+
+def auto_import(db: dict, out_path: str, log=print) -> int:
+    """Açılışta: oyun klasörü, Workshop ve AppData'daki arayan dosyalarını sessizce içe aktar."""
+    roots = find_game_dirs()
+    if not roots:
+        return 0
+    return import_callers(roots, db, out_path, log=log)
 
 
 def main(argv: Optional[List[str]] = None) -> int:

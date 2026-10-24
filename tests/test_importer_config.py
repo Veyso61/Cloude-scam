@@ -63,6 +63,30 @@ class ImporterTest(unittest.TestCase):
         self.assertTrue(ned["scambaiter"] and ned["hang_up"])
         self.assertEqual(ned["call_type"], "scambaiter")
 
+    def test_workshop_caller_imported_and_recognised_by_opening_line(self):
+        from game_state import GameState
+        from strategy_engine import StrategyEngine
+        tmp = tempfile.mkdtemp()
+        ws = os.path.join(tmp, "steamapps", "workshop", "content", ci.APP_ID, "3999999999")
+        os.makedirs(ws)
+        with open(os.path.join(ws, "caller.json"), "w", encoding="utf-8") as f:
+            json.dump({"id": "default-workshop-3999999999", "displayName": "Tofu Tina", "callType": "victim",
+                       "initialTrustPercent": 45, "firstMessages": ["Hiya! Have you tried my tofu lasagna?"],
+                       "personalityPrompt": "You are Tofu Tina, a bubbly vegan chef who runs a tiny food truck and loves animals."}, f)
+        db = load_db()
+        out = os.path.join(tmp, "imported.json")
+        self.assertEqual(ci.import_callers([ws], db, out, log=lambda *_: None), 1)
+        merged = C.load_db(os.path.join(ROOT, "characters_db.json"), custom_path=os.path.join(tmp, "none.json"), imported_path=out)
+        tina = merged["characters"]["imp_tofu_tina"]
+        self.assertIn("kw:lasagna tried", tina["fingerprints"])
+        eng = StrategyEngine(load_db(), GameState(day=1), {})
+        eng.db["characters"] = merged["characters"]          # açılışta arka planda yapılan yenileme
+        eng.reload_characters()
+        eng.new_call()
+        a = eng.on_caller_text("Hiya, have you tried my tofu lasagna?")
+        self.assertEqual(a.caller_name, "Tofu Tina")
+        self.assertTrue(a.say.startswith("Yes, I have"))
+
     def test_old_config_migrates_ocr_on_and_level_c1(self):
         tmp = tempfile.mkdtemp()
         path = os.path.join(tmp, "config.json")
