@@ -127,6 +127,7 @@ class CallSession:
     trust_at_say: Optional[int] = None
     game_next: Dict[str, str] = field(default_factory=dict)
     pending_note: str = ""
+    presented: set = field(default_factory=set)      # (scam, adım) — cümlesi oyuncuya gösterilen adımlar
 
 
 class SafeDict(dict):
@@ -310,7 +311,7 @@ class StrategyEngine:
                 return self._finish(adv, text, intents, data)
 
         # ---------------------------------------------------------- step success?
-        if step is not None and self._step_success(step, text, intents, data):
+        if step is not None and self._step_success(self._said_or_data(step), text, intents, data):
             adv = self._advance()
             adv = self._cascade(adv, text, intents, data)
             return self._finish(adv, text, intents, data)
@@ -330,6 +331,16 @@ class StrategyEngine:
             s.step_idx[s.current] = jump - 1
             adv = self._advance()
             adv.note_tr = "⏩ Arayan öne geçti, adımlar atlandı. " + adv.note_tr
+            return self._finish(adv, text, intents, data)
+
+        # ---------------------------------------------------------- söylenen adıma itirazsız cevap → ilerle
+        if step is not None and self._forgiving_success(step, text, intents):
+            asked_price = "question_price" in intents
+            adv = self._advance()
+            adv = self._cascade(adv, text, intents, data)
+            if asked_price and adv.say and "dollar" not in adv.say.lower() and self._reward(s.current):
+                adv.say = f"It's only {self._slot_values()['amount_words']}, one time. " + adv.say
+                s.last_pool = [adv.say] + s.last_pool[1:]
             return self._finish(adv, text, intents, data)
 
         # ---------------------------------------------------------- first words: open with the plan
@@ -992,6 +1003,31 @@ class StrategyEngine:
     def _is_action_step(step: Optional[dict]) -> bool:
         return bool(step) and step.get("success") == ["@none"]
 
+    def _said_or_data(self, step: dict) -> dict:
+        """Cümlesi henüz söylenmemiş adımda sadece veri (kod/kart/SSN...) sayılır; 'help', 'okay' gibi
+        kelimeler arayanın ilk derdini anlatırken adımı yanlışlıkla bitirmesin."""
+        if self.session.utterances > 1 and (self.session.current, step["id"]) in self.session.presented:
+            return step
+        return dict(step, success=[t for t in step.get("success", []) if t in self.SPECIFIC_TOKENS])
+
+    def _forgiving_success(self, step: dict, text: str, intents: Dict[str, int]) -> bool:
+        """Oyunun hakemi hedefleri 'çok hoşgörülü' değerlendiriyor ve arayan aynı şeyin tekrarlanmasından
+        hoşlanmıyor: adımın cümlesi söylendiyse ve arayan itiraz etmediyse (ya da fiyatı/sonrasını soruyorsa)
+        hedef büyük ihtimalle tamamdır → sıradaki adıma geç."""
+        s = self.session
+        if s.utterances <= 1 or self._is_action_step(step) or (s.current, step["id"]) not in s.presented:
+            return False          # arayanın ilk cümlesi aramanın açılışıdır, bizim cümlemize cevap değil
+        if any(i in intents for i in NEGATIVE_INTENTS) or self._trust_delta() <= -9:
+            return False
+        if "question_price" in intents and re.search(r"price|amount|fee", step["id"]):
+            return False          # fiyat adımında fiyat sorusu → fiyatı tekrar söyle, geçme
+        exp = step.get("expects")
+        if exp is None:
+            return True
+        if exp == "interest":
+            return ta.word_count(text) >= 4 and not text.strip().endswith("?")
+        return False
+
     def _step_success(self, step: dict, text: str, intents: Dict[str, int], data: dict) -> bool:
         negative = any(i in intents for i in NEGATIVE_INTENTS)
         s = self.session
@@ -1026,7 +1062,7 @@ class StrategyEngine:
                 continue
             if tok == "@agree" and "agree" in intents:
                 return True
-            if tok in ("@agree", "@positive", "@flirt", "@any_worry") and self._trust_delta() >= 8:
+            if tok in ("@agree", "@positive", "@flirt", "@any_worry") and self._trust_delta() >= 5:
                 return True
             if tok == "@positive" and "positive" in intents:
                 return True
@@ -1042,6 +1078,8 @@ class StrategyEngine:
                 return True
             if tok == "@dob" and data.get("dob"):
                 return True
+            if tok == "@text" and (data.get("ssn") or data.get("card") or (data.get("codes") and step.get("expects") != "code")):
+                continue          # arayan erkenden numara okudu → ileri atlama (lookahead) yakalasın
             if tok == "@text" and ta.word_count(text) >= 1 and not text.strip().endswith("?"):
                 s.data["CEVAP"] = text.strip()
                 return True
@@ -1171,6 +1209,7 @@ class StrategyEngine:
         if not step:
             return "", []
         s = self.session
+        s.presented.add((s.current, step["id"]))
         char = self._char()
         custom = (char or {}).get("custom_lines", {}).get(f"{s.current}:{step['id']}", [])
         pool = list(custom) + self._level_pool(step["lines"])
@@ -1188,6 +1227,8 @@ class StrategyEngine:
     def _bridge_line(self, sid: str) -> Tuple[str, List[str]]:
         scam = self.db["scams"][sid]
         step0 = scam["steps"][0] if scam.get("steps") else None
+        if step0:
+            self.session.presented.add((sid, step0["id"]))
         char = self._char()
         custom = (char or {}).get("custom_lines", {}).get(f"{sid}:{step0['id']}", []) if step0 else []
         pool = list(custom) + self._level_pool(scam.get("bridge", {})) + (self._level_pool(step0["lines"]) if step0 else [])

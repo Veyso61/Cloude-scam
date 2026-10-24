@@ -28,9 +28,8 @@ class EngineTest(unittest.TestCase):
         self.assertEqual(a.scam_id, "social_security")
         self.assertIn("Mrs. Mayfield", a.say)
         a = say(eng, clock, "Oh my, that's terrible! What do I do?")
-        self.assertEqual(a.step_label, "Confirm Their Address")
-        say(eng, clock, "I live at 42 Maple Street, Springfield.")
-        say(eng, clock, "My birthday is March 3rd, 1948.")
+        self.assertEqual(a.step_label, "Get the Social Security Number")   # oyunda adres/doğum tarihi adımı yok
+        self.assertIn("Social Security number", a.say)
         a = say(eng, clock, "Okay dear, it's 123-45-6789.")
         self.assertIn("SSN: 123-45-6789", a.data_lines)
         self.assertEqual(a.step_label, "Enter it in the app")
@@ -304,3 +303,32 @@ class AutoCallAndTrustTest(unittest.TestCase):
         eng.new_call("cheese_dip")
         a = say(eng, clock, "YOOOO what's good, CHAT! This is a scam call, chat, I'm recording this for my stream!")
         self.assertNotEqual(a.severity, "danger")
+
+    def test_video_eleanor_price_question_reaches_code(self):
+        # Kullanıcının videosu: Eleanor fiyat sordu, overlay 1. adımda takılıp aynı şeyi tekrar ettirdi.
+        eng, st, clock = make(day=1)
+        eng.new_call("eleanor_grimshaw")
+        a = say(eng, clock, "Hello, dearie. My computer's been acting up something awful.")
+        self.assertEqual(a.scam_id, "gift_card")
+        first = a.say
+        a = say(eng, clock, "Well, what's this resolution gonna cost me? I ain't made of money, y'know.")
+        self.assertIn("no_money", a.intents)
+        a = say(eng, clock, "Fascinating my foot, you keep jabberin' about overhauls and ain't said one word about a price yet.")
+        self.assertEqual(a.step_label, "Agree to Gift Card Payment")     # 1. adımda takılı kalmadı
+        self.assertIn("dollar", a.say.lower())                           # fiyatı söylüyor
+        self.assertNotEqual(a.say, first)
+        a = say(eng, clock, "Two hundred dollars on a gift card? Well, alright, I suppose.")
+        self.assertEqual(a.step_label, "Obtain Gift Card Code")
+        self.assertIn("code", a.say.lower())                             # kodu istiyor
+        a = say(eng, clock, "Fine, the numbers on the back are 4417 2231.")
+        self.assertEqual(a.step_label, "Enter it in the app")
+        self.assertTrue(any("4417 2231" in d for d in a.data_lines))
+
+    def test_no_repeat_after_neutral_reply(self):
+        # Söylenen adıma itirazsız cevap gelirse aynı adım tekrar ettirilmez.
+        eng, st, clock = make(day=1)
+        eng.new_call("dorothy_mayfield")
+        a = say(eng, clock, "Hello, dear. I'm hoping you can help me with my email.")
+        step1 = a.step_label
+        a = say(eng, clock, "Oh, I see. And then what happens?")
+        self.assertNotEqual(a.step_label, step1)

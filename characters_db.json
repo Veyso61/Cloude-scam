@@ -1346,13 +1346,13 @@
    "est_seconds": 180,
    "category": "identity",
    "requires": [],
-   "summary_tr": "$250. SSN'i direkt isteme! Kimlik karışıklığı → adres → doğum tarihi → SSN → Identity uygulamasına gir.",
+   "summary_tr": "$250. Oyundaki 3 hedef: devlet görevlisi olduğuna ikna → kimlik karışıklığını anlat → 9 haneli SSN'i (123-45-6789) al ve Identity uygulamasına gir. İlk iki hedef tek cümlede birlikte yapılabilir.",
    "steps": [
     {
      "id": "identity_mixup",
-     "label": "Explain the Identity Mix-up",
-     "label_tr": "Kimlik karışıklığı senaryosu",
-     "goal_tr": "Federal kayıtlarda kimliğinin karıştığını/çalındığını söyle; endişelensin ve yardım istesin.",
+     "label": "Government authority + identity mix-up",
+     "label_tr": "Devlet görevlisi ol + kimlik karışıklığı",
+     "goal_tr": "Sosyal Güvenlik ofisinden aradığını ve kayıtlarında kimlik karışıklığı olduğunu söyle; endişelensin.",
      "lines": {
       "B1": [
        "We have a serious identity mix-up in our federal database — someone in another state is using your name! Don't worry {name}, I will help you fix it today.",
@@ -1362,7 +1362,7 @@
        "Our national registry indicates a critical identity duplication error linking your profile to a fraudulent tax filing. I'm going to help you clear it right now."
       ],
       "C2": [
-       "Anomalous cross-referencing within the Social Security Administration mainframe shows a hostile identity collision on your file; we need to run a four-point biographical check immediately."
+       "Anomalous cross-referencing within the Social Security Administration mainframe shows a hostile identity collision on your file; I will correct it on this call."
       ]
      },
      "success": [
@@ -1376,70 +1376,20 @@
      "code_format": null
     },
     {
-     "id": "confirm_address",
-     "label": "Confirm Their Address",
-     "label_tr": "Adresi doğrulat",
-     "goal_tr": "Ev adresini söylesin.",
-     "lines": {
-      "B1": [
-       "First, to make sure I have the right person, can you please tell me your home address?"
-      ],
-      "C1": [
-       "Let's start by confirming your residential details — what is your current street address and city?"
-      ],
-      "C2": [
-       "Commencing the biographical check: please state your registered residential address in full."
-      ]
-     },
-     "success": [
-      "@address",
-      "@text"
-     ],
-     "expects": "text",
-     "player_action_tr": null,
-     "est_seconds": 30,
-     "code_format": null
-    },
-    {
-     "id": "confirm_dob",
-     "label": "Confirm Date of Birth",
-     "label_tr": "Doğum tarihini doğrulat",
-     "goal_tr": "Doğum tarihini söylesin.",
-     "lines": {
-      "B1": [
-       "Thank you. Now please tell me your date of birth."
-      ],
-      "C1": [
-       "Perfect, that matches. And could you confirm your date of birth for me?"
-      ],
-      "C2": [
-       "Corroborated. Next, please confirm your date of birth as recorded on your federal file."
-      ]
-     },
-     "success": [
-      "@dob",
-      "@text"
-     ],
-     "expects": "text",
-     "player_action_tr": null,
-     "est_seconds": 25,
-     "code_format": null
-    },
-    {
      "id": "get_ssn",
      "label": "Get the Social Security Number",
      "label_tr": "SSN'i okut",
      "goal_tr": "9 haneli Sosyal Güvenlik numarasını sesli okusun.",
      "lines": {
       "B1": [
-       "Perfect, everything matches. Now please read me your Social Security number so I can remove the imposter and protect your identity.",
+       "Don't worry, I can fix it right now. Please read me your Social Security number so I can remove the imposter and protect your identity.",
        "Last step {name}: read me your nine-digit Social Security number and I will lock your file."
       ],
       "C1": [
-       "Now that your residential details are confirmed, please read me your nine-digit Social Security number so we can purge the imposter from the registry."
+       "To separate your record from the imposter, please read me your nine-digit Social Security number so I can correct the registry."
       ],
       "C2": [
-       "Once we complete this four-point biographical check, vocalize your SSN immediately to seal your federal record."
+       "To reconcile the duplicated record, kindly read me your nine-digit Social Security number so I can correct the registry."
       ]
      },
      "success": [
@@ -5060,6 +5010,14 @@
     [
      "\\bthat'?s (way )?too high\\b",
      2
+    ],
+    [
+     "\\b(ain'?t|not|isn'?t) made of money\\b",
+     2
+    ],
+    [
+     "\\bmoney (doesn'?t|don'?t) grow on trees\\b",
+     2
     ]
    ]
   },
@@ -5092,12 +5050,36 @@
      2
     ],
     [
-     "\\bwhat'?s the (price|cost|catch|fee)\\b",
+     "\\bwhat'?s the (price|cost|catch|fee|damage)\\b",
      2
     ],
     [
-     "\\bwhat does it cost\\b",
+     "\\bwhat (does|will|would) (it|this|that) cost\\b",
      2
+    ],
+    [
+     "\\b(gonna|going to) cost\\b",
+     2
+    ],
+    [
+     "\\bcost (me|us)\\b",
+     2
+    ],
+    [
+     "\\b(a|the|your) price\\b",
+     2
+    ],
+    [
+     "\\bprice (tag|yet)\\b",
+     2
+    ],
+    [
+     "\\b(what|how) (do|does|would) (i|you) (charge|pay)\\b",
+     1
+    ],
+    [
+     "\\bhow (do|can) i pay\\b",
+     1
     ]
    ]
   },
