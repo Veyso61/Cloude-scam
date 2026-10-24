@@ -127,6 +127,8 @@ class OverlayUI:
         seq += [self.lbl_foot]
         if full:
             seq += [self.btns, self.lbl_status]
+        elif self._is_alert(self.lbl_status.cget("text")):
+            seq += [self.lbl_status]
         if self.sim_frame is not None:
             seq.append(self.sim_frame)
         always = {self.lbl_caller, self.lbl_scam, self.say_frame, self.btns, self.sim_frame}
@@ -256,12 +258,16 @@ class OverlayUI:
         self.level.coords(self.level_bar, 0, 0, int(60 * frac), 10)
         self.level.itemconfig(self.level_bar, fill=COL["success"] if speaking else COL["accent"])
 
+    @staticmethod
+    def _is_alert(text: str) -> bool:
+        return bool(text) and (text.startswith(("❌", "⚠")) or "hata" in text.lower())
+
     def set_status(self, text: str, transient: bool = False) -> None:
         had = bool(self.lbl_status.cget("text"))
-        self.lbl_status.config(text=text)
+        self.lbl_status.config(text=text, fg=COL["warn"] if self._is_alert(text) else COL["dim"])
         if not transient:
             self._last_status = text
-        if had != bool(text):
+        if had != bool(text) or self.compact:
             self._layout()
 
     def show_briefing(self, text: str) -> None:

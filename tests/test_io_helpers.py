@@ -53,3 +53,65 @@ class AudioDspTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class WhisperGpuFallbackTest(unittest.TestCase):
+    """CUDA DLL'leri eksikken (Windows'ta sık) hata ilk gerçek çözümlemede çıkar → CPU'ya geçmeli."""
+
+    def _install_fake(self, fail_on):
+        import sys
+        import types
+
+        class Seg:
+            def __init__(self, text):
+                self.text, self.no_speech_prob, self.avg_logprob = text, 0.0, -0.1
+
+        class FakeModel:
+            created = []
+
+            def __init__(self, name, device="cpu", compute_type="int8", cpu_threads=4):
+                self.name, self.device = name, device
+                FakeModel.created.append((name, device))
+                if device in fail_on.get("init", ()):
+                    raise RuntimeError("CUDA driver not found")
+
+            def transcribe(self, audio, **kw):
+                def gen():
+                    if self.device in fail_on.get("run", ()):
+                        raise RuntimeError("Library cublas64_12.dll is not found or cannot be loaded")
+                    yield Seg("hello there")
+                return gen(), None
+
+        mod = types.ModuleType("faster_whisper")
+        mod.WhisperModel = FakeModel
+        self._saved = sys.modules.get("faster_whisper")
+        sys.modules["faster_whisper"] = mod
+        return FakeModel
+
+    def tearDown(self):
+        import sys
+        if self._saved is None:
+            sys.modules.pop("faster_whisper", None)
+        else:
+            sys.modules["faster_whisper"] = self._saved
+
+    def test_lazy_cuda_failure_falls_back_to_cpu(self):
+        from audio_listener import FasterWhisperTranscriber
+        fake = self._install_fake({"run": ("cuda",)})
+        msgs = []
+        t = FasterWhisperTranscriber(model="auto", device="cuda", status=msgs.append)
+        self.assertEqual(t.device, "cpu")
+        self.assertEqual(t.model_name, "base.en")
+        self.assertIn(("small.en", "cuda"), fake.created)
+        self.assertTrue(any("CPU" in m for m in msgs))
+        self.assertEqual(t.transcribe(np.zeros(16000, dtype=np.float32)), "hello there")
+
+    def test_runtime_failure_after_load_retries_on_cpu(self):
+        from audio_listener import FasterWhisperTranscriber
+        fail = {"run": ()}
+        self._install_fake(fail)
+        t = FasterWhisperTranscriber(model="auto", device="cuda", status=lambda m: None)
+        self.assertEqual(t.device, "cuda")
+        fail["run"] = ("cuda",)
+        self.assertEqual(t.transcribe(np.zeros(16000, dtype=np.float32)), "hello there")
+        self.assertEqual(t.device, "cpu")

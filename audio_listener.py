@@ -361,13 +361,40 @@ class VoiceSegmenter:
 
 # ============================================================================ STT
 
+def add_nvidia_dll_dirs() -> List[str]:
+    """install_gpu.bat ile pip'ten kurulan CUDA 12 / cuDNN 9 DLL'lerini (site-packages/nvidia/*/bin) bulunur yap."""
+    import os
+    import site
+    import sys
+    if sys.platform != "win32":
+        return []
+    roots = list(site.getsitepackages()) + [site.getusersitepackages()]
+    added = []
+    for root in roots:
+        nv = os.path.join(root, "nvidia")
+        if not os.path.isdir(nv):
+            continue
+        for sub in os.listdir(nv):
+            b = os.path.join(nv, sub, "bin")
+            if os.path.isdir(b) and b not in added:
+                try:
+                    os.add_dll_directory(b)
+                except (OSError, AttributeError):
+                    pass
+                os.environ["PATH"] = b + os.pathsep + os.environ.get("PATH", "")
+                added.append(b)
+    return added
+
+
 class FasterWhisperTranscriber:
     name = "faster-whisper"
 
     def __init__(self, model: str = "auto", device: str = "auto", compute_type: str = "auto",
                  beam_size: int = 1, cpu_threads: int = 4, language: str = "en", status: StatusCb = _noop):
+        add_nvidia_dll_dirs()
         from faster_whisper import WhisperModel  # type: ignore
         self._WhisperModel = WhisperModel
+        self.requested_model = model
         self.beam_size = beam_size
         self.cpu_threads = cpu_threads
         self.language = language
@@ -391,17 +418,24 @@ class FasterWhisperTranscriber:
             self.model = self._WhisperModel(m, device=device, compute_type=ct, cpu_threads=self.cpu_threads)
             self.device = device
             self.model_name = m
-            if device == "cuda":
-                self.model.transcribe(np.zeros(16000, dtype=np.float32), language=self.language, beam_size=1)
+            # transcribe() tembeldir: model ancak segmentler okununca çalışır. Eksik CUDA/cuDNN DLL'leri
+            # burada ortaya çıksın diye kısa bir sesi VAD olmadan gerçekten çözdür.
+            warm = (np.random.RandomState(0).randn(16000) * 0.01).astype(np.float32)
+            list(self.model.transcribe(warm, language=self.language, beam_size=1, vad_filter=False,
+                                       without_timestamps=True)[0])
         except Exception as e:  # noqa: BLE001  (CUDA DLL eksikse vb.)
             if device != "cpu":
-                self.status(f"GPU başarısız ({e}); CPU'ya geçiliyor…")
-                self._load(model if model != "auto" else "base.en", "cpu", "int8")
+                self._gpu_failed(e)
                 return
             raise
         self.status(f"Whisper hazır: {self.model_name} ({self.device})")
 
-    def transcribe(self, audio16k: np.ndarray, prompt: str = "") -> str:
+    def _gpu_failed(self, err: Exception) -> None:
+        self.status(f"⚠ Ekran kartı (CUDA) kullanılamadı → işlemciye (CPU) geçiliyor. GPU için install_gpu.bat. ({str(err)[:120]})")
+        cpu_model = self.requested_model if self.requested_model != "auto" else "base.en"
+        self._load(cpu_model, "cpu", "int8")
+
+    def _run(self, audio16k: np.ndarray, prompt: str) -> str:
         segments, _info = self.model.transcribe(
             audio16k, language=self.language, beam_size=self.beam_size, vad_filter=True,
             vad_parameters={"min_silence_duration_ms": 300}, condition_on_previous_text=False,
@@ -413,6 +447,15 @@ class FasterWhisperTranscriber:
                 continue
             parts.append(seg.text.strip())
         return " ".join(p for p in parts if p).strip()
+
+    def transcribe(self, audio16k: np.ndarray, prompt: str = "") -> str:
+        try:
+            return self._run(audio16k, prompt)
+        except Exception as e:  # noqa: BLE001
+            if self.device == "cpu":
+                raise
+            self._gpu_failed(e)
+            return self._run(audio16k, prompt)
 
 
 class GoogleTranscriber:

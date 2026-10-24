@@ -57,10 +57,10 @@ py -m venv .venv
 Başına `.venv\Scripts\python -m` koymadan düz `pip install ...` yazarsan paketler programın sanal ortamına (`.venv`) değil, bilgisayarın genel Python'una kurulur ve program onları görmez.
 </details>
 
-**Ekran kartı (bilgi, yapman gereken bir şey yok):** Program konuşmayı yazıya dökerken NVIDIA ekran kartın varsa onu
-kullanmayı **kendisi dener**; olmazsa (ör. CUDA sürücü dosyaları yoksa) **kendiliğinden işlemciye (CPU) geçer**.
-İşlemcide daha hızlı `base.en` modeli, ekran kartında daha doğru `small.en` modeli kullanılır. Yazıya dökme yavaş
-gelirse Sorun giderme bölümüne bak.
+**Ekran kartı (isteğe bağlı):** Program konuşmayı yazıya dökerken NVIDIA ekran kartını kullanmayı **kendisi dener**;
+gerekli CUDA dosyaları yoksa **kendiliğinden işlemciye (CPU) geçer** ve çalışmaya devam eder (alt satırda
+`Whisper hazır: base.en (cpu)` yazar). Daha hızlı ve doğru yazıya dökme istersen bir kez **`install_gpu.bat`**'ı çalıştır
+(~1.3 GB indirir); sonra alt satırda `small.en (cuda)` görünür.
 
 ### Oyun ayarları (önemli)
 
@@ -236,7 +236,7 @@ AI gelince sarı kutunun başlığında **(AI)** yazar; kural motorunun cümlesi
 
 ## OCR (isteğe bağlı)
 
-`install.bat` gerekli paketleri (`mss`, `rapidocr`, `onnxruntime`) kurar → ⚙ → Ayarlar → **OCR** işaretle → **Bölge ekle** ile HUD'u (gün, kota/kazanç,
+`install.bat` gerekli paketleri (`mss`, `rapidocr`, `onnxruntime`) kurar → ⚙ → Ayarlar → **OCR** işaretle → **Bölge ekle** ile önce telefon penceresinin üst kısmını (Caller Trust + arayan adı), sonra alttaki `QUOTA / PERFORMANCE REVIEW` çubuğunu seç (gün, kota/kazanç,
 süre, Caller Trust, arayan adı) fareyle seç. Gün/kota/kazanç/süre otomatik güncellenir, arayan adı karakteri seçer.
 
 ---
@@ -245,6 +245,7 @@ süre, Caller Trust, arayan adı) fareyle seç. Gün/kota/kazanç/süre otomatik
 
 | Sorun | Çözüm |
 |---|---|
+| Ses çubuğu yeşil yanıyor ama cümle değişmiyor | Konsoldaki `[durum]` satırlarına bak. `Ekran kartı (CUDA) kullanılamadı` yazıyorsa program CPU'ya geçmiştir; GPU için `install_gpu.bat`. `STT hatası` yazıyorsa o satırın ekran görüntüsünü gönder. ⚙ → Arayan **(Otomatik)** olmalı. |
 | Ses çubuğu hiç oynamıyor | `python main.py --list-devices` → oyunun çıktığı cihazı `config.json` → `audio.device_name` içine yaz (ör. `"headphones"`). |
 | Yazıya dökme yavaş | `config.json` → `stt.model`: `"tiny.en"` (en hızlı) / `"base.en"`; NVIDIA varsa `"small.en"`. |
 | Saçma metinler ("Thank you." vb.) | Oyun müziğini kıs; `audio.threshold_db`'yi yükselt (ör. -42). |

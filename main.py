@@ -209,6 +209,8 @@ class App:
             self.log("STATUS", ev[1])
             if self.ui:
                 self.ui.set_status(ev[1])
+                if ev[1]:
+                    print(f"[durum] {ev[1]}", flush=True)
             else:
                 print(f"[durum] {ev[1]}")
         elif kind == "level":
@@ -470,6 +472,13 @@ class App:
 
     def _tick_loop(self) -> None:
         self.tick()
+        if self.reader is not None and self.ui is not None:
+            r = self.ui.root
+            rects = [(r.winfo_rootx(), r.winfo_rooty(), r.winfo_width(), r.winfo_height())]
+            win = self.ui.settings_win
+            if win is not None and win.winfo_exists():
+                rects.append((win.winfo_rootx(), win.winfo_rooty(), win.winfo_width(), win.winfo_height()))
+            self.reader.mask_rects = rects
         self._save_counter = getattr(self, "_save_counter", 0) + 1
         if self._save_counter % 5 == 0:
             self.save_state()

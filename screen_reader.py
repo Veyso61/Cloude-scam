@@ -71,7 +71,8 @@ def parse_hud_text(text: str, name_index: Optional[Dict[str, List[str]]] = None,
         me = re.search(r"(?:earned|earnings|total|team|haul|balance|money)[^$\d\n]{0,20}" + _MONEY, low)
         if me:
             r.earned = _money(me.group(1))
-    m = re.search(r"(?:trust)[^\d\n]{0,20}(\d{1,3})\s*%", low) or re.search(r"(\d{1,3})\s*%\s*(?:trusting|angry|neutral|suspicious|happy)", low)
+    m = (re.search(r"trust[^\d%]{0,40}?(\d{1,3})\s*%", low, re.S)
+         or re.search(r"(\d{1,3})\s*%\s*(?:trusting|angry|neutral|suspicious|happy)", low))
     if m:
         v = int(m.group(1))
         if 0 <= v <= 100:
@@ -79,9 +80,13 @@ def parse_hud_text(text: str, name_index: Optional[Dict[str, List[str]]] = None,
     m = re.search(r"\b(trusting|angry|neutral|suspicious|happy|annoyed|furious|calm)\b", low)
     if m:
         r.trust_label = m.group(1).capitalize()
-    times = re.findall(r"(?<![\d:])(\d{1,2}):([0-5]\d)(?![\d:])", t)
-    if times:
-        cands = [int(a) * 60 + int(b) for a, b in times if int(a) <= 30]
+    # Oyundaki geri sayım: "PERFORMANCE REVIEW 10:31". Saat ("3:57 PM") ve tarih okunmaz.
+    m = re.search(r"review[^\d]{0,20}(\d{1,2}):([0-5]\d)(?![\d:])", low, re.S)
+    if m:
+        r.time_left = int(m.group(1)) * 60 + int(m.group(2))
+    else:
+        cands = [int(a) * 60 + int(b) for a, b in re.findall(r"(?<![\d:])(\d{1,2}):([0-5]\d)(?![\d:])(?!\s*[ap]\.?\s?m\b)", low)
+                 if int(a) <= 30]
         if cands:
             r.time_left = min(cands)
     if name_index:
@@ -166,6 +171,7 @@ class ScreenReader:
         self._stop = threading.Event()
         self._thread: Optional[threading.Thread] = None
         self._last_raw = ""
+        self.mask_rects: List[tuple] = []   # (x, y, w, h) ekran pikseli — overlay'in kendisi okunmasın
 
     def start(self) -> None:
         self._thread = threading.Thread(target=self._run, name="ocr", daemon=True)
@@ -183,7 +189,12 @@ class ScreenReader:
             mon = {"left": x, "top": y, "width": max(8, w), "height": max(8, h)}
         else:
             mon = sct.monitors[1]
-        img = np.asarray(sct.grab(mon))[:, :, :3][:, :, ::-1]  # BGRA -> RGB
+        img = np.array(sct.grab(mon))[:, :, :3][:, :, ::-1]  # BGRA -> RGB
+        for mx, my, mw, mh in list(self.mask_rects):
+            x0, y0 = max(0, mx - mon["left"]), max(0, my - mon["top"])
+            x1, y1 = min(img.shape[1], mx + mw - mon["left"]), min(img.shape[0], my + mh - mon["top"])
+            if x1 > x0 and y1 > y0:
+                img[y0:y1, x0:x1] = 0
         if region:
             if img.shape[0] < 120:
                 img = np.repeat(np.repeat(img, 2, axis=0), 2, axis=1)
