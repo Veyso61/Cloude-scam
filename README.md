@@ -46,9 +46,17 @@ hesaba katarak senin mikrofona okuyacağın **tam İngilizce cümleyi** (altınd
 
 - **`update.bat`**'a çift tıkla: en son sürümü GitHub'dan indirir ve kopyalar. Ayarların (`config.json`), kayıtların
   (`state.json`), kendi eklediğin karakterler ve kurulu paketler (`.venv`) korunur. Koç açıksa önce kapat.
-- `update.bat` dosyası olmayan eski bir sürümdeysen bir kereliğine elle güncelle:
-  <https://github.com/Veyso61/Cloude-scam/archive/refs/heads/ccr-c56d4dc6-5mxr8o.zip> → indir → içindeki dosyaları
-  eski klasörünün üzerine kopyala ("Dosyaları değiştir"). Sonraki güncellemelerde sadece `update.bat` yeterli.
+- Hangi sürümü çalıştırdığın konsolun ilk satırında yazar: `SWYF Koç — sürüm 2026.10.24-6 (klasör: …)`. GitHub'da
+  daha yeni sürüm varsa açılışta **🔔 Yeni sürüm var** uyarısı çıkar.
+- `update.bat` dosyası olmayan eski bir sürümdeysen bir kereliğine elle güncelle. **Dikkat:** zip'in içinde
+  `Cloude-scam-ccr-c56d4dc6-5mxr8o` adlı bir klasör var; zip'i doğrudan "ayıklarsan" Windows yeni (ya da iç içe) bir
+  klasör oluşturur, eski dosyaların üzerine yazmaz ve "değiştir" sorusu hiç çıkmaz. Doğrusu:
+  1. Koçu kapat. Zip'i indir: <https://github.com/Veyso61/Cloude-scam/archive/refs/heads/ccr-c56d4dc6-5mxr8o.zip>
+  2. Zip'i çift tıklayıp aç, içindeki **`Cloude-scam-ccr-c56d4dc6-5mxr8o`** klasörüne gir (içinde `main.py`, `run.bat` var).
+  3. Hepsini seç (**Ctrl+A**) → **Ctrl+C**.
+  4. Her zaman `run.bat`'ı çalıştırdığın klasörü aç (içinde `.venv` klasörü olan) → **Ctrl+V** → "Dosyaları hedefte
+     değiştir"i seç.
+  5. `run.bat` → konsolun ilk satırında yeni sürüm numarasını gör. Sonraki güncellemelerde sadece `update.bat` yeterli.
 
 <details>
 <summary>Elle kurmak istersen (gerekli değil)</summary>
@@ -329,6 +337,7 @@ Her oturumun dökümü `logs/` klasörüne yazılır (arayanın sözleri + öner
 | `config.py` | `config.json` varsayılanları, veritabanı birleştirme |
 | `tests/` | Birim testleri: `python -m unittest discover -s tests -t .` |
 | `update.bat` | En son sürümü indirip kurar (ayarlar ve kayıtlar korunur) |
+| `VERSION` | Sürüm numarası (açılışta gösterilir, GitHub'daki ile karşılaştırılır) |
 
 ## Doğruluk notu
 

@@ -7,6 +7,7 @@ import tkinter as tk
 from tkinter import ttk
 from typing import Callable, Dict, List, Optional
 
+from config import APP_VERSION
 from game_state import fmt_time
 
 COL = {
@@ -49,7 +50,7 @@ class OverlayUI:
     # ================================================================== layout
     def _build(self) -> None:
         r = self.root
-        r.title("SWYF Koç")
+        r.title(f"SWYF Koç {APP_VERSION}")
         r.overrideredirect(True)
         r.attributes("-topmost", True)
         r.attributes("-alpha", float(self.ocfg.get("opacity", 0.9)))
@@ -367,7 +368,7 @@ class OverlayUI:
             return
         win = tk.Toplevel(self.root)
         self.settings_win = win
-        win.title("SWYF Koç — Durum & Ayarlar")
+        win.title(f"SWYF Koç {APP_VERSION} — Durum & Ayarlar")
         win.attributes("-topmost", True)
         ox, ow = self.root.winfo_x(), int(self.ocfg.get("width", 600))
         sx = ox + ow + 10 if ox + ow + 520 < self.root.winfo_screenwidth() else max(0, ox - 530)

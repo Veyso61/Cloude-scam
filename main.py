@@ -131,7 +131,15 @@ class App:
         sys.stdout.flush()
 
     # ================================================================== optional services
+    def _check_update(self) -> None:
+        latest = C.fetch_remote_version()
+        if latest and C.version_key(latest) > C.version_key(C.APP_VERSION):
+            self.status(f"🔔 Yeni sürüm var: {latest} (sende {C.APP_VERSION}) → koçu kapat, update.bat'a çift tıkla")
+
     def _start_services(self) -> None:
+        print(f"SWYF Koç — sürüm {C.APP_VERSION}  (klasör: {C.APP_DIR})", flush=True)
+        if not self.args.simulate and not self.args.demo:
+            threading.Thread(target=self._check_update, daemon=True).start()
         if self.cfg["llm"].get("enabled"):
             try:
                 from llm_advisor import LLMAdvisor

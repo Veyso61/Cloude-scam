@@ -77,6 +77,12 @@ class ImporterTest(unittest.TestCase):
         C.save_config(cfg, path)
         self.assertFalse(C.load_config(path)["ocr"]["enabled"])
 
+    def test_version_file_and_compare(self):
+        self.assertNotEqual(C.APP_VERSION, "?")                 # VERSION dosyası paketle birlikte gelir
+        self.assertGreater(C.version_key("2026.10.24-6"), C.version_key("2026.10.24-5"))
+        self.assertGreater(C.version_key("2026.10.25-1"), C.version_key("2026.10.24-9"))
+        self.assertGreater(C.version_key("2026.10.24-1"), C.version_key(""))
+
     def test_config_defaults_written(self):
         tmp = tempfile.mkdtemp()
         path = os.path.join(tmp, "config.json")

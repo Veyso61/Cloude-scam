@@ -5,6 +5,7 @@ from __future__ import annotations
 import copy
 import json
 import os
+import re
 import sys
 from typing import Any, Dict
 
@@ -15,6 +16,35 @@ DB_PATH = os.path.join(APP_DIR, "characters_db.json")
 CUSTOM_DB_PATH = os.path.join(APP_DIR, "characters_custom.json")
 IMPORTED_DB_PATH = os.path.join(APP_DIR, "characters_imported.json")
 LOG_DIR = os.path.join(APP_DIR, "logs")
+VERSION_PATH = os.path.join(APP_DIR, "VERSION")
+REMOTE_VERSION_URL = "https://raw.githubusercontent.com/Veyso61/Cloude-scam/ccr-c56d4dc6-5mxr8o/VERSION"
+
+
+def _read_version() -> str:
+    try:
+        with open(VERSION_PATH, "r", encoding="utf-8") as f:
+            return f.read().strip() or "?"
+    except OSError:
+        return "?"
+
+
+APP_VERSION = _read_version()
+
+
+def version_key(v: str) -> tuple:
+    """'2026.10.24-6' → (2026, 10, 24, 6); bozuk değer en eski sayılır."""
+    nums = re.findall(r"\d+", v or "")
+    return tuple(int(n) for n in nums) if nums else (0,)
+
+
+def fetch_remote_version(timeout: float = 4.0) -> str:
+    """GitHub'daki en son sürüm numarası; ağ yoksa ''."""
+    import urllib.request
+    try:
+        with urllib.request.urlopen(REMOTE_VERSION_URL, timeout=timeout) as r:
+            return r.read(64).decode("utf-8", "ignore").strip()
+    except Exception:  # noqa: BLE001 — sürüm kontrolü hiçbir zaman programı durdurmamalı
+        return ""
 
 CONFIG_VERSION = 2
 
