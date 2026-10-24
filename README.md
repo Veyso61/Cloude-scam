@@ -42,6 +42,14 @@ hesaba katarak senin mikrofona okuyacağın **tam İngilizce cümleyi** (altınd
      ve "atlandı" yazar; program yine çalışır.
 4. **`run.bat`** ile başlat. İlk açılışta konuşma tanıma modeli (~150–500 MB) bir kez indirilir; birkaç dakika sürebilir.
 
+### Güncelleme
+
+- **`update.bat`**'a çift tıkla: en son sürümü GitHub'dan indirir ve kopyalar. Ayarların (`config.json`), kayıtların
+  (`state.json`), kendi eklediğin karakterler ve kurulu paketler (`.venv`) korunur. Koç açıksa önce kapat.
+- `update.bat` dosyası olmayan eski bir sürümdeysen bir kereliğine elle güncelle:
+  <https://github.com/Veyso61/Cloude-scam/archive/refs/heads/ccr-c56d4dc6-5mxr8o.zip> → indir → içindeki dosyaları
+  eski klasörünün üzerine kopyala ("Dosyaları değiştir"). Sonraki güncellemelerde sadece `update.bat` yeterli.
+
 <details>
 <summary>Elle kurmak istersen (gerekli değil)</summary>
 
@@ -76,12 +84,17 @@ gerekli CUDA dosyaları yoksa **kendiliğinden işlemciye (CPU) geçer** ve çal
 1. `run.bat` → overlay açılır, sağ üstte **🎧 ses çubuğu** oyun konuşunca yeşil yanar.
 2. Gün başında **⚙ (Durum)** panelinden **Gün** (1–15) ve gerekiyorsa **gerçek kotayı** gir (oyundaki HUD'dan). Scamazon'dan aldığın ücretli uygulamaları **Uygulamalar** sekmesinde işaretle.
 3. Vardiya başlayınca **F10** (sayaç). Sayaç bitince tekrar **F10** = sonraki gün (otomatik ilerler) + gün brifingi.
-4. **Yeni arayan otomatik algılanır** (OCR açıksa telefondaki ad değişince; değilse uzun sessizlikten sonra "Hi/Hello" ile
-   başlayan cümleden). Koç kendini sıfırlar ve önce sabit bir karşılama cümlesi gösterir ("Hello Forest! … How can I help you?").
-   Gerekirse **F5** ile elle de sıfırlayabilirsin.
+4. **Yeni arayan otomatik algılanır**: OCR açıksa telefondaki ad değişince; değilse arayanın **ilk cümlesinden** (oyundaki
+   her arayanın kendine özgü açılışı var) ya da uzun sessizlikten sonra "Hi/Hello" ile başlayan cümleden. Listeden yanlış
+   biri seçili kalsa bile başka arayanın açılış cümlesi duyulunca koç kendini düzeltir. Gerekirse **F5** ile elle sıfırla.
+   Elle seçmek istersen ⚙ → **Arayan** listesinde oyundaki arayanlar üstte, parodiler etiketli
+   (ör. "Micheal Jorkson — Michael Jackson parodisi", "Hiesenburger — Heisenberg / Breaking Bad parodisi").
 5. Arayan konuşur → üstte duyduğu cümle ve Türkçe özeti, ortada **sarı "SÖYLE"** cümlen çıkar. Push-to-Talk ile oku
    **ya da** yazarak gönder: yeni cümle **otomatik panoya kopyalanır**, oyunun telefon kutusunda **Ctrl+V** + Enter.
    Sarı kutuya **tıklarsan** da kopyalanır; altındaki alternatif cümleye tıklarsan o kopyalanır.
+   **İlerleme:** sarı cümleyi söyledikten sonra arayan itiraz etmezse (ya da fiyatı/sonrasını sorarsa) koç bir sonraki
+   adıma geçer — aynı adımı tekrar tekrar söyletmez (oyundaki arayanlar tekrardan hoşlanmıyor). İtiraz ederse ona cevap
+   verir. Kod/kart/SSN gibi veri adımları ancak veri okununca biter.
 6. Arayan kod/kart/SSN okuyunca **yeşil büyük yazı** çıkar. **Yeşil yazıya tıkla** → kod boşluksuz panoya gelir →
    uygulamadaki kutuya **Ctrl+V** → Verify. (Kart numarası parça parça okunursa birleştirilir.)
 7. **🛡 Caller Trust satırı** (OCR ile): yüzde, durum ve son cümlenden beri değişim (▲/▼). Güven düştüyse "yumuşak konuş",
@@ -263,9 +276,12 @@ Kural motoru tamamen çevrimdışı çalışır. Daha esnek cevaplar ve arayanı
 
 AI gelince sarı kutunun başlığında **(AI)** yazar; kural motorunun cümlesi alternatif olarak kalır. API ücretlidir.
 
-## OCR (isteğe bağlı ama önerilir)
+## OCR (ekrandan okuma — varsayılan açık)
 
-`install.bat` gerekli paketleri (`mss`, `rapidocr`, `onnxruntime`) kurar → ⚙ → Ayarlar → **OCR** işaretle. İki seçenek:
+`install.bat` gerekli paketleri (`mss`, `rapidocr`, `onnxruntime`) kurar; OCR artık **varsayılan olarak açık**
+(⚙ → Ayarlar → **OCR**'dan kapatılabilir). Arayan adını ekrandan okumak, karakteri otomatik tanımanın en güvenilir yolu.
+OCR kapalıyken de arayan **ilk cümlesinden** tanınır (oyundaki her arayanın kendine özgü açılış cümleleri var:
+"Do you know who you are talking to right now?" → Hiesenburger). İki seçenek:
 
 - **En kolayı:** ⚙ → Ayarlar → **Bölgeleri temizle** → tüm ekran okunur (overlay'in kendisi okunmaz). Telefon (arayan adı,
   Caller Trust), açık uygulama penceresi (Reward / done / Next) ve alttaki `QUOTA / PERFORMANCE REVIEW` çubuğu birlikte okunur.
@@ -305,13 +321,14 @@ Her oturumun dökümü `logs/` klasörüne yazılır (arayanın sözleri + öner
 | `strategy_engine.py` | Karakter tanıma, niyet analizi, scam planlama/zincirleme, checklist takibi, cümle seçimi, zaman/kota dipnotları |
 | `text_analysis.py` | Niyet sınıflandırıcı, sözle okunan kod/kart/SSN/e-posta/tutar/konum çıkarımı |
 | `game_state.py` | Hafta/gün, kota, kazanç, vardiya sayacı, açık/satın alınmış uygulamalar (state.json) |
-| `characters_db.json` | Oyun kuralları, 3 haftalık takvim, 24 uygulama (adımlar + B1/C1/C2 cümleler), itiraz cevapları, karakterler, niyet kalıpları |
+| `characters_db.json` | Oyun kuralları, 3 haftalık takvim, uygulamalar (adımlar + B1/C1/C2 cümleler), itiraz cevapları, karakterler (ilk cümle parmak izleri dahil), niyet kalıpları |
 | `screen_reader.py` | İsteğe bağlı OCR (mss + RapidOCR / Tesseract) |
 | `llm_advisor.py` | İsteğe bağlı Claude danışmanı + çeviri |
 | `caller_importer.py` | Oyun klasöründen arayan kişiliklerini içe aktarma |
 | `hotkeys.py` | Win32 RegisterHotKey ile global kısayollar |
 | `config.py` | `config.json` varsayılanları, veritabanı birleştirme |
 | `tests/` | Birim testleri: `python -m unittest discover -s tests -t .` |
+| `update.bat` | En son sürümü indirip kurar (ayarlar ve kayıtlar korunur) |
 
 ## Doğruluk notu
 
