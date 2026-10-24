@@ -505,3 +505,98 @@ def best_fuzzy(name: str, candidates: Dict[str, List[str]], cutoff: float = 0.78
             if r > best:
                 best_id, best = cid, r
     return best_id if best >= cutoff else None
+
+
+# --------------------------------------------------------------------------- arayanın bize sorduğu sorular
+
+_PRON_SWAP = {"my": "your", "your": "my", "me": "you", "mine": "yours", "yours": "mine", "myself": "yourself", "yourself": "myself"}
+_Q_SKIP = re.compile(r"\b(scam|scammer|scamming|fraud|bot|robot|ai|human|real|fake|legit|crazy|insane|stupid|idiot|nuts|"
+                     r"out of your mind|trying to|selling|recording|police|cop|threatening)\b", re.I)
+_Q_TAIL = re.compile(r"\s+(right now|too|as well|by any chance|or what|or not|huh|though|then|today|at all|again)$", re.I)
+_PREPS = ("from", "in", "at", "on", "with", "near", "into", "calling", "going", "trying", "talking", "working", "doing")
+
+
+def _q_phrase(orig: str, start: int, end: int) -> str:
+    """Sorudaki ifadeyi özgün yazımıyla al, zamirleri çevir ('my hat' → 'your hat')."""
+    x = orig[start:end].strip(" ,.!?'\"")
+    while True:
+        y = _Q_TAIL.sub("", x)
+        if y == x:
+            break
+        x = y
+    return " ".join(_PRON_SWAP.get(w.lower(), w) for w in x.split())
+
+
+def answer_question(text: str, agent: str = "Steve", company: str = "Customer Protection Center") -> str:
+    """Arayan bize doğrudan soru sorduysa kısa, sıcak ve onaylayan bir cevap (yoksa '').
+    Oyundaki arayanlar ortaya atılan durumu kabul ediyor ve uyum sağlanınca güven artıyor; bu yüzden
+    'Are you vegan?' gibi sorulara 'Yes, I'm vegan too!' en iyi açılış. Şüphe soruları burada cevaplanmaz
+    (itiraz cevapları ilgilenir)."""
+    orig = normalize(text)
+    questions = [m.group(0) for m in re.finditer(r"[^.?!]*\?", orig)]
+    if not questions:
+        return ""
+    low_all = " ".join(q.lower() for q in questions)
+    simple = [
+        (r"\bdo you know who (you'?re|you are) (talking|speaking) to\b", "Of course I know who I'm talking to!"),
+        (r"\bdo you (even )?know who (i am|i'?m)\b|\bdon'?t you know who i am\b", "Of course I know who you are!"),
+        (r"\b(who (is this|'s this|are you|is calling|am i (talking|speaking) (to|with)|am i addressing|am i dealing with)|"
+         r"what'?s your name|what is your name)\b", f"Hi, I'm {agent} from {company}."),
+        (r"\bhow are you\b|\bhow'?s it going\b|\bhow'?s your day\b", "I'm doing great, thanks for asking!"),
+        (r"\b(can|do) you (hear|read) me\b", "Yes, loud and clear!"),
+        (r"\bis this a (real )?person\b|\bare you a (real )?person\b", "Yes, I'm a real person, and I'm here to help!"),
+        (r"\b(are you|you) (still )?there\b|\b(anyone|anybody|someone) there\b", "Yes, I'm right here!"),
+        (r"\b(the )?right (person|place|number|channel|department|line)\b|\breached the right\b", "Yes, you've reached the right place!"),
+        (r"\b(someone|somebody|anyone|anybody) (i can |to )?(speak|talk) (to|with)\b|\bcan i (speak|talk) (to|with) (someone|somebody)\b",
+         f"Yes, you're talking to me! I'm {agent}, and I'm here to help."),
+        (r"\bare you (kidding|serious|joking)\b", "I'm completely serious!"),
+        (r"\bdo you have (a minute|a second|a moment|time)\b", "Of course, I have all the time you need!"),
+        (r"\bdo you understand\b", "Yes, I understand completely."),
+        (r"\b(can|could) you (help|explain|walk me)\b", "Of course, I'm here to help!"),
+    ]
+    for pat, ans in simple:
+        if re.search(pat, low_all):
+            if "slow" in low_all and "help" in ans:
+                return "Of course, I'll explain everything nice and slowly."
+            return ans
+    if _Q_SKIP.search(low_all):
+        return ""
+    for q in reversed(questions):
+        low = q.lower()
+        base = orig.index(q)
+        m = re.search(r"\bare you (?:also |even |actually )?((?:a |an |the )?[a-z][a-z'\- ]{1,40}?)\s*\?", low)
+        if m:
+            x = _q_phrase(orig, base + m.start(1), base + m.end(1))
+            first = x.split()[0].lower() if x else ""
+            if not x or first.endswith("ing") or first in _PREPS or len(x.split()) > 5:
+                return "Yes, I am!"
+            if first in ("ready", "listening", "okay", "ok", "alright", "free", "busy", "sure"):
+                return {"ready": "Yes, I'm ready!", "listening": "Yes, I'm listening!", "busy": "I always have time for you!",
+                        "free": "I always have time for you!", "sure": "Yes, completely sure!"}.get(first, "Yes, I'm good!")
+            return f"Yes, I'm {x}!" if "your" in x.lower().split() else f"Yes, I'm {x} too!"
+        m = re.search(r"\bdo you (like|love|enjoy|eat|play|watch|listen to|believe in|collect|drink|cook|read|know about|"
+                      r"go to|follow|support)\s+([a-z][a-z'\- ]{1,40}?)\s*\?", low)
+        if m:
+            verb = {"like": "love", "enjoy": "love", "know about": "know all about"}.get(m.group(1), m.group(1))
+            x = _q_phrase(orig, base + m.start(2), base + m.end(2))
+            return f"Yes, I {verb} {x}!" if x and len(x.split()) <= 5 else "Yes, I do!"
+        m = re.search(r"\bhave you (?:ever )?(been to|heard of|heard about|tried|seen|met|played|watched|eaten|read)\s+"
+                      r"([a-z][a-z'\- ]{1,40}?)\s*\?", low)
+        if m:
+            x = _q_phrase(orig, base + m.start(2), base + m.end(2))
+            if m.group(1) == "been to":
+                return f"Yes, I have, {x} is beautiful!" if x else "Yes, I have!"
+            if m.group(1).startswith("heard"):
+                return f"Yes, I've heard great things about {x}!" if x else "Yes, I have!"
+            return "Yes, I have, and I loved it!"
+        m = re.search(r"\bis (?:it|this|that) (?:really |actually |100% )?([a-z][a-z'\- ]{1,30}?)\s*\?", low)
+        if m and not re.search(r"\b(expensive|costly|cheap|a lot|much|bad|dangerous|risky|scam|joke|fake|real|true|legit|"
+                               r"illegal|necessary|mandatory|over|done|finished|broken|my fault|gonna|going|for|about|"
+                               r"from|that|this|the|you|your|a|an)\b", m.group(1)):
+            x = _q_phrase(orig, base + m.start(1), base + m.end(1))
+            return f"Yes, it's completely {x}!" if x and len(x.split()) <= 3 else "Yes, absolutely!"
+        m = re.search(r"\bwhat do you think (?:of|about)\s+([a-z][a-z'\- ]{1,40}?)\s*\?", low)
+        if m:
+            x = _q_phrase(orig, base + m.start(1), base + m.end(1))
+            return f"I think {x} is amazing!" if x else "I think it's amazing!"
+    return ""

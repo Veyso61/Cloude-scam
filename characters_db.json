@@ -836,8 +836,8 @@
      "goal_tr": "Arayanın sorununu dinle ve onu çözecek sahte bir hizmet/iade/ödül öner. Kabul etsin.",
      "lines": {
       "B1": [
-       "Hello {name}, I see your problem right here in our system, and I can fix {problem} for you today with our special {service}. It's only {amount_words}, one time.",
-       "Don't worry about that {name}, our technical team has a complete solution ready to fix {problem} right now.",
+       "I see your problem right here in our system, {name}, and I can fix {problem} for you today with our special {service}. It's only {amount_words}, one time.",
+       "Good news, {name}: our technical team has a complete solution ready to fix {problem} right now, only {amount_words}.",
        "Good news! Because of the trouble you had today, I am activating a full repair and refund package on your profile."
       ],
       "C1": [
@@ -4807,7 +4807,15 @@
      2
     ],
     [
-     "\\b(suspicious|fishy|sketchy|shady|fake|bogus|phony)\\b",
+     "\\b(suspicious|fishy|sketchy|shady)\\b",
+     2
+    ],
+    [
+     "\\b(this|that|you|it|sounds|so|you're|it's|this is|that's) (is |are |sounds )?(so )?(fake|bogus|phony)\\b",
+     2
+    ],
+    [
+     "\\b(fake|bogus|phony) (call|caller|company|agent|offer|support|department|police|officer)\\b",
      2
     ],
     [
@@ -5190,6 +5198,30 @@
     ],
     [
      "\\bcomplaint\\b",
+     2
+    ],
+    [
+     "\\bnever (arrived|came|showed up|got here|delivered)\\b",
+     2
+    ],
+    [
+     "\\b(won'?t|can'?t|cannot|couldn'?t) (turn on|start|open|log ?in|get in|connect|find|load)\\b",
+     2
+    ],
+    [
+     "\\b(problem|issue|trouble) with\\b",
+     2
+    ],
+    [
+     "\\bsomething'?s? (is )?wrong\\b",
+     2
+    ],
+    [
+     "\\b(lost|stolen|missing|stuck|locked out|got hacked|been hacked|overcharged|charged twice)\\b",
+     2
+    ],
+    [
+     "\\b(help me|helping me) with\\b",
      2
     ]
    ]
@@ -8687,6 +8719,84 @@
     "know your role"
    ],
    "parody_of": "The Rock parodisi"
+  },
+  "that_vegan_lady": {
+   "id": "that_vegan_lady",
+   "name": "That Vegan Lady",
+   "aliases": [
+    "vegan lady",
+    "that vegan lady"
+   ],
+   "game_id": null,
+   "gender": "Female",
+   "call_type": "victim",
+   "first_messages": [],
+   "archetype": "ego",
+   "secondary": [
+    "mixed",
+    "lonely"
+   ],
+   "verified": false,
+   "source_tr": "Oyunda görüldü (kullanıcı ekran görüntüsü). Gönderilen oyun dosyalarında yok → büyük ihtimalle Workshop arayanı. Profil adından ve açılışından TAHMİN; açılışta oyun/Workshop klasöründen otomatik içe aktarılırsa gerçeğiyle güncellenir.",
+   "generic": false,
+   "mod": true,
+   "typical_week": 1,
+   "trust_start": 40,
+   "formal_name": "ma'am",
+   "first_name": "",
+   "profile_tr": "Veganlığıyla gurur duyan, herkese 'Sen de vegan mısın?' diye soran, değerlerine çok önem veren arayan.",
+   "weakness_tr": "Ona katıl: 'Yes, I'm vegan too!' → aynı değerleri paylaşan biri ol; teklifini çevreci / hayvan dostu / 'cruelty-free' diye sun.",
+   "fatal_tr": [
+    "Et/süt ürünlerini övmek ya da veganlıkla dalga geçmek",
+    "Değerlerini küçümsemek"
+   ],
+   "keywords": [
+    "vegan",
+    "plant-based",
+    "plant based",
+    "tofu",
+    "animals",
+    "cruelty-free",
+    "dairy",
+    "meat",
+    "kale",
+    "oat milk",
+    "planet",
+    "eco",
+    "animal rights",
+    "vegetables"
+   ],
+   "topic": "food",
+   "problem_en": null,
+   "service_en": "Cruelty-Free Protection Plan",
+   "best_scams": [
+    "gift_card",
+    "credit_card",
+    "romance",
+    "book_publishing",
+    "utility_billing"
+   ],
+   "avoid_scams": [
+    "meme_coin"
+   ],
+   "level": "B1",
+   "pet_name": "friend",
+   "hang_up": false,
+   "scambaiter": false,
+   "silver_bullet": "",
+   "custom_lines": {},
+   "tips_tr": [
+    "İlk cümle: 'Yes, I'm vegan too!' + derdini sor.",
+    "Teklifi 'eco-friendly / cruelty-free' diye pazarla.",
+    "Romance açıksa ortak değerler + vegan randevu yeri çok iyi işler."
+   ],
+   "give_up_seconds": null,
+   "fingerprints": [
+    "are you vegan",
+    "that vegan lady",
+    "are you a vegan"
+   ],
+   "parody_of": ""
   },
   "kenzo_sivley": {
    "id": "kenzo_sivley",

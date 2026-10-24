@@ -334,6 +334,7 @@ class StrategyEngine:
         if step is not None and self._step_success(self._said_or_data(step), text, intents, data):
             adv = self._advance()
             adv = self._cascade(adv, text, intents, data)
+            self._prefix_answer(adv, self._answer(text))
             return self._finish(adv, text, intents, data)
 
         # ---------------------------------------------------------- card number read in pieces
@@ -361,12 +362,32 @@ class StrategyEngine:
             if asked_price and adv.say and "dollar" not in adv.say.lower() and self._reward(s.current):
                 adv.say = f"It's only {self._slot_values()['amount_words']}, one time. " + adv.say
                 s.last_pool = [adv.say] + s.last_pool[1:]
+            self._prefix_answer(adv, self._answer(text))
             return self._finish(adv, text, intents, data)
 
-        # ---------------------------------------------------------- first words: open with the plan
-        if s.utterances == 1 and not self._has_progress() and "hangup_threat" not in intents:
-            note = self._char_note() if self._char() else "Arayan sorununu anlattı → plana göre açılış."
-            return self._finish(self._advice_for_step(note=note), text, intents, data)
+        # ---------------------------------------------------------- açılış: önce sorusunu cevapla, derdini öğren, sonra plan
+        described = ("problem_statement" in intents or self._mentions_topic(text)
+                     or (ta.word_count(text) >= 10 and not text.strip().endswith("?")))
+        if (step is not None and (s.current, step["id"]) not in s.presented and not self._has_progress()
+                and not any(i in intents for i in ("hangup_threat", "suspicious", "refuse"))
+                and ("angry" not in intents or described)):        # derdine kızgınsa (bize değil) yine teklif et
+            answer = self._answer(text)
+            if not answer and "angry" in intents:
+                answer = "Oh no, I'm so sorry about that!"
+            custom = bool((char or {}).get("custom_lines", {}).get(f"{s.current}:{step['id']}"))
+            if s.utterances == 1 and not described and not custom:
+                # Oyunda arayan derdini, ona "nasıl yardımcı olabilirim" diye sorulunca uyduruyor.
+                lead = answer + " " if answer else "Hi there! "
+                say = lead + "So, what can I help you with today?"
+                alts = [lead + "Tell me, what's going on today?", lead + "How can I make your day better?"]
+                adv = self._advice_for_step(say=say, alts=alts,
+                                            note="👂 Önce sorusunu cevapla, derdini sor — derdini anlatınca plan başlar.")
+                s.last_pool, s.alt_idx = [say] + alts, 0
+                return self._finish(adv, text, intents, data)
+            note = self._char_note() if char else "Arayan derdini anlattı → plana göre açılış."
+            adv = self._advice_for_step(note=note)
+            self._prefix_answer(adv, answer)
+            return self._finish(adv, text, intents, data)
 
         # ---------------------------------------------------------- objections
         for intent in OBJECTION_PRIORITY:
@@ -415,7 +436,9 @@ class StrategyEngine:
                 line, alts = self._objection_line("off_topic")
                 step_line, _ = self._step_line(step)
                 return self._finish(self._advice_for_step(say=line + " " + step_line, alts=alts, note="Konu dağıldı → nazikçe hedefe çek."), text, intents, data)
-        return self._finish(self._advice_for_step(), text, intents, data)
+        adv = self._advice_for_step()
+        self._prefix_answer(adv, self._answer(text))
+        return self._finish(adv, text, intents, data)
 
     def step_done(self) -> Advice:
         return self._finish(self._advance(manual=True))
@@ -721,6 +744,8 @@ class StrategyEngine:
                 prof.archetype_scores[aid] += h
         for tid, t in self.db["topics"].items():
             h = ta.keyword_hits(low, t.get("keywords", []))
+            if re.search(r"\b" + re.escape(tid) + r"s?\b", low):
+                h += 2               # "my phone ..." → konunun kendi adı geçiyorsa o konu ağır basar
             if h:
                 prof.topic_scores[tid] += h
         prof.scambaiter_score += ta.keyword_hits(low, self.db["archetypes"]["scambaiter"]["keywords"])
@@ -963,6 +988,23 @@ class StrategyEngine:
             if not (s.current and s.step_idx.get(s.current, 0) > 0 and s.current not in s.completed):
                 s.current = final[0]
                 s.manual_scam = False
+
+    def _answer(self, text: str) -> str:
+        return ta.answer_question(text, self.cfg.get("agent_name", "Steve"), self.cfg.get("company_name", "Customer Protection Center"))
+
+    def _prefix_answer(self, adv: Advice, answer: str) -> None:
+        """Arayanın sorusuna verilen kısa cevabı cümlenin ve alternatiflerin başına ekle (zaten öyle başlamıyorsa)."""
+        if not answer or not adv.say or answer.lower()[:12] in adv.say.lower():
+            return
+        adv.say = answer + " " + adv.say
+        adv.alternatives = [answer + " " + a for a in adv.alternatives]
+        s = self.session
+        s.last_pool = [adv.say] + [answer + " " + p for p in s.last_pool[1:]]
+        s.alt_idx = 0
+
+    def _mentions_topic(self, text: str) -> bool:
+        low = (text or "").lower()
+        return any(ta.keyword_hits(low, tp.get("keywords", [])) for tp in self.db["topics"].values())
 
     def _ip_guess(self) -> str:
         """IP Geolocation: toplanan ipuçlarına göre 12 hedef şehirden en olasısını tahmin et."""

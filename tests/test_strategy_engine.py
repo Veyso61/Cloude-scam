@@ -359,3 +359,25 @@ class AutoCallAndTrustTest(unittest.TestCase):
         eng.on_ocr_caller('ELEANOR "GRANNY" GRIMSHAW')
         a = say(eng, clock, "Hello dearie, I'm ready!")
         self.assertEqual(a.caller_name, 'Eleanor "Granny" Grimshaw')
+
+    def test_screenshot_vegan_lady_question_is_answered_first(self):
+        # Kullanıcı ekranı: "Hi there! Are YOU vegan?" → koç soruyu yok sayıp "Don't worry about that..." demişti.
+        eng, st, clock = make(day=1)
+        eng.new_call()
+        a = say(eng, clock, "Hi there! Are YOU vegan?")
+        self.assertEqual(a.caller_name, "That Vegan Lady")
+        self.assertTrue(a.say.startswith("Yes, I'm vegan too!"))
+        self.assertIn("help you", a.say)                         # henüz derdi yok → önce derdini sor
+        self.assertNotIn("worry", a.say.lower())
+        a = say(eng, clock, "Oh wonderful! My oat milk delivery never showed up and I'm furious.")
+        self.assertEqual(a.step_label, "Establish a Service or Solution")
+        self.assertIn("dollars", a.say)                          # şimdi teklif + fiyat
+        a = say(eng, clock, "Hmm, okay. And is it cruelty-free?")
+        self.assertEqual(a.step_label, "Agree to Gift Card Payment")
+
+    def test_mid_call_question_gets_answered(self):
+        eng, st, clock = make(day=1)
+        eng.new_call("cletus_thibodeaux")
+        say(eng, clock, "Whoo-wee, hello! My crawfish trap is broken, cher.")
+        a = say(eng, clock, "Mais yeah, sounds good! Say, do you like crawfish?")
+        self.assertTrue(a.say.startswith("Yes, I love crawfish!"))
